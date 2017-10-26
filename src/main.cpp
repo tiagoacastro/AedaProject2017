@@ -46,6 +46,8 @@ int main() {
 
 	//maybe errors? don't know how menu can have error - read error (?)
 	return 1;
+
+	return 0;
 }
 
 //Most menu stuff
@@ -55,12 +57,16 @@ int menuRunner(LeisureGuide &lg) {
 	unsigned int tempinput; //temporary input holder - unsigned int to make sure that only numbers are inputted
 
 	//Generating menu object with constructor pointing to menu txt file
-	Menu menumaozinhas("Menu.txt");
+	//Using default location, change if it doesn't work)
+	Menu menumaozinhas(Menu::menutxt_defaultlocation);
 
 
 	//clear screen of whatever was printed before, just in case with a pause before so all output is read with time
 	Utilities::pause();
 	Utilities::clearScreen();
+
+	menumaozinhas.DisplayWholeMenu();
+	Utilities::pause();
 
 	//Menu loop
 	while (true) {
@@ -68,7 +74,7 @@ int menuRunner(LeisureGuide &lg) {
 		menumaozinhas.DisplayByID(currentselection);
 		while (true) {
 			cin >> tempinput;
-			cout << "Got input, it is: " << tempinput;
+
 			if (cin.fail()) {
 				//Clearing error flag and cin buffer
 				cin.clear();
@@ -82,6 +88,8 @@ int menuRunner(LeisureGuide &lg) {
 				//if cin didn't fail we have a good input so we break the loop
 				break;
 			}
+
+			break;
 		}
 
 		if (currentselection.empty() && tempinput == 0) {
@@ -194,7 +202,7 @@ bool callFunctions(string &id, LeisureGuide &lg) {
 		//pause to see output
 		Utilities::pause();
 		//function was found, return true
-		return true;
+		return false;
 	}
 
 	return false;

@@ -7,6 +7,8 @@ using namespace std;
 
 class Menu {
 public:
+	//NOTE: Menu.txt file location, change here if it doesn't work for you
+	static string menutxt_defaultlocation;
 	//TODO: Change the constructors to use exceptions because there is file I/O
 	/**
 	 * @brief Constructs a Menu object based on a text file and populates the options from it.

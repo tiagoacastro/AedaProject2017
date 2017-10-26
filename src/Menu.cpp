@@ -4,6 +4,8 @@
 #include <vector>
 using namespace std;
 
+string Menu::menutxt_defaultlocation = "../src/Menu.txt";
+
 Menu::option Menu::createOptionFromString(string rawline) {
 	option newOption;
 
@@ -56,8 +58,8 @@ void Menu::DisplayByID(string &id) {
 		this->DisplayByID(id);
 	}
 	else {
-		for(auto &disp_option : display) {
-			cout << disp_option.id << " " << disp_option.option_text << endl;
+		for(auto &opt : display) {
+			cout << opt.id << " " << opt.option_text << endl;
 		}
 		//Exit option and fancy last line for input
 		if (id == "") {

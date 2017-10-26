@@ -1,4 +1,7 @@
 #### Manual extra ignores
+#Also if the files are outside src
+.idea
+cmake-build-debug
 # For CLion's .idea configuration directories (Miguel)
 src/.idea
 # For CLion's build directories (Miguel)
