@@ -2,26 +2,27 @@
 #include "Coordinates.h"
 #include "Service.h"
 #include <iostream>
+#include <string>
+#include <vector>
 
 class Beach {
 	private:
 		string name;
-		Coordinates cords;
+		Coordinates coords;
 		unsigned int maxCapacity;
-		bool BlueFlag;
+		bool blueFlag;
 		vector <Service> services;
 
 	public:
-	Beach(string name, Coordinates cords, unsigned int maxCapacity, bool BlueFlag, vector <Service> services);
-	bool isBlueFlag() const;
-	void setBlueFlag(bool blueFlag);
-	const Coordinates& getCords() const;
-	unsigned int getMaxCapacity() const;
-	void setMaxCapacity(unsigned int maxCapacity);
-	const string& getName() const;
-	void setName(const string& name);
-	const vector<Service>& getServices() const;
-	void setServices(const vector<Service>& services);
-
+		Beach(string name, Coordinates coords, unsigned int maxCapacity, bool blueFlag, const vector <Service> &services);
+		bool hasBlueFlag() const;
+		void setBlueFlag(bool blueFlag);
+		Coordinates getCoords() const;
+		unsigned int getMaxCapacity() const;
+		void setMaxCapacity(unsigned int maxCapacity);
+		string getName() const;
+		void setName(const string &name);
+		vector<Service> getServices() const;
+		void setServices(const vector<Service> &services);
 };
 

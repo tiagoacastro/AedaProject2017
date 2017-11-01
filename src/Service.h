@@ -16,16 +16,16 @@ class Service {
 		Schedule sch;
 		string description;
 	public:
+		Service(string name, string type, Schedule sch, string description);
+		string getDescription() const;
+		void setDescription(const string &description);
+		string getName() const;
+		void setName(const string &name);
+		Schedule getSchedule() const;
+		void setSchedule(const Schedule& sch);
+		string getType() const;
+		void setType(const string &type);
 
-	Service(string name, string type, Schedule sch, string description);
-	const string& getDescription() const;
-	void setDescription(const string& description);
-	const string& getName() const;
-	void setName(const string& name);
-	const Schedule& getSch() const;
-	void setSch(const Schedule& sch);
-	const string& getType() const;
-	void setType(const string& type);
-	friend ostream & operator<<(ostream & o, const Service & s);
+		friend ostream & operator<<(ostream &o, const Service &s);
 
 };

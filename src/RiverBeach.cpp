@@ -2,8 +2,8 @@
 #include <iostream>
 using namespace std;
 
-RiverBeach::RiverBeach(string name, Coordinates cords, unsigned int maxCapacity, bool BlueFlag, vector <Service> services, double width, double riverFlow, double maxDepth)
-	:Beach(name, cords, maxCapacity, BlueFlag, services), width(width), riverFlow(
+RiverBeach::RiverBeach(string name, Coordinates coords, unsigned int maxCapacity, bool blueFlag, const vector <Service> &services, double width, double riverFlow, double maxDepth)
+	:Beach(name, coords, maxCapacity, blueFlag, services), width(width), riverFlow(
 				riverFlow), maxDepth(maxDepth) {
 }
 
@@ -34,11 +34,8 @@ void RiverBeach::setWidth(double width) {
 /*ostream & operator<<(ostream & o, const RiverBeach & d){
 
 	o << "River beach name: " << d.name << "\nCoordinates " << d.Coordinates.print() << "\nMaximum Capacity: " << d.maxCapacity << "Blue Flag: ";
-	if (d.BlueFlag)
-		o << "Yes\n";
-	else
-		o << "No\n";
-	o << "Services in this River Beach: \n\t" << d.services
+	o << (d.blueFlag ? "Yes" : "No") << endl;
+	o << "Services in this River Beach: \n\t" << d.services; //Suggestion: Use Utilities::printVector
 	return o;
 
 }
