@@ -54,6 +54,21 @@ namespace Utilities {
 				}
 			}
 		}
+
+		/*
+		//Another idea:
+		set<T> output;
+
+		for (int i = 0; i < v.size(); i++) {
+			output.insert(v[i]);
+		}
+
+		v.clear();
+
+		for(auto const &uniqueelem : output){
+			v.push_back(uniqueelem);
+		}
+		 */
 	}
 
 	//Intersects two vectors, searching for common values - using templates so that it works for any kind of element
@@ -92,7 +107,7 @@ namespace Utilities {
 	//Overload of the above for vectors
 	vector<time> minutesToTime(const vector<int> &minutes);
 	//Vector to give a string that represents the week day from the weekday variable in a shift
-	const vector<string> weekdays = { "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado", "Domingo" };
+	const vector<string> weekdays = { "Segunda-feira", "Terï¿½a-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sï¿½bado", "Domingo" };
 
 	//Joins the elements of vectors of the same type (not deleting potential duplicates)
 	template<typename T>

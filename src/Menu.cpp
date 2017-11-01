@@ -1,50 +1,57 @@
 #include "Menu.h"
 #include "Utilities.h"
-#include <string>
-#include <vector>
 using namespace std;
 
-string Menu::menutxt_defaultlocation = "../src/Menu.txt";
+string Menu::menutxt_defaultlocation = "Menu.txt";
 
-Menu::option Menu::createOptionFromString(string rawline) {
-	option newOption;
+Menu::Option::Option(const string &rawoption){
 
-	string id = rawline.substr(0, rawline.find_first_of(' '));
-	string optiontext = rawline.substr(rawline.find_first_of(' ') + 1);
+	string id = rawoption.substr(0, rawoption.find_first_of(' '));
+	string optiontext = rawoption.substr(rawoption.find_first_of(' ') + 1);
 	int depth_level = Utilities::countCharInString(id, '.');
 
-	newOption.id = id;
-	newOption.option_text = optiontext;
-	newOption.depth_level = depth_level;
-
-	return newOption;
+	this->id = id;
+	this->option_text = optiontext;
+	this->depth_level = depth_level;
 }
 
 Menu::Menu(string path) {
-	vector<string> rawfile = Utilities::ReadFile(path);
+	ifstream menu_txt(path);
+
+	//If text file couldn't be open, throw InvalidFilePath exception
+	if(!menu_txt.is_open()){
+		throw InvalidFilePath(path);
+	}
+
+	//Reading the text file and adding the options to the menu
+	vector<string> rawfile = Utilities::ReadFile(menu_txt);
 	for(const auto &line : rawfile) {
-		menuOptions.push_back(createOptionFromString(line));
+		addOption(line);
 	}
 }
 
 Menu::Menu(vector<string> rawlines) {
 	for(const auto &rawline : rawlines) {
-		menuOptions.push_back(createOptionFromString(rawline));
+		addOption(rawline);
 	}
 }
 
-void Menu::DisplayWholeMenu() {
+void Menu::addOption(const string &newOption){
+	menuOptions.emplace_back(newOption);
+}
+
+void Menu::DisplayWholeMenu() const{
 	for (int i = 0; i < menuOptions.size(); i++) {
 		cout << i << ": " << menuOptions[i].id << " " << menuOptions[i].option_text << "\t depth: " << menuOptions[i].depth_level << endl;
 	}
 }
 
-void Menu::DisplayByID(string &id) {
-	vector<option> display = FindOptionByID(id);
+void Menu::DisplayByID(string &id) const{
+	vector<Option> display = FindOptionByID(id);
 
 	//Dealing with invalid option -> empty vector
 	if (display.empty()) {
-		cout << "Seleção inválida! Tente novamente!\n\n";
+		cout << "SeleÃ§Ã£o invÃ¡lida! Tente novamente!\n\n";
 		//Removing last selected option from ID
 		if (id.size() == 1) {
 			//First level selection, requested ID can be cleared with no problems to reset the menu
@@ -62,7 +69,7 @@ void Menu::DisplayByID(string &id) {
 			cout << opt.id << " " << opt.option_text << endl;
 		}
 		//Exit option and fancy last line for input
-		if (id == "") {
+		if (id.empty()) {
 			//If in main menu (string empty) show exit instead of back
 			cout << "0 Sair" << endl;
 		}
@@ -75,8 +82,8 @@ void Menu::DisplayByID(string &id) {
 }
 
 //returns a vector of options based on the provided ID. If ID is empty, returns all options with 0 depth, otherwise with a matching ID and depth level
-vector<Menu::option> Menu::FindOptionByID(string id) {
-	vector<option> output;
+vector<Menu::Option> Menu::FindOptionByID(string id) const{
+	vector<Option> output;
 
 	if (id.empty()) {
 		//find all options with depth_level 0
@@ -105,3 +112,5 @@ vector<Menu::option> Menu::FindOptionByID(string id) {
 }
 
 Menu::~Menu(){}
+
+Menu::Menu(){}

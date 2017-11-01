@@ -56,9 +56,42 @@ int menuRunner(LeisureGuide &lg) {
 	string currentselection; //current selection holds the menu state
 	unsigned int tempinput; //temporary input holder - unsigned int to make sure that only numbers are inputted
 
-	//Generating menu object with constructor pointing to menu txt file
-	//Using default location, change if it doesn't work)
-	Menu menumaozinhas(Menu::menutxt_defaultlocation);
+	try {
+		//Attempting to create the Menu using the default txt file location
+		Menu menumaozinhas(Menu::menutxt_defaultlocation);
+	} catch(InvalidFilePath &ifp){
+		//If the file was not found, an exception is thrown so we will instead use harcoded options with a warning beforehand
+		cout << "Warning: Menu.txt file not found at the default path."
+		     << "\nFalling back to hardcoded Menu text."
+			 << "(This might not be the most recent version of the Menu text)" << endl;
+
+		Menu menumaozinhas;
+
+		//Hardcoded options adding:
+		//Development NOTE: Try to always add the options here besides the txt file
+		menumaozinhas.addOption("1 Visualize");
+		menumaozinhas.addOption("2 Manage");
+		menumaozinhas.addOption("3 File I/O");
+		menumaozinhas.addOption("1.1 TBD test 1.1");
+		menumaozinhas.addOption("1.2 TBD test 1.2");
+		menumaozinhas.addOption("1.3 TBD test 1.3");
+		menumaozinhas.addOption("1.4 TBD test 1.4");
+		menumaozinhas.addOption("1.7 TBD test 1.7");
+		menumaozinhas.addOption("2.1 Leisure Guide (General Manager)");
+		menumaozinhas.addOption("2.1.1 Listagem de linhas");
+		menumaozinhas.addOption("2.1.2 Informação detalhada sobre uma linha");
+		menumaozinhas.addOption("2.2 Test big 2.2");
+		menumaozinhas.addOption("2.2.1 Sub-option for 2.2");
+		menumaozinhas.addOption("2.2.2 Sub-option for 2.2 2");
+		menumaozinhas.addOption("2.2.3 et cetera for 2.2");
+		menumaozinhas.addOption("2.3 Last sub option for 2");
+		menumaozinhas.addOption("2.3.1 test");
+		menumaozinhas.addOption("2.3.2 other test");
+		menumaozinhas.addOption("2.3.3 another test");
+		menumaozinhas.addOption("2.3.4 last test");
+		menumaozinhas.addOption("3.1 Carregar informação de ficheiros (Load) TODO");
+		menumaozinhas.addOption("3.2 Escrever informação em ficheiros (Save) TODO");
+	}
 
 
 	//clear screen of whatever was printed before, just in case with a pause before so all output is read with time
