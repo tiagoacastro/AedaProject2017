@@ -20,7 +20,7 @@ Menu::Menu(string path) {
 
 	//If text file couldn't be open, throw InvalidFilePath exception
 	if(!menu_txt.is_open()){
-		throw InvalidFilePath(path);
+		throw Utilities::FileNotFound(path);
 	}
 
 	//Reading the text file and adding the options to the menu

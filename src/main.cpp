@@ -59,10 +59,10 @@ int menuRunner(LeisureGuide &lg) {
 	try {
 		//Attempting to create the Menu using the default txt file location
 		Menu menumaozinhas(Menu::menutxt_defaultlocation);
-	} catch(InvalidFilePath &ifp){
+	} catch(Utilities::FileNotFound &fnf){
 		//If the file was not found, an exception is thrown so we will instead use harcoded options with a warning beforehand
-		cout << "Warning: Menu.txt file not found at the default path."
-		     << "\nFalling back to hardcoded Menu text."
+		cout << "Warning: Menu.txt file not found. Path given: " << fnf.getPath();
+		cout << "\nFalling back to hardcoded Menu text."
 			 << "(This might not be the most recent version of the Menu text)" << endl;
 
 		Menu menumaozinhas;

@@ -72,11 +72,3 @@ private:
 	 */
 	vector<Option> FindOptionByID(string id) const;
 };
-
-class InvalidFilePath{
-private:
-	string path;
-public:
-	explicit InvalidFilePath(const string &path) : path(path){};
-	string getPath() const{return path;}
-};

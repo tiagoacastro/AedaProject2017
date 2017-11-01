@@ -126,4 +126,13 @@ namespace Utilities {
 
 	//Converts string in HH:MM format to minutes
 	unsigned int HHMMtoMinutes(string hhmm);
+
+	//For use in exception throwing in file handling
+	class FileNotFound{
+	private:
+		string path;
+	public:
+		explicit FileNotFound(const string &path) : path(path){};
+		string getPath() const{return path;}
+	};
 }
