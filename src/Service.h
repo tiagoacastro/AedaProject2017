@@ -28,7 +28,6 @@ class Service {
 		void setType(const string &type);
 
 		friend ostream & operator<<(ostream &o, const Service &s);
-
 };
 
 class Restaurant {
@@ -40,6 +39,12 @@ private:
 public:
 	Restaurant(string name, Schedule sch, Coordinates coords);
 	Restaurant(string name, Schedule sch, Coordinates coords, string description);
+	string getName() const;
+	Coordinates getCoordinates() const;
+	string getDescription() const;
+	Schedule getSchedule() const;
+
+	friend ostream & operator<<(ostream &o, const Restaurant &r);
 };
 
 class POI {
@@ -50,6 +55,11 @@ private:
 public:
 	POI(string name, Coordinates coords);
 	POI(string name, Coordinates coords, string description);
+	string getName() const;
+	Coordinates getCoordinates() const;
+	string getDescription() const;
+
+	friend ostream & operator<<(ostream &o, const POI &p);
 };
 
 class Lodging {
@@ -61,4 +71,10 @@ private:
 public:
 	Lodging(string name, Coordinates coords, bool full);
 	Lodging(string name, Coordinates coords, bool full, string description);
+	string getName() const;
+	Coordinates getCoordinates() const;
+	bool isFull() const;
+	string getDescription() const;
+
+	friend ostream & operator<<(ostream &o, const Service &l);
 };

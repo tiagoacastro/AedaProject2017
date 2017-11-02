@@ -8,5 +8,7 @@ class Coordinates{
 		double latitude;
 	public:
 		Coordinates(double longitude, double latitude);
-		double distanceTo();
+		double getLongitude() const;
+		double getLatitude() const;
+		double distanceTo(Coordinates coords);
 };
