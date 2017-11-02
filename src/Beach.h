@@ -12,7 +12,6 @@ class Beach {
 		unsigned int maxCapacity;
 		bool blueFlag;
 		vector <Service> services;
-
 	public:
 		Beach(string name, Coordinates coords, unsigned int maxCapacity, bool blueFlag, const vector <Service> &services);
 		bool hasBlueFlag() const;
