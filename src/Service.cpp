@@ -66,6 +66,7 @@ ostream & operator<<(ostream &o, const Service &s) {
 		}
 		o << s.getSchedule().weekSchedule.at(i) << endl;
 	}
+	return o;
 }
 
 //Restaurant
