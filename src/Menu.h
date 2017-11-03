@@ -25,6 +25,15 @@ public:
 	 */
 	Menu();
 	/**
+	 * @brief Loads the options from the text file given by the path string passed
+	 * @param filepath Path to the text file
+	 */
+	void load(string filepath);
+	/**
+	 * @brief Resets the menu by clearing the options stored
+	 */
+	void reset();
+	/**
 	 * @brief Adds an option to the Menu
 	 * @param newOption Option to add, in a string with the format <optionID> <optionText>
 	 */

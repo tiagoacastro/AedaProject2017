@@ -56,16 +56,21 @@ int menuRunner(LeisureGuide &lg) {
 	string currentselection; //current selection holds the menu state
 	unsigned int tempinput; //temporary input holder - unsigned int to make sure that only numbers are inputted
 
+	Menu menumaozinhas;
+
 	try {
-		//Attempting to create the Menu using the default txt file location
-		Menu menumaozinhas(Menu::menutxt_defaultlocation);
+		//Clearing any data that could have been added to the Menu
+		menumaozinhas.reset();
+		//Attempting to load options into the Menu using the default txt file location
+		menumaozinhas.load(Menu::menutxt_defaultlocation);
 	} catch(Utilities::FileNotFound &fnf){
 		//If the file was not found, an exception is thrown so we will instead use harcoded options with a warning beforehand
 		cout << "Warning: Menu.txt file not found. Path given: " << fnf.getPath();
 		cout << "\nFalling back to hardcoded Menu text."
 			 << "(This might not be the most recent version of the Menu text)" << endl;
 
-		Menu menumaozinhas;
+		//Clearing any data that could have been added to the Menu
+		menumaozinhas.reset();
 
 		//Hardcoded options adding:
 		//Development NOTE: Try to always add the options here besides the txt file

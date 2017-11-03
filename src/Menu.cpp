@@ -114,3 +114,22 @@ vector<Menu::Option> Menu::FindOptionByID(string id) const{
 Menu::~Menu(){}
 
 Menu::Menu(){}
+
+void Menu::reset(){
+	menuOptions.clear();
+}
+
+void Menu::load(string filepath){
+	ifstream menu_txt(filepath);
+
+	//If text file couldn't be open, throw InvalidFilePath exception
+	if(!menu_txt.is_open()){
+		throw Utilities::FileNotFound(filepath);
+	}
+
+	//Reading the text file and adding the options to the menu
+	vector<string> rawfile = Utilities::ReadFile(menu_txt);
+	for(const auto &line : rawfile) {
+		addOption(line);
+	}
+}
