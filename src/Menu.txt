@@ -1,0 +1,22 @@
+1 Visualize
+2 Manage
+3 File I/O
+1.1 TBD test 1.1
+1.2 TBD test 1.2
+1.3 TBD test 1.3
+1.4 TBD test 1.4
+1.7 TBD test 1.7
+2.1 Leisure Guide (General Manager)
+2.1.1 Listagem de linhas
+2.1.2 Informação detalhada sobre uma linha
+2.2 Test big 2.2
+2.2.1 Sub-option for 2.2
+2.2.2 Sub-option for 2.2 2
+2.2.3 et cetera for 2.2
+2.3 Last sub option for 2
+2.3.1 test
+2.3.2 other test
+2.3.3 another test
+2.3.4 last test
+3.1 Carregar informação de ficheiros (Load) TODO
+3.2 Escrever informação em ficheiros (Save) TODO
