@@ -16,3 +16,8 @@ double Coordinates::distanceTo(Coordinates coords) {
 	double y = coords.getLatitude() - latitude;
 	return sqrt(x*x + y*y);
 }
+
+ostream &operator<<(ostream &os, const Coordinates &c) {
+	os << "(" << c.latitude << " , " << c.longitude << ")";
+	return os;
+}

@@ -1,14 +1,10 @@
 #include "Service.h"
+#include "Utilities.h"
 #include <ostream>
 
 //Service
 
-Service::Service(string name, string type, Schedule sch) :
-	name(name), type(type), sch(sch){
-	description = "none";
-}
-
-Service::Service(string name, string type, Schedule sch, string description) :
+Service::Service(string name, string type, Schedule sch, string description = "None") :
 	name(name), type(type), sch(sch), description(description) {
 }
 
@@ -44,39 +40,20 @@ void Service::setType(const string &type) {
 	this->type = type;
 }
 
-ostream & operator<<(ostream &o, const Service &s) {
-	o << "SERVICE" << endl << "name: " << s.getName() << endl << "type: " << s.getType() << endl << "description: " << s.getDescription() << endl << "schedule: " << endl;
-	for (int i = 0; i < s.getSchedule().weekSchedule.size(); i++)
-	{
-		switch (i) {
-			case 0:
-				o << "Monday: ";
-			case 1:
-				o << "Tuesday: ";
-			case 2:
-				o << "Wednesday: ";
-			case 3:
-				o << "Thursday: ";
-			case 4:
-				o << "Friday: ";
-			case 5:
-				o << "Saturday: ";
-			case 6:
-				o << "Sunday: ";
-		}
-		o << s.getSchedule().weekSchedule.at(i) << endl;
-	}
-	return o;
+ostream & operator<<(ostream &os, const Service &s){
+	// os << "SERVICE" << endl;
+	os << "Name: " << name << endl;
+	os << "Type: " << type << endl;
+	os << "Description: " << description << endl;
+	os << "Schedule:" << endl;
+	os << sch << endl;
+
+	return os;
 }
 
 //Restaurant
 
-Restaurant::Restaurant(string name, Schedule sch, Coordinates coords) :
-	name(name), sch(sch), coords(coords){
-	description = "none";
-}
-
-Restaurant::Restaurant(string name, Schedule sch, Coordinates coords, string description) :
+Restaurant::Restaurant(string name, Schedule sch, Coordinates coords, string description = "None") :
 	name(name), sch(sch), coords(coords), description(description){
 }
 
@@ -96,39 +73,20 @@ Schedule Restaurant::getSchedule() const {
 	return sch;
 }
 
-ostream & operator<<(ostream &o, const Restaurant &r) {
-	o << "RESTAURANT" << endl << "name: " << r.getName() << endl << "coordinates: " << r.getCoordinates().getLongitude() << " " << r.getCoordinates().getLatitude() << endl << "description: " << r.getDescription() << endl << "schedule: " << endl;
-	for (int i = 0; i < r.getSchedule().weekSchedule.size(); i++)
-	{
-		switch (i) {
-		case 0:
-			o << "Monday: ";
-		case 1:
-			o << "Tuesday: ";
-		case 2:
-			o << "Wednesday: ";
-		case 3:
-			o << "Thursday: ";
-		case 4:
-			o << "Friday: ";
-		case 5:
-			o << "Saturday: ";
-		case 6:
-			o << "Sunday: ";
-		}
-		o << r.getSchedule().weekSchedule.at(i) << endl;
-	}
-	return o;
+ostream & operator<<(ostream &os, const Restaurant &r) {
+	// os << "RESTAURANT" << endl; //TBD
+	os << "Name: " << name << endl;
+	os << "Coordinates: " << coords << endl;
+	os << "Description: " << description << endl;
+	os << "Schedule:" << endl;
+	os << sch;
+
+	return os;
 }
 
 //POI
 
-POI::POI(string name, Coordinates coords) :
-	name(name), coords(coords) {
-	description = "none";
-}
-
-POI::POI(string name, Coordinates coords, string description) :
+POI::POI(string name, Coordinates coords, string description = "None") :
 	name(name), coords(coords), description(description) {
 }
 
@@ -144,19 +102,18 @@ string POI::getDescription() const {
 	return description;
 }
 
-ostream & operator<<(ostream &o, const POI &p) {
-	o << "POI" << endl << "name: " << p.getName() << endl << "coordinates: " << p.getCoordinates().getLongitude() << " " << p.getCoordinates().getLatitude() << endl << "description: " << p.getDescription() << endl;
-	return o;
+ostream & operator<<(ostream &os, const POI &p) {
+	// os << "POI" << endl;
+	os << "Name: " << name << endl;
+	os << "Coordinates: " << coords << endl;
+	os << "Description: " << description << endl;
+
+	return os;
 }
 
 //Lodging
 
-Lodging::Lodging(string name, Coordinates coords, bool full) :
-	name(name), coords(coords), full(full) {
-	description = "none";
-}
-
-Lodging::Lodging(string name, Coordinates coords, bool full, string description) :
+Lodging::Lodging(string name, Coordinates coords, bool full, string description = "None") :
 	name(name), coords(coords), full(full), description(description) {
 }
 
@@ -176,12 +133,20 @@ bool Lodging::isFull() const {
 	return full;
 }
 
-ostream & operator<<(ostream &o, const Lodging &l) {
-	o << "Lodging" << endl << "name: " << l.getName() << endl << "coordinates: " << l.getCoordinates().getLongitude() << " " << l.getCoordinates().getLatitude() << endl << "Full? ";
-	if (l.isFull())
-		o << "Yes" << endl;
-	else
-		o << "No" << endl;
-	o << "description: " << l.getDescription() << endl;
-	return o;
+ostream & operator<<(ostream &os, const Lodging &l) {
+	// os << "Lodging" << endl;
+	os << "Name: " << name << endl;
+	os << "Coordinates: " << coords << endl;
+	os << "Full? " << (full ? "Yes" : "No") << endl;
+	os << "Description: " << description << endl;
+
+	return os;
+}
+
+ostream &operator<<(ostream &os, const Schedule &sch){
+	for (int i = 0; i < sch.weekSchedule.size(); i++) {
+		os << Utilities::weekdays.at(i) << ": " << sch.weekSchedule.at(i) << endl;
+	}
+
+	return os;
 }

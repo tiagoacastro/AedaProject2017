@@ -107,7 +107,7 @@ namespace Utilities {
 	//Overload of the above for vectors
 	vector<time> minutesToTime(const vector<int> &minutes);
 	//Vector to give a string that represents the week day from the weekday variable in a shift
-	const vector<string> weekdays = { "Segunda-feira", "Ter�a-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "S�bado", "Domingo" };
+	const vector<string> weekdays = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 
 	//Joins the elements of vectors of the same type (not deleting potential duplicates)
 	template<typename T>
