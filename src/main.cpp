@@ -25,7 +25,7 @@ int main() {
 	//This should work in theory, if it does not work, which was my case, please comment out the function and uncomment the next line
 	//setlocale(LC_ALL, "Portuguese");
 
-	//Tests here
+	//Tests go here
 
 	//Init
 	LeisureGuide lg;
@@ -38,16 +38,14 @@ int main() {
 	//lg.Load();
 
 	//Main menu running
-	int menureturn = menuRunner(lg);
 
-	if (menureturn == 0)
+
+	if (menuRunner(lg) == 0)
 		// menu exited successfully with no errors
 		return 0;
 
-	//maybe errors? don't know how menu can have error - read error (?)
+	//Errors ocurred, return != 0
 	return 1;
-
-	return 0;
 }
 
 //Most menu stuff
@@ -74,28 +72,34 @@ int menuRunner(LeisureGuide &lg) {
 
 		//Hardcoded options adding:
 		//Development NOTE: Try to always add the options here besides the txt file
-		menumaozinhas.addOption("1 Visualize");
+
+		menumaozinhas.addOption("1 View");
+		menumaozinhas.addOption("1.1 Unconditional Listing");
+		menumaozinhas.addOption("1.2 Conditional Listing");
 		menumaozinhas.addOption("2 Manage");
+		menumaozinhas.addOption("2.1 Beaches");
+		menumaozinhas.addOption("2.1.1 View Details");
+		menumaozinhas.addOption("2.1.2 Add");
+		menumaozinhas.addOption("2.1.3 Remove");
+		menumaozinhas.addOption("2.1.4 Modify");
+		menumaozinhas.addOption("2.2 POIs");
+		menumaozinhas.addOption("2.2.1 View Details");
+		menumaozinhas.addOption("2.2.2 Add");
+		menumaozinhas.addOption("2.2.3 Remove");
+		menumaozinhas.addOption("2.2.4 Modify");
+		menumaozinhas.addOption("2.3 Restaurants");
+		menumaozinhas.addOption("2.3.1 View Details");
+		menumaozinhas.addOption("2.3.2 Add");
+		menumaozinhas.addOption("2.3.3 Remove");
+		menumaozinhas.addOption("2.3.4 Modify");
+		menumaozinhas.addOption("2.4 Lodging");
+		menumaozinhas.addOption("2.4.1 View Details");
+		menumaozinhas.addOption("2.4.2 Add");
+		menumaozinhas.addOption("2.4.3 Remove");
+		menumaozinhas.addOption("2.4.4 Modify");
 		menumaozinhas.addOption("3 File I/O");
-		menumaozinhas.addOption("1.1 TBD test 1.1");
-		menumaozinhas.addOption("1.2 TBD test 1.2");
-		menumaozinhas.addOption("1.3 TBD test 1.3");
-		menumaozinhas.addOption("1.4 TBD test 1.4");
-		menumaozinhas.addOption("1.7 TBD test 1.7");
-		menumaozinhas.addOption("2.1 Leisure Guide (General Manager)");
-		menumaozinhas.addOption("2.1.1 Listagem de linhas");
-		menumaozinhas.addOption("2.1.2 Informação detalhada sobre uma linha");
-		menumaozinhas.addOption("2.2 Test big 2.2");
-		menumaozinhas.addOption("2.2.1 Sub-option for 2.2");
-		menumaozinhas.addOption("2.2.2 Sub-option for 2.2 2");
-		menumaozinhas.addOption("2.2.3 et cetera for 2.2");
-		menumaozinhas.addOption("2.3 Last sub option for 2");
-		menumaozinhas.addOption("2.3.1 test");
-		menumaozinhas.addOption("2.3.2 other test");
-		menumaozinhas.addOption("2.3.3 another test");
-		menumaozinhas.addOption("2.3.4 last test");
-		menumaozinhas.addOption("3.1 Carregar informação de ficheiros (Load) TODO");
-		menumaozinhas.addOption("3.2 Escrever informação em ficheiros (Save) TODO");
+		menumaozinhas.addOption("3.1 Load");
+		menumaozinhas.addOption("3.2 Save");
 	}
 
 
