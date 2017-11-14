@@ -42,11 +42,11 @@ void Service::setType(const string &type) {
 
 ostream & operator<<(ostream &os, const Service &s){
 	// os << "SERVICE" << endl;
-	os << "Name: " << name << endl;
-	os << "Type: " << type << endl;
-	os << "Description: " << description << endl;
+	os << "Name: " << s.name << endl;
+	os << "Type: " << s.type << endl;
+	os << "Description: " << s.description << endl;
 	os << "Schedule:" << endl;
-	os << sch << endl;
+	os << s.sch << endl;
 
 	return os;
 }
@@ -75,13 +75,29 @@ Schedule Restaurant::getSchedule() const {
 
 ostream & operator<<(ostream &os, const Restaurant &r) {
 	// os << "RESTAURANT" << endl; //TBD
-	os << "Name: " << name << endl;
-	os << "Coordinates: " << coords << endl;
-	os << "Description: " << description << endl;
+	os << "Name: " << r.name << endl;
+	os << "Coordinates: " << r.coords << endl;
+	os << "Description: " << r.description << endl;
 	os << "Schedule:" << endl;
-	os << sch;
+	os << r.sch;
 
 	return os;
+}
+
+void Restaurant::setName(const string &name){
+	this->name = name;
+}
+
+void Restaurant::setSch(const Schedule &sch){
+	this->sch = sch;
+}
+
+void Restaurant::setCoords(const Coordinates &coords){
+	this->coords = coords;
+}
+
+void Restaurant::setDescription(const string &description){
+	this->description = description;
 }
 
 //POI
@@ -104,11 +120,23 @@ string POI::getDescription() const {
 
 ostream & operator<<(ostream &os, const POI &p) {
 	// os << "POI" << endl;
-	os << "Name: " << name << endl;
-	os << "Coordinates: " << coords << endl;
-	os << "Description: " << description << endl;
+	os << "Name: " << p.name << endl;
+	os << "Coordinates: " << p.coords << endl;
+	os << "Description: " << p.description << endl;
 
 	return os;
+}
+
+void POI::setName(const string &name){
+	this->name = name;
+}
+
+void POI::setCoords(const Coordinates &coords){
+	this->coords = coords;
+}
+
+void POI::setDescription(const string &description){
+	this->description = description;
 }
 
 //Lodging
@@ -135,12 +163,28 @@ bool Lodging::isFull() const {
 
 ostream & operator<<(ostream &os, const Lodging &l) {
 	// os << "Lodging" << endl;
-	os << "Name: " << name << endl;
-	os << "Coordinates: " << coords << endl;
-	os << "Full? " << (full ? "Yes" : "No") << endl;
-	os << "Description: " << description << endl;
+	os << "Name: " << l.name << endl;
+	os << "Coordinates: " << l.coords << endl;
+	os << "Full? " << (l.full ? "Yes" : "No") << endl;
+	os << "Description: " << l.description << endl;
 
 	return os;
+}
+
+void Lodging::setName(const string &name){
+	this->name = name;
+}
+
+void Lodging::setCoords(const Coordinates &coords){
+	this->coords = coords;
+}
+
+void Lodging::setFull(bool full){
+	this->full = full;
+}
+
+void Lodging::setDescription(const string &description){
+	this->description = description;
 }
 
 ostream &operator<<(ostream &os, const Schedule &sch){

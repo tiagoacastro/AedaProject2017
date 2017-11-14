@@ -31,4 +31,8 @@ public:
 	* @param lodging		vector containing avaliable lodging in the surrounding area
 	*/
 	LeisureGuide(multimap<string, Beach *> beaches, vector<Restaurant> restaurants, vector<POI> POIs, vector<Lodging> lodging);
+	void displayAllBeaches() const;
+	void displayAllPOIs() const;
+	void displayAllRestaurants() const;
+	void displayAllLodging() const;
 };
