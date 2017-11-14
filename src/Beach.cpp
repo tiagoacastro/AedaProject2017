@@ -41,3 +41,20 @@ vector<Service> Beach::getServices() const {
 void Beach::setServices(const vector<Service> &services) {
 	this->services = services;
 }
+
+void Beach::print(ostream &o){
+	o << "Name: " << name << endl;
+	o << "Coordinates: " << coords << endl;
+	o << "Max capacity: " << maxCapacity << endl;
+	if (blueFlag)
+		o << "Has Blue Flag" << endl;
+	else
+		o << "Doesn't have Blue Flag" << endl;
+	if (services.size() == 0)
+		o << "No services" << endl;
+	else {
+		o << "Services:" << endl;
+		for (size_t i = 0; i < services.size(); i++)
+			o << services.at(i) << endl;
+	}
+}

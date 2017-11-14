@@ -32,15 +32,52 @@ class Service {
 		 * @param description 	Description of the Service, default value is "None"
 		 */
 		Service(string name, string type, Schedule sch, string description);
+		/**
+		* @brief get function of the description of the service
+		* @return Returns the service's description
+		*/
 		string getDescription() const;
+		/**
+		* @brief set function of the description of the service
+		* @param description 	Description of the Service, default value is "None"
+		*/
 		void setDescription(const string &description);
+		/**
+		* @brief get function of the name of the service
+		* @return Returns the service's name
+		*/
 		string getName() const;
+		/**
+		* @brief set function of the name of the service
+		* @param name 			Name of the Service
+		*/
 		void setName(const string &name);
+		/**
+		* @brief get function of the schedule of the service
+		* @return Returns the service's schedule
+		*/
 		Schedule getSchedule() const;
+		/**
+		* @brief set function of the schedule of the service
+		* @param sch 			Schedule of the Service
+		*/
 		void setSchedule(const Schedule& sch);
+		/**
+		* @brief get function of the service's type
+		* @return Returns the service's type
+		*/
 		string getType() const;
+		/**
+		* @brief set function of the type of the service
+		* @param type 			Type of the Service
+		*/
 		void setType(const string &type);
-
+		/**
+		* @brief Overload for the insertion operator for the Service class
+		* @param os		The ostream to write to
+		* @param s		The service that is being written to the ostream
+		* @return Returns the modified ostream
+		*/
 		friend ostream & operator<<(ostream &o, const Service &s);
 };
 
