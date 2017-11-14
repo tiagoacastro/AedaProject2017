@@ -103,9 +103,6 @@ int menuRunner(LeisureGuide &lg) {
 	Utilities::pause();
 	Utilities::clearScreen();
 
-	menumaozinhas.DisplayWholeMenu();
-	Utilities::pause();
-
 	//Menu loop
 	while (true) {
 
