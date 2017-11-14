@@ -75,7 +75,13 @@ int menuRunner(LeisureGuide &lg) {
 
 		menumaozinhas.addOption("1 View");
 		menumaozinhas.addOption("1.1 Unconditional Listing");
+		menumaozinhas.addOption("1.1.1 All Beaches sorted by Conselho");
+		menumaozinhas.addOption("1.1.2 All POIs");
+		menumaozinhas.addOption("1.1.3 All Restaurants");
+		menumaozinhas.addOption("1.1.4 All Lodging");
 		menumaozinhas.addOption("1.2 Conditional Listing");
+		menumaozinhas.addOption("1.2.1 List Beaches by Conselho");
+		menumaozinhas.addOption("1.2.2 Recommendations near a Beach");
 		menumaozinhas.addOption("2 Manage");
 		menumaozinhas.addOption("2.1 Beaches");
 		menumaozinhas.addOption("2.1.1 View Details");
@@ -106,6 +112,10 @@ int menuRunner(LeisureGuide &lg) {
 	//clear screen of whatever was printed before, just in case with a pause before so all output is read with time
 	Utilities::pause();
 	Utilities::clearScreen();
+
+	//TEst, remove pl0x
+	menumaozinhas.DisplayWholeMenu();
+	Utilities::pause();
 
 	//Menu loop
 	while (true) {
@@ -220,12 +230,48 @@ bool callFunctions(string &id, LeisureGuide &lg) {
 	}
 	*/
 
-	//Example implemented option
-	if (id == "1.1") {
+	//Listing all Beaches, sorted by Concelho
+	if (id == "1.1.1") {
 		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
 		id = id.substr(0, id.find_last_of('.'));
 		//calls function based on hardcoded id
+		lg.displayAllBeaches();
+		//pause to see output
+		Utilities::pause();
+		//function was found, return true
+		return true;
+	}
 
+	//Listing all POIs
+	if (id == "1.1.2") {
+		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
+		id = id.substr(0, id.find_last_of('.'));
+		//calls function based on hardcoded id
+		lg.displayAllPOIs();
+		//pause to see output
+		Utilities::pause();
+		//function was found, return true
+		return true;
+	}
+
+	//Listing all Restaurants
+	if (id == "1.1.3") {
+		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
+		id = id.substr(0, id.find_last_of('.'));
+		//calls function based on hardcoded id
+		lg.displayAllRestaurants();
+		//pause to see output
+		Utilities::pause();
+		//function was found, return true
+		return true;
+	}
+
+	//Listing all Lodging
+	if (id == "1.1.4") {
+		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
+		id = id.substr(0, id.find_last_of('.'));
+		//calls function based on hardcoded id
+		lg.displayAllLodging();
 		//pause to see output
 		Utilities::pause();
 		//function was found, return true

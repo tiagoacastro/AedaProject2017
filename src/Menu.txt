@@ -1,6 +1,12 @@
 1 View
 1.1 Unconditional Listing
+1.1.1 All Beaches sorted by Conselho
+1.1.2 All POIs
+1.1.3 All Restaurants
+1.1.4 All Lodging
 1.2 Conditional Listing
+1.2.1 List Beaches by Conselho
+1.2.2 Recommendations near a Beach
 2 Manage
 2.1 Beaches
 2.1.1 View Details
