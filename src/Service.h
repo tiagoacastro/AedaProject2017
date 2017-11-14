@@ -107,5 +107,5 @@ public:
 	bool isFull() const;
 	string getDescription() const;
 
-	friend ostream & operator<<(ostream &o, const Service &l);
+	friend ostream & operator<<(ostream &o, const Lodging &l);
 };
