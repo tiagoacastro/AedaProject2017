@@ -4,6 +4,11 @@ using namespace std;
 
 string Menu::menutxt_defaultlocation = "Menu.txt";
 
+//Menu text variables
+string Menu::invalidselection_text = "Invalid Selection! Try again!\n\n";
+string Menu::exit_text = "0 Exit";
+string Menu::backtomainmenu_text = "0 Back to Main Menu";
+
 Menu::Option::Option(const string &rawoption){
 
 	string id = rawoption.substr(0, rawoption.find_first_of(' '));
@@ -51,7 +56,7 @@ void Menu::DisplayByID(string &id) const{
 
 	//Dealing with invalid option -> empty vector
 	if (display.empty()) {
-		cout << "Seleção inválida! Tente novamente!\n\n";
+		cout << Menu::invalidselection_text;
 		//Removing last selected option from ID
 		if (id.size() == 1) {
 			//First level selection, requested ID can be cleared with no problems to reset the menu
@@ -71,10 +76,10 @@ void Menu::DisplayByID(string &id) const{
 		//Exit option and fancy last line for input
 		if (id.empty()) {
 			//If in main menu (string empty) show exit instead of back
-			cout << "0 Sair" << endl;
+			cout << Menu::exit_text << endl;
 		}
 		else {
-			cout << "0 Voltar ao menu inicial" << endl;
+			cout << Menu::backtomainmenu_text << endl;
 		}
 		cout << "\n>>> ";
 	}
@@ -110,8 +115,6 @@ vector<Menu::Option> Menu::FindOptionByID(string id) const{
 
 	return output;
 }
-
-Menu::~Menu(){}
 
 Menu::Menu(){}
 

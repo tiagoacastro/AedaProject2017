@@ -6,6 +6,19 @@
 using namespace std;
 
 class Menu {
+private:
+	/**
+	 * Text to show when there is an invalid selection
+	 */
+	static string invalidselection_text;
+	/**
+	 * Text to show in the option to exit the program
+	 */
+	static string exit_text;
+	/**
+	 * Text to show in the option to go back to the main menu
+	 */
+	static string backtomainmenu_text;
 public:
 	//NOTE: Menu.txt file location, change here if it doesn't work for you
 	static string menutxt_defaultlocation;
@@ -47,10 +60,6 @@ public:
 	 * @param id ID based on which to print adjacently downards
 	 */
 	void DisplayByID(string &id) const;
-	/**
-	 * @brief Default destructor
-	 */
-	~Menu();
 private:
 	/**
 	 *	option is a struct to hold the data for each menu option
