@@ -36,3 +36,21 @@ void LeisureGuide::displayAllBeaches() const{
 	// An alternative would be to use upper_bound to get the next key based on the passed key (it->first, aka current key)
 	// it = beaches.upper_bound(it->first); //This would cycle it to the next key
 }
+
+void LeisureGuide::displayAllPOIs() const{
+	for(auto const &poi : POIs)	{
+		cout << poi << endl;
+	}
+}
+
+void LeisureGuide::displayAllRestaurants() const{
+	for(auto const &restaurant : restaurants){
+		cout << restaurant << endl;
+	}
+}
+
+void LeisureGuide::displayAllLodging() const{
+	for(auto const &l : lodging){
+		cout << l << endl;
+	}
+}
