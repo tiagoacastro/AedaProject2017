@@ -1,4 +1,3 @@
-#pragma once
 #include "LeisureGuide.h"
 
 LeisureGuide::LeisureGuide() {
