@@ -42,11 +42,11 @@ void Service::setType(const string &type) {
 
 ostream & operator<<(ostream &os, const Service &s){
 	// os << "SERVICE" << endl;
-	os << "Name: " << name << endl;
-	os << "Type: " << type << endl;
-	os << "Description: " << description << endl;
+	os << "Name: " << s.name << endl;
+	os << "Type: " << s.type << endl;
+	os << "Description: " << s.description << endl;
 	os << "Schedule:" << endl;
-	os << sch << endl;
+	os << s.sch << endl;
 
 	return os;
 }
@@ -75,11 +75,11 @@ Schedule Restaurant::getSchedule() const {
 
 ostream & operator<<(ostream &os, const Restaurant &r) {
 	// os << "RESTAURANT" << endl; //TBD
-	os << "Name: " << name << endl;
-	os << "Coordinates: " << coords << endl;
-	os << "Description: " << description << endl;
+	os << "Name: " << r.name << endl;
+	os << "Coordinates: " << r.coords << endl;
+	os << "Description: " << r.description << endl;
 	os << "Schedule:" << endl;
-	os << sch;
+	os << r.sch;
 
 	return os;
 }
@@ -104,9 +104,9 @@ string POI::getDescription() const {
 
 ostream & operator<<(ostream &os, const POI &p) {
 	// os << "POI" << endl;
-	os << "Name: " << name << endl;
-	os << "Coordinates: " << coords << endl;
-	os << "Description: " << description << endl;
+	os << "Name: " << p.name << endl;
+	os << "Coordinates: " << p.coords << endl;
+	os << "Description: " << p.description << endl;
 
 	return os;
 }
@@ -135,10 +135,10 @@ bool Lodging::isFull() const {
 
 ostream & operator<<(ostream &os, const Lodging &l) {
 	// os << "Lodging" << endl;
-	os << "Name: " << name << endl;
-	os << "Coordinates: " << coords << endl;
-	os << "Full? " << (full ? "Yes" : "No") << endl;
-	os << "Description: " << description << endl;
+	os << "Name: " << l.name << endl;
+	os << "Coordinates: " << l.coords << endl;
+	os << "Full? " << (l.full ? "Yes" : "No") << endl;
+	os << "Description: " << l.description << endl;
 
 	return os;
 }
