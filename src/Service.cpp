@@ -84,6 +84,22 @@ ostream & operator<<(ostream &os, const Restaurant &r) {
 	return os;
 }
 
+void Restaurant::setName(const string &name){
+	this->name = name;
+}
+
+void Restaurant::setSch(const Schedule &sch){
+	this->sch = sch;
+}
+
+void Restaurant::setCoords(const Coordinates &coords){
+	this->coords = coords;
+}
+
+void Restaurant::setDescription(const string &description){
+	this->description = description;
+}
+
 //POI
 
 POI::POI(string name, Coordinates coords, string description = "None") :
@@ -109,6 +125,18 @@ ostream & operator<<(ostream &os, const POI &p) {
 	os << "Description: " << p.description << endl;
 
 	return os;
+}
+
+void POI::setName(const string &name){
+	this->name = name;
+}
+
+void POI::setCoords(const Coordinates &coords){
+	this->coords = coords;
+}
+
+void POI::setDescription(const string &description){
+	this->description = description;
 }
 
 //Lodging
@@ -141,6 +169,22 @@ ostream & operator<<(ostream &os, const Lodging &l) {
 	os << "Description: " << l.description << endl;
 
 	return os;
+}
+
+void Lodging::setName(const string &name){
+	this->name = name;
+}
+
+void Lodging::setCoords(const Coordinates &coords){
+	this->coords = coords;
+}
+
+void Lodging::setFull(bool full){
+	this->full = full;
+}
+
+void Lodging::setDescription(const string &description){
+	this->description = description;
 }
 
 ostream &operator<<(ostream &os, const Schedule &sch){
