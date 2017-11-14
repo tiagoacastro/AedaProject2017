@@ -12,3 +12,7 @@ void BayouBeach::setUsableAquaticArea(double usableAquaticArea) {
 	this->usableAquaticArea = usableAquaticArea;
 }
 
+void BayouBeach::print(ostream &o) {
+	Beach::print(o);
+	o << "Usable aquatic area: " << usableAquaticArea << endl;
+}

@@ -31,12 +31,9 @@ void RiverBeach::setWidth(double width) {
 	this->width = width;
 }
 
-/*ostream & operator<<(ostream & o, const RiverBeach & d){
-
-	o << "River beach name: " << d.name << "\nCoordinates " << d.Coordinates.print() << "\nMaximum Capacity: " << d.maxCapacity << "Blue Flag: ";
-	o << (d.blueFlag ? "Yes" : "No") << endl;
-	o << "Services in this River Beach: \n\t" << d.services; //Suggestion: Use Utilities::printVector
-	return o;
-
+void RiverBeach::print(ostream &o) {
+	Beach::print(o);
+	o << "River width: " << width << endl;
+	o << "River flow: " << riverFlow << endl;
+	o << "River's max depth: " << maxDepth << endl;
 }
-*/
