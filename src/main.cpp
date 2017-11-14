@@ -64,7 +64,7 @@ int menuRunner(LeisureGuide &lg) {
 	} catch(Utilities::FileNotFound &fnf){
 		//If the file was not found, an exception is thrown so we will instead use harcoded options with a warning beforehand
 		cout << "Warning: Menu.txt file not found. Path given: " << fnf.getPath();
-		cout << "\nFalling back to hardcoded Menu text."
+		cout << "\nFalling back to hardcoded Menu text. "
 			 << "(This might not be the most recent version of the Menu text)" << endl;
 
 		//Clearing any data that could have been added to the Menu
@@ -112,10 +112,6 @@ int menuRunner(LeisureGuide &lg) {
 	//clear screen of whatever was printed before, just in case with a pause before so all output is read with time
 	Utilities::pause();
 	Utilities::clearScreen();
-
-	//TEst, remove pl0x
-	menumaozinhas.DisplayWholeMenu();
-	Utilities::pause();
 
 	//Menu loop
 	while (true) {
