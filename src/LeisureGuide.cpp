@@ -113,7 +113,7 @@ void LeisureGuide::createBeach(string &beach){
 	vector<string> infos;
 	infos = Utilities::splitString(beach, '|');
 
-	if (infos[0] == 'B')
+	if (infos[0] == "B")
 		this->createBayouBeach(infos);
 	else
 		this->createRiverBeach(infos);
@@ -126,7 +126,7 @@ void LeisureGuide::createBayouBeach(vector<string> &beach) {
 	vector<Service> serv;
 	x.first = beach[2];
 	x.second->setName(beach[1]);
-	if (beach[5] == '1')
+	if (beach[5] == "1")
 		x.second->setBlueFlag(true);
 	else
 		x.second->setBlueFlag(false);
@@ -140,7 +140,7 @@ void LeisureGuide::createBayouBeach(vector<string> &beach) {
 
 	for (size_t i = 0; i < services.size(); i++) {
 		stuff = Utilities::splitString(services[i], ',');
-		serv.push_back(Service(stuff[0], stuff[1], stuff[2], stuff[3]));
+		//serv.push_back(Service(stuff[0], stuff[1], stuff[2], stuff[3]));          APAGUEI ISTO AQUI PORQUE JA NAO HA SCHEDULE NO SERVICE, DA FIX PLZ
 	}
 }
 
