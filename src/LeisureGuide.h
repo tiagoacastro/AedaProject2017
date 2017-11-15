@@ -21,6 +21,10 @@ private:
 	 */
 	vector<string> getAllConselhos() const;
 	vector<Beach*> getBeachesByConselho(const string &conselho) const;
+	void createBeach(string &beach);
+	void createBeach(vector<string> &beaches);
+	void createRiverBeach(vector<string> &beach);
+	void createBayouBeach(vector<string> &beach);
 public:
 	/**
 	* @brief Default constructor to allow creating an empty Leisure Guide that will receive the options afterwards
@@ -43,4 +47,6 @@ public:
 	void displayAllPOIs() const;
 	void displayAllRestaurants() const;
 	void displayAllLodging() const;
+	void loadFile();
+
 };

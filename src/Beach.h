@@ -72,5 +72,7 @@ class Beach {
 		* @param o		The ostream to write to
 		*/
 		virtual void print(ostream &o);
+
+		virtual void modifyBeach() = 0;
 };
 
