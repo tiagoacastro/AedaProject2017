@@ -48,7 +48,7 @@ int main() {
 	return 1;
 }
 
-//Most menu stuff
+//Running the menu with a simple implementation of a state machine
 int menuRunner(LeisureGuide &lg) {
 
 	string currentselection; //current selection holds the menu state
@@ -274,8 +274,32 @@ bool callFunctions(string &id, LeisureGuide &lg) {
 		return true;
 	}
 
+	//Adds a new beach based on user input
+	if (id == "2.1.2") {
+		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
+		id = id.substr(0, id.find_last_of('.'));
+		//calls function based on hardcoded id
+		lg.addBeach();
+		//pause to see output
+		Utilities::pause();
+		//function was found, return true
+		return true;
+	}
+
+	//Removes a beach by its name
+	if (id == "2.1.3") {
+		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
+		id = id.substr(0, id.find_last_of('.'));
+		//calls function based on hardcoded id
+		lg.removeBeach();
+		//pause to see output
+		Utilities::pause();
+		//function was found, return true
+		return true;
+	}
+
 	//Not yet implemented stuff
-	if (id == "unimplemented option ID" || id == "1.5") {
+	if (id == "unimplemented option ID") {
 		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
 		id = id.substr(0, id.find_last_of('.'));
 		//calls function based on hardcoded id
