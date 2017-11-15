@@ -13,17 +13,17 @@ LeisureGuide::LeisureGuide(const vector<pair<string, Beach*>> &beaches, const ve
 }
 
 void LeisureGuide::displayAllBeaches() const{
-	//Gets all the conselhos
-	auto conselhos = getAllConselhos();
+	//Gets all the concelhos
+	auto concelhos = getAllConcelhos();
 
-	for(auto const &conselho : conselhos){
+	for(auto const &concelho : concelhos){
 		//Print the concelho
-		cout << conselho << ": " << endl;
+		cout << concelho << ": " << endl;
 
-		//Get the beaches for this conselho
-		auto beaches_to_display = getBeachesByConselho(conselho);
+		//Get the beaches for this concelho
+		auto beaches_to_display = getBeachesByConcelho(concelho);
 
-		//Print each beach inside a conselho
+		//Print each beach inside a concelho
 		for(auto const &beach_to_display : beaches_to_display){
 			beach_to_display->print(cout);
 		}
@@ -48,7 +48,7 @@ void LeisureGuide::displayAllLodging() const{
 	}
 }
 
-vector<string> LeisureGuide::getAllConselhos() const{
+vector<string> LeisureGuide::getAllConcelhos() const{
 	set<string> temp;
 
 	//A set only keeps unique elements, so there are no duplicates
@@ -62,13 +62,13 @@ vector<string> LeisureGuide::getAllConselhos() const{
 	return output;
 }
 
-vector<Beach *> LeisureGuide::getBeachesByConselho(const string &conselho) const{
+vector<Beach *> LeisureGuide::getBeachesByConcelho(const string &concelho) const{
 	vector<Beach *> output;
 
-	//Iterating for each pair of beaches vector and if the "key" (first element, representing the Conselho)
-	//matches the specified conselho, add the "data member" (second element, Beach*) to the output
-	std::for_each(beaches.begin(), beaches.end(), [&output, conselho](pair<string, Beach*> p) {
-		if(p.first == conselho){
+	//Iterating for each pair of beaches vector and if the "key" (first element, representing the Concelho)
+	//matches the specified concelho, add the "data member" (second element, Beach*) to the output
+	std::for_each(beaches.begin(), beaches.end(), [&output, concelho](pair<string, Beach*> p) {
+		if(p.first == concelho){
 			output.push_back(p.second);
 		}
 	});
@@ -164,175 +164,231 @@ bool LeisureGuide::removeBeach() {
 
 bool LeisureGuide::addBeach() {
 	Utilities::clearScreen();
-	string name, response, beachType, serviceName, serviceType, serviceDescription, concelho;
-	double x, y, width, riverFlow, maxDepth, usableAquaticArea;
-	unsigned int maxCapacity;
-	bool blueFlag;
-	vector <Service> services;
 
+	string beachType, serviceName, serviceType, serviceDescription;
+	vector<Service> services;
 
+	//getline does not fail so there is no need to test cin.fail
+
+	string concelho;
 	cout << "What concelho does the beach belong to? " << endl;
 	getline(cin, concelho);
-	cout << endl;
-	if (cin.fail()) {
-		cout << "Wrong input type, must be string" << endl;
-		return false;
-	}
-	cout << endl;
 
-
+	string name;
 	cout << "What is the name of the beach? " << endl;
 	getline(cin, name);
-	cout << endl;
-	if (cin.fail()) {
-		cout << "Wrong input type, must be string" << endl;
-		return false;
-	}
+
+	//If the beach is found, it already exists (it is found if the iterator returned by findBeachByName is different from 0)
 	if (findBeachByName(name) != beaches.end()) {
 		cout << "Beach already exists" << endl;
 		return false;
 	}
-	cout << endl;
 
+	double x, y;
+	cout << "What are the coordinates of the beach (X followed by Y)?" << endl;
 
-	cout << "What are the coordinates of the beach (x followed by Y)? " << endl; cin >> x;
-	if (cin.fail()) {
-		cout << endl << "Wrong input type, must be a number" << endl;
-		return false;
-	}
-	cin >> y; cout << endl;
-	if (cin.fail()) {
-		cout << "Wrong input type, must be a number" << endl;
-		return false;
-	}
-	cout << endl;
-
-
-	cout << "What is the beach's max capacity? " << endl; cin >> maxCapacity; cout << endl;
-	if (cin.fail()) {
-		cout << "Wrong input type, must be an unsigned integer" << endl;
-		return false;
-	}
-	cout << endl;
-
-
-	cout << "Does the beach have blue flag (yes or no)? " << endl; cin >> response; cout << endl;
-	if (cin.fail()) {
-		cout << "Wrong input type, must be string" << endl;
-		return false;
-	}
-	if (response == "yes")
-		blueFlag = true;
-	else if (response == "no")
-		blueFlag = false;
-	else {
-		cout << "Wrong input type, must be 'yes' or 'no'" << endl;
-		return false;
-	}
-	cout << endl;
-
-
+	//Getting X
 	while (true) {
-		cout << "Do you want to add a service (yes or no)? " << endl; cin >> response;
-		cout << endl;
+		cin >> x;
 		if (cin.fail()) {
-			cout << "Wrong input type, must be string" << endl;
-			return false;
-		}
-		if (response == "yes") {
-
-
-			cout << "What is the service's name? " << endl;
-			getline(cin, serviceName);
-			cout << endl;
-			if (cin.fail()) {
-				cout << "Wrong input type, must be string" << endl;
-				return false;
-			}
-			cout << endl;
-
-
-			cout << "What is the service's type? " << endl;
-			getline(cin, serviceType);
-			cout << endl;
-			if (cin.fail()) {
-				cout << "Wrong input type, must be string" << endl;
-				return false;
-			}
-			cout << endl;
-
-			
-			cout << "Do you want to add a description to the service? " << endl; cin >> response;
-			cout << endl;
-			if (cin.fail()) {
-				cout << "Wrong input type, must be string" << endl;
-				return false;
-			}
-			if (response == "yes") {
-				cout << "Write description: " << endl;
-				getline(cin, serviceDescription);
-				cout << endl;
-				if (cin.fail()) {
-					cout << "Wrong input type, must be string" << endl;
-					return false;
-				}
-				cout << endl;
-				services.emplace_back(serviceName, serviceType, serviceDescription);
-				cout << endl;
-				continue;
-			}
-			else if (response != "no") {
-				cout << "Wrong input, must be 'yes' or 'no'" << endl;
-				return false;
-			}
-			services.emplace_back(serviceName, serviceType);
-			cout << endl;
-		}
-		else if (response == "no") {
-			break;
+			cout << "Invalid X value, please insert a valid X coordinate value (decimal number)." << endl;
+			//Clearing error flag and cin buffer
+			cin.clear();
+			cin.ignore(100000, '\n');
 		}
 		else {
-			cout << "Wrong input, must be 'yes' or 'no'" << endl;
-			return false;
+			//if cin didn't fail we have a good input so we break the loop
+			break;
 		}
-		cout << endl;
+	}
+
+	//Getting Y
+	while (true) {
+		cin >> y;
+		if (cin.fail()) {
+			cout << "Invalid Y value, please insert a valid Y coordinate value (decimal number)." << endl;
+			//Clearing error flag and cin buffer
+			cin.clear();
+			cin.ignore(100000, '\n');
+		}
+		else {
+			//if cin didn't fail we have a good input so we break the loop
+			break;
+		}
+	}
+
+	unsigned int maxCapacity;
+	cout << "What is the beach's maximum capacity? " << endl;
+
+	while (true) {
+		cin >> maxCapacity;
+		if (cin.fail()) {
+			cout << "Invalid max capacity value, please insert a valid maximum capacity value (positive integer)." << endl;
+			//Clearing error flag and cin buffer
+			cin.clear();
+			cin.ignore(100000, '\n');
+		}
+		else {
+			//if cin didn't fail we have a good input so we break the loop
+			break;
+		}
+	}
+
+	string response;
+	bool blueFlag;
+	cout << "Does the beach have blue flag (yes or no)? " << endl;
+
+	while (true) {
+		cin >> response;
+		if (cin.fail() || (response != "yes" && response != "no") || (response != "Yes" && response != "No")) {
+			cout << "Invalid input, please enter yes or no." << endl;
+			//Clearing error flag and cin buffer
+			cin.clear();
+			cin.ignore(100000, '\n');
+		}
+		else {
+			//if cin didn't fail we have a good input so we break the loop
+			break;
+		}
+	}
+
+	blueFlag = ((response == "yes") || (response == "Yes"));
+
+	while (true) {
+		cout << "Do you want to add a service (yes or no)? " << endl;
+		while (true) {
+			cin >> response;
+			if (cin.fail() || (response != "yes" && response != "no") || (response != "Yes" && response != "No")) {
+				cout << "Invalid input, please enter yes or no." << endl;
+				//Clearing error flag and cin buffer
+				cin.clear();
+				cin.ignore(100000, '\n');
+			}
+			else {
+				//if cin didn't fail we have a good input so we break the loop
+				break;
+			}
+		}
+
+		if (response == "yes" || response == "Yes") {
+
+			//Must use ignore before getline since cin was used as a stream before, a newline might be stuck in the buffer
+			cin.ignore(100000, '\n');
+
+			cout << "What is the service's name?" << endl;
+			getline(cin, serviceName);
+
+			cout << "What is the service's type?" << endl;
+			getline(cin, serviceType);
+
+			cout << "Do you want to add a description to the service?" << endl;
+
+			while (true) {
+				getline(cin, response);
+				if (cin.fail() || (response != "yes" && response != "no") || (response != "Yes" && response != "No")) {
+					cout << "Invalid input, please enter yes or no." << endl;
+					//Clearing error flag and cin buffer
+					cin.clear();
+					cin.ignore(100000, '\n');
+				}
+				else {
+					//if cin didn't fail we have a good input so we break the loop
+					break;
+				}
+			}
+
+			//If adding a service description is desired
+			if (response == "yes" || response == "Yes") {
+				cout << "Service description: ";
+				getline(cin, serviceDescription);
+
+				services.emplace_back(serviceName, serviceType, serviceDescription);
+				continue;
+			}
+
+			//If the user does not want to add a service description
+			services.emplace_back(serviceName, serviceType, "None");
+			cout << endl;
+		} else {
+			//If the user entered "no" or "No", he does not wish to input any (further) services
+			break;
+		}
 	}
 
 
-	cout << "Is it a river beach or a bayou beach (river or bayou)? " << endl; cin >> beachType; cout << endl;
-	if (cin.fail()) {
-		cout << "Wrong input type, must be string" << endl;
-		return false;
+	cout << "Is it a river beach or a bayou beach (river or bayou)?" << endl;
+
+	while (true) {
+		cin >> beachType;
+		if (cin.fail() || (beachType != "river" && beachType != "bayou") || (beachType != "River" && beachType != "Bayou")) {
+			cout << "Invalid input, please enter river or bayou." << endl;
+			//Clearing error flag and cin buffer
+			cin.clear();
+			cin.ignore(100000, '\n');
+		}
+		else {
+			//if cin didn't fail we have a good input so we break the loop
+			break;
+		}
 	}
-	cout << endl;
 
 
+	//If the user wants to create a river beach
 	if (beachType == "river") {
-		cout << "What is the river's width? " << endl; cin >> width; cout << endl;
-		if (cin.fail()) {
-			cout << "Wrong input type, must be a number" << endl;
-			return false;
-		}
-		cout << endl;
-		cout << "What is the river's flow? " << endl; cin >> riverFlow; cout << endl;
-		if (cin.fail()) {
-			cout << "Wrong input type, must be a number" << endl;
-			return false;
-		}
-		cout << endl;
-		cout << "What is the river's max depth? " << endl; cin >> maxDepth; cout << endl;
-		if (cin.fail()) {
-			cout << "Wrong input type, must be a number" << endl;
-			return false;
-		}
-		cout << endl;
-		RiverBeach b(name, Coordinates(x, y), maxCapacity, blueFlag, services, width, riverFlow, maxDepth);
-		Beach *beachpntr = &b;
-		beaches.emplace_back (concelho, beachpntr);
-	}	
+		double width, riverFlow, maxDepth;
 
+		cout << "What is the river's width? " << endl;
+		while (true) {
+			cin >> width;
+			if (cin.fail() || width <= 0) {
+				cout << "Invalid river width value, please insert a valid river width value (positive decimal)." << endl;
+				//Clearing error flag and cin buffer
+				cin.clear();
+				cin.ignore(100000, '\n');
+			}
+			else {
+				//if cin didn't fail we have a good input so we break the loop
+				break;
+			}
+		}
 
+		cout << "What is the river's flow? " << endl;
+		while (true) {
+			cin >> riverFlow;
+			if (cin.fail() || riverFlow <= 0) {
+				cout << "Invalid river flow value, please insert a valid river flow value (positive decimal)." << endl;
+				//Clearing error flag and cin buffer
+				cin.clear();
+				cin.ignore(100000, '\n');
+			}
+			else {
+				//if cin didn't fail we have a good input so we break the loop
+				break;
+			}
+		}
+
+		cout << "What is the river's max depth? " << endl;
+		while (true) {
+			cin >> maxDepth;
+			if (cin.fail() || maxDepth <= 0) {
+				cout << "Invalid river max depth, please insert a valid river maximum depth (positive decimal)." << endl;
+				//Clearing error flag and cin buffer
+				cin.clear();
+				cin.ignore(100000, '\n');
+			}
+			else {
+				//if cin didn't fail we have a good input so we break the loop
+				break;
+			}
+		}
+
+		Beach *beachpntr = new RiverBeach(name, Coordinates(x, y), maxCapacity, blueFlag, services, width, riverFlow, maxDepth);
+		beaches.emplace_back(concelho, beachpntr);
+	}
+		//If the user wants to create a bayou beach
 	else if (beachType == "bayou") {
+		double usableAquaticArea;
+
 		cout << "What is the bayou's usable aquatic area? " << endl; cin >> usableAquaticArea; cout << endl;
 		if (cin.fail()) {
 			cout << "Wrong input type, must be a number" << endl;

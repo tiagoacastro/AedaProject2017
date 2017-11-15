@@ -62,3 +62,7 @@ void Beach::print(ostream &o){
 Beach::~Beach() {
 
 }
+
+void Beach::setCoordinates(const Coordinates &coords){
+	this->coords = coords;
+}

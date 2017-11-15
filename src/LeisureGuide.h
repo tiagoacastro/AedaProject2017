@@ -18,11 +18,11 @@ private:
 	vector<POI> POIs;
 	vector<Lodging> lodging;
 	/**
-	 * @brief Gets all the conselhos where there are beaches
-	 * @return Returns a vector of all the Conselhos
+	 * @brief Gets all the concelhos where there are beaches
+	 * @return Returns a vector of all the Concelhos
 	 */
-	vector<string> getAllConselhos() const;
-	vector<Beach*> getBeachesByConselho(const string &conselho) const;
+	vector<string> getAllConcelhos() const;
+	vector<Beach*> getBeachesByConcelho(const string &concelho) const;
 	void createBeach(string &beach);
 	void createBeach(vector<string> &beaches);
 	void createRiverBeach(vector<string> &beach);

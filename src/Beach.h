@@ -23,66 +23,68 @@ public:
 	 */
 	Beach(string name, Coordinates coords, unsigned int maxCapacity, bool blueFlag, const vector <Service> &services);
 	/**
-	 * @brief get function of the beach's blueFlag private member to know if the beach has flue flag
+	 * @brief Get function for the beach's blueFlag
 	 * @return Returns true if the beach has blue flag, false if not
 	 */
 	bool hasBlueFlag() const;
 	/**
-	 * @brief set function of the beach's blue flag
+	 * @brief Set function for the beach's blue flag
 	 * @param blueFlag 		If the beach has blue flag
 	 */
 	void setBlueFlag(bool blueFlag);
 	/**
-	 * @brief get function of the beach's coordinates
+	 * @brief Get function for the beach's coordinates
 	 * @return Returns the beach's coordinates
 	 */
 	Coordinates getCoords() const;
 
 	/**
-	 * @brief set function of the beach's Coordinates
-	 * @param coordinates 	Coordinates of the Beach
+	 * @brief Set function of the beach's Coordinates
+	 * @param coords 	Coordinates of the Beach
 	 */
-	void setCoordinates(Coordinates coordinates);
+	void setCoordinates(const Coordinates &coords);
 
 	/**
-	 * @brief get function of the beach's max capacity
+	 * @brief Get function of the beach's max capacity
 	 * @return Returns the beach's max capacity
 	 */
 	unsigned int getMaxCapacity() const;
 	/**
-	 * @brief set function of the beach's max capacity
+	 * @brief Set function for the beach's max capacity
 	 * @param maxCapacity 	Max capacity of the Beach
 	 */
 	void setMaxCapacity(unsigned int maxCapacity);
 	/**
-	 * @brief get function of the beach's name
+	 * @brief Get function for the beach's name
 	 * @return Returns the beach's name
 	 */
 	string getName() const;
 	/**
-	 * @brief set function of the beach's name
+	 * @brief Set function for the beach's name
 	 * @param name 			Name of the Beach
 	 */
 	void setName(const string &name);
 	/**
-	 * @brief get function of the services of the beach
+	 * @brief Get function for the services of the beach
 	 * @return Returns the beach's service vector
 	 */
 	vector<Service> getServices() const;
 	/**
-	 * @brief set function of the services of the beach
+	 * @brief Set function for the services of the beach
 	 * @param services		All the services in the Beach
 	 */
 	void setServices(const vector<Service> &services);
 	/**
-	 * @brief print of the Beach information (virtual so BayouBeach and RiverBeach can have their version of the print)
+	 * @brief Print of the Beach information (virtual so BayouBeach and RiverBeach can have their versions of the print)
 	 * @param o		The ostream to write to
 	 */
 	virtual void print(ostream &o);
-
+	/**
+	 * @brief Modifies the Beach based on user input. Is pure virtual due to each Beach having different fields that can be changed
+	 */
 	virtual void modifyBeach() = 0;
 	/**
-	´* @brief beach destructor
+	 * @brief Beach virtual destructor (so that delete works for derivate classes)
 	 */
 	virtual ~Beach();
 };
