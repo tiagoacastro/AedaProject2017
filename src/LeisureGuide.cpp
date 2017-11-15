@@ -5,11 +5,11 @@ LeisureGuide::LeisureGuide() {
 }
 
 LeisureGuide::LeisureGuide(const vector<pair<string, Beach*>> &beaches):
-							beaches(beaches) {
+									beaches(beaches) {
 }
 
 LeisureGuide::LeisureGuide(const vector<pair<string, Beach*>> &beaches, const vector<Restaurant> &restaurants, const vector<POI> &POIs, const vector<Lodging> &lodging):
-							beaches(beaches), restaurants(restaurants), POIs(POIs), lodging(lodging) {
+									beaches(beaches), restaurants(restaurants), POIs(POIs), lodging(lodging) {
 }
 
 void LeisureGuide::displayAllBeaches() const{
@@ -119,8 +119,29 @@ void LeisureGuide::createBeach(string &beach){
 		this->createRiverBeach(infos);
 }
 
+
 void LeisureGuide::createBayouBeach(vector<string> &beach){
-	pair<string, BayouBeach*>;
+	pair<string, Beach*> x;
+	vector <string> stuff, services;
+	vector<Service> serv;
+	x.first = beach[2];
+	x.second->setName(beach[1]);
+	if(beach[5] == '1')
+		x.second->setBlueFlag(true);
+	else
+		x.second->setBlueFlag(false);
+	x.second->setMaxCapacity(stod(beach[4]));
+
+	stuff = Utilities::splitString(beach[3], ',');
+
+	x.second->setCoordinates(Coordinates(stod(stuff[0]), stod(stuff[1])));
+
+	services = Utilities::splitString(beach[beach.size()-1], ';');
+
+	for (size_t i = 0; i < services.size(); i++){
+		stuff = Utilities::splitString(services[i], ',');
+		serv.push_back(Service(stuff[0],stuff[1],stuff[2],stuff[3]));
+	}
 }
 
 void LeisureGuide::createRiverBeach(vector<string> &beach){
