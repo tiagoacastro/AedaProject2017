@@ -151,14 +151,21 @@ vector<pair<string, Beach*>>::iterator LeisureGuide::findBeachByName(string name
 bool LeisureGuide::removeBeach() {
 	Utilities::clearScreen();
 	string name;
-	cout << "What is the name of the beach you wish to remove? "; cin >> name; cout << endl;
-	vector<pair<string, Beach*>>::iterator it = findBeachByName(name);
+	cout << "What is the name of the beach you wish to remove?\n";
+	getline(cin, name);
+	auto it = findBeachByName(name);
+
 	if (it == beaches.end()) {
-		cout << "Beach not found" << endl;
+		cout << "Beach not found!" << endl;
 		return false;
 	}
+
+	//Deallocating memory for the Beach *
+	//This works for derivate classes because Beach has a virtual destructor
 	delete it->second;
 	beaches.erase(it);
+	cout << "Beach deleted successfully!" << endl;
+
 	return true;
 }
 
