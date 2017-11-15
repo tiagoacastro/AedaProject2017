@@ -32,10 +32,9 @@ namespace Utilities {
 
 	int countCharInString(string input, char searchchar) {
 		int counter = 0;
-		for (int i = 0; i < input.size(); i++) {
-			if (input[i] == searchchar) {
+		for(char c : input) {
+			if (c == searchchar)
 				counter++;
-			}
 		}
 
 		return counter;
@@ -110,7 +109,7 @@ namespace Utilities {
 		}
 
 		//pause to see output
-		cout << "Pressione enter para continuar...";
+		cout << "Press enter to continue....";
 		cin.get();
 	}
 
@@ -128,20 +127,6 @@ namespace Utilities {
 		ss << setfill('0') << setw(2) << hours << ":" << setw(2) << minutes;
 
 		return ss.str();
-	}
-
-	vector<string> minutesToHHMM(const vector<int>& minutes) {
-		vector<string> output;
-
-		for (int i = 0; i < minutes.size(); i++) {
-			output.push_back(minutesToHHMM(minutes[i]));
-		}
-
-		return output;
-	}
-
-	int roundToInt(double input) {
-		return (input > 0.0) ? (input + 0.5) : (input - 0.5);
 	}
 
 	time minutesToTime(int minutes) {
@@ -176,16 +161,6 @@ namespace Utilities {
 		return temptime;
 	}
 
-	vector<time> minutesToTime(const vector<int>& minutes)
-	{
-		vector<time> output;
-
-		for (int i = 0; i < minutes.size(); i++) {
-			output.push_back(minutesToTime(minutes[i]));
-		}
-
-		return output;
-	}
 	unsigned int HHMMtoMinutes(string hhmm) {
 
 		//considering that the string is in the HH:MM format

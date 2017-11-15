@@ -10,20 +10,48 @@
 
 using namespace std;
 
-//Utilities is a namespace created to contain useful functions for use throughout the program
+/**
+ * @brief Utilities is a namespace created to contain useful functions for use throughout the program
+ * @addtogroup Utilities
+ * @{
+ */
 namespace Utilities {
-	//Reads a file and returns a vector in which each position is a string representing a line in the file
+	/**
+	 * @brief Reads a file and returns its contents
+	 * @param path The path of the file to read
+	 * @return Returns a vector in which each position is a string representing a line in the file
+	 */
 	vector<string> ReadFile(string path);
-	//Overload for ReadFile this time using an open ifstream
+	/**
+	 * @brief Overload for ReadFile this time using an open ifstream
+	 * @param input The open ifstream from which to read to
+	 * @return Returns a vector in which each position is a string representing a line in the read file
+	 */
 	vector<string> ReadFile(ifstream &input);
-	//Counts the number of occurrences of a char in a string, useful for Menu's option.depth_level
+	/**
+	 * @brief Counts the number of occurrences of a char in a string, useful for Menu's option.depth_level
+	 * @param input The string where the counting will ocurr
+	 * @param searchchar The character to search for
+	 * @return The number of occurrences of searchchar in input
+	 */
 	int countCharInString(string input, char searchchar);
-	//Compares two strings with different sizes by going through the smaller one until it ends,
-	//if all the characters match until then, returns true
+	/**
+	 * @brief Compares two strings with different sizes by going through the smaller one until it ends, if all the characters match until then, returns true
+	 * @param a First string to compare
+	 * @param b Second string to compare
+	 * @return True if characters match until the smaller string ends
+	 */
 	bool compareDiffSizeStrings(string a, string b);
-	//Remove whitespace surrounding text  - "   aa  " -> "aa"
+	/**
+	 * @brief Remove whitespace surrounding text  - "   aa  " -> "aa"
+	 * @param s The string in which to remove the whitespace
+	 */
 	void trimString(string &s);
-	//Print vector of any kind of element as long as it has << operator defined
+	/**
+	 * @brief Prints vector of any kind of element as long as it has the << operator defined
+	 * @tparam T Generic type of element to print
+	 * @param v Vector of elements to print
+	 */
 	template<typename T>
 	void printVector(const vector<T> &v) {
 		for (int i = 0; i < v.size(); i++) {
@@ -31,16 +59,34 @@ namespace Utilities {
 		}
 	}
 
-	//Split a string into a string vector on each ocurrence of another string
+	/**
+	 * @brief Splits a string into a string vector on each ocurrence of another string
+	 * @param input String to split
+	 * @param splitter String for which to search
+	 * @return Returns a vector of 'input', split at every ocurrence of 'splitter'
+	 */
 	vector<string> splitString(string input, string splitter);
-	//Overload for a single char - calls the string version
+	/**
+	 * @brief splitString overload for a single char - calls the string version. Splits a string into a string vector on each ocurrence of another char
+	 * @param input String to split
+	 * @param splitter Character for which to search
+	 * @return Returns a vector of 'input', split at every ocurrence of 'splitter'
+	 */
 	vector<string> splitString(string input, char splitter);
-	//Clears the screen - originally inside Menu
+	/**
+	 * @brief Clears the screen
+	 */
 	void clearScreen();
-	//Pauses the program until enter is pressed - displays informative message to prompt the user to press enter. Warning: to pause successfully this function must clear the whole cin buffer, make sure there is no important data there
+	/**
+	 * @brief Pauses the program until enter is pressed - displays informative message to prompt the user to press enter. Warning: to pause successfully this function must clear the whole cin buffer, make sure there is no important data there
+	 */
 	void pause();
 
-	//Removes duplicate elements in a vector - using templates so that it works for any kind of element
+	/**
+	 * @brief Removes duplicate elements in a vector
+	 * @tparam T Generic type of vector element
+	 * @param v The vector in which to remove duplicates
+	 */
 	template<typename T>
 	void removeDuplicates(vector<T> &v) {
 		for (int i = 0; i < v.size(); i++) {
@@ -68,10 +114,17 @@ namespace Utilities {
 		for(auto const &uniqueelem : output){
 			v.push_back(uniqueelem);
 		}
+		//Or better yet, use copy constructor with begin and end iterators
 		 */
 	}
 
-	//Intersects two vectors, searching for common values - using templates so that it works for any kind of element
+	/**
+	 * @brief Intersects two vectors, searching for common values
+	 * @tparam T Generic type of vector
+	 * @param v1 First vector
+	 * @param v2 Second vector
+	 * @return Returns the intersection of all the elements of v1 and v2
+	 */
 	template<typename T>
 	vector<T> intersectVectors(const vector<T> &v1, const vector<T> &v2) {
 		//Initializing empty output vector
@@ -91,25 +144,43 @@ namespace Utilities {
 		return output;
 	}
 
-	//Converts minutes to a string in the HH:MM format
+	/**
+	 * @brief Converts minutes to a string in the HH:MM format
+	 * @param minutes Number of minutes to convert
+	 * @return Returns a string in the HH:MM based on the number of minutes given
+	 */
 	string minutesToHHMM(unsigned int minutes);
-	//Overload of the above for vectors, in order to better organize code
-	vector<string> minutesToHHMM(const vector<int> &minutes);
-	//Rounds double to nearest integer (works with negative values)
+	/**
+	 * @brief Rounds double to nearest integer (works with negative values)
+	 * @param input Double to round
+	 * @return Returns the rounded value
+	 */
 	int roundToInt(double input);
 
-	//Converts minutes to a struct of an int (weekday) and a string in the HH:MM format
+
 	struct time {
 		int weekday;
 		string hourAndMinutes;
 	};
-	time minutesToTime(int minutes);
-	//Overload of the above for vectors
-	vector<time> minutesToTime(const vector<int> &minutes);
-	//Vector to give a string that represents the week day from the weekday variable in a shift
-	const vector<string> weekdays = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 
-	//Joins the elements of vectors of the same type (not deleting potential duplicates)
+	/**
+	 * @brief Converts minutes to a struct of an int (weekday) and a string in the HH:MM format
+	 * @param minutes Number of total minutes to convert to time struct
+	 * @return Returns the resulting time struct
+	 */
+	time minutesToTime(int minutes);
+	/**
+	 * @brief Vector to represent the days of the week
+	 */
+	const static vector<string> weekdays = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
+
+	/**
+	 * @brief Joins the elements of vectors of the same type (not deleting potential duplicates)
+	 * @tparam T Generic vector item type
+	 * @param v1 First vector
+	 * @param v2 Second vector
+	 * @return Returns a vector of all the elements of v1 and v2, without deleting duplicates
+	 */
 	template<typename T>
 	vector<T> joinVectors(const vector<T> &v1, const vector<T> &v2) {
 		//Creating output vector and preallocating memory
@@ -124,10 +195,16 @@ namespace Utilities {
 		return output;
 	}
 
-	//Converts string in HH:MM format to minutes
+	/**
+	 * @brief Converts string in HH:MM format to minutes
+	 * @param hhmm String in the HH:MM format
+	 * @return Returns the number of minutes that the HH:MM string corresponds to
+	 */
 	unsigned int HHMMtoMinutes(string hhmm);
 
-	//For use in exception throwing in file handling
+	/**
+	 * @brief FileNotFound exception (For use in exception throwing in file handling)
+	 */
 	class FileNotFound{
 	private:
 		string path;
@@ -136,3 +213,4 @@ namespace Utilities {
 		string getPath() const{return path;}
 	};
 }
+/*! @} End of Doxygen Utilities group*/
