@@ -27,6 +27,10 @@ private:
 	void createBeach(vector<string> &beaches);
 	void createRiverBeach(vector<string> &beach);
 	void createBayouBeach(vector<string> &beach);
+	/**
+	* @brief searches a beach on the beaches vector and it returns the iterator
+	* @param name		name of the beach that will be searched
+	*/
 	vector<pair<string, Beach*>>::iterator findBeachByName(string name);
 public:
 	/**
@@ -65,7 +69,12 @@ public:
 	void loadFile();
 	/**
 	* @brief Removes a beach from the beaches vector and deletes it
-	* @param name		name of the beach that will be deleted
+	* @return true if beach is found and removed, false if else
 	*/
-	virtual void removeBeach(string name);
+	bool removeBeach();
+	/**
+	* @brief Adds a beach to the beaches vector
+	* @return true if beach is valid and was added, false if else
+	*/
+	bool addBeach();
 };

@@ -58,3 +58,7 @@ void Beach::print(ostream &o){
 			o << service << endl;
 	}
 }
+
+Beach::~Beach() {
+
+}

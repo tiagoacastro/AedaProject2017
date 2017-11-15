@@ -54,4 +54,5 @@ class RiverBeach : public Beach {
 		* @param o		The ostream to write to
 		*/
 		void print(ostream &o);
+		void modifyBeach();
 };

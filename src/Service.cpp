@@ -4,8 +4,8 @@
 
 //Service
 
-Service::Service(string name, string type, Schedule sch, string description = "None") :
-	name(name), type(type), sch(sch), description(description) {
+Service::Service(string name, string type, string description = "None") :
+	name(name), type(type), description(description) {
 }
 
 string Service::getDescription() const {
@@ -24,14 +24,6 @@ void Service::setName(const string &name) {
 	this->name = name;
 }
 
-Schedule Service::getSchedule() const {
-	return sch;
-}
-
-void Service::setSchedule(const Schedule &sch) {
-	this->sch = sch;
-}
-
 string Service::getType() const {
 	return type;
 }
@@ -45,8 +37,6 @@ ostream & operator<<(ostream &os, const Service &s){
 	os << "Name: " << s.name << endl;
 	os << "Type: " << s.type << endl;
 	os << "Description: " << s.description << endl;
-	os << "Schedule:" << endl;
-	os << s.sch << endl;
 
 	return os;
 }

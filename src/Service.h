@@ -21,7 +21,6 @@ class Service {
 	private:
 		string name;
 		string type;
-		Schedule sch;
 		string description;
 	public:
 		/**
@@ -31,7 +30,7 @@ class Service {
 		 * @param sch 			Schedule of the Service
 		 * @param description 	Description of the Service, default value is "None"
 		 */
-		Service(string name, string type, Schedule sch, string description);
+		Service(string name, string type, string description);
 		/**
 		* @brief get function of the description of the service
 		* @return Returns the service's description
@@ -52,16 +51,6 @@ class Service {
 		* @param name 			Name of the Service
 		*/
 		void setName(const string &name);
-		/**
-		* @brief get function of the schedule of the service
-		* @return Returns the service's schedule
-		*/
-		Schedule getSchedule() const;
-		/**
-		* @brief set function of the schedule of the service
-		* @param sch 			Schedule of the Service
-		*/
-		void setSchedule(const Schedule& sch);
 		/**
 		* @brief get function of the service's type
 		* @return Returns the service's type

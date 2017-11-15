@@ -81,5 +81,9 @@ public:
 	virtual void print(ostream &o);
 
 	virtual void modifyBeach() = 0;
+	/**
+	´* @brief beach destructor
+	 */
+	virtual ~Beach();
 };
 
