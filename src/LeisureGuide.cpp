@@ -142,10 +142,20 @@ void LeisureGuide::createBayouBeach(vector<string> &beach){
 		stuff = Utilities::splitString(services[i], ',');
 		serv.push_back(Service(stuff[0],stuff[1],stuff[2],stuff[3]));
 	}
-
-
 }
 
 void LeisureGuide::createRiverBeach(vector<string> &beach){
 
+}
+
+vector<pair<string, Beach*>>::iterator LeisureGuide::findBeachByName(string name) {
+	auto it = find_if(beaches.begin(), beaches.end(), [=](pair<string, Beach*> &p) {return p.second->getName() == name; });
+
+	return it;
+}
+
+void LeisureGuide::removeBeach(string name) {
+	vector<pair<string, Beach*>>::iterator it = findBeachByName(name);
+	delete it->second;
+	beaches.erase(it);
 }
