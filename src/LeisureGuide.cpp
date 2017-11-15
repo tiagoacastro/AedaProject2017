@@ -334,7 +334,7 @@ bool LeisureGuide::addBeach() {
 
 
 	//If the user wants to create a river beach
-	if (beachType == "river") {
+	if (beachType == "river" || beachType == "River") {
 		double width, riverFlow, maxDepth;
 
 		cout << "What is the river's width? " << endl;
@@ -385,25 +385,27 @@ bool LeisureGuide::addBeach() {
 		Beach *beachpntr = new RiverBeach(name, Coordinates(x, y), maxCapacity, blueFlag, services, width, riverFlow, maxDepth);
 		beaches.emplace_back(concelho, beachpntr);
 	}
-		//If the user wants to create a bayou beach
-	else if (beachType == "bayou") {
+	//If the user wants to create a bayou beach
+	else {
 		double usableAquaticArea;
 
 		cout << "What is the bayou's usable aquatic area? " << endl; cin >> usableAquaticArea; cout << endl;
-		if (cin.fail()) {
-			cout << "Wrong input type, must be a number" << endl;
-			return false;
+		while (true) {
+			cin >> usableAquaticArea;
+			if (cin.fail() || usableAquaticArea <= 0) {
+				cout << "Invalid bayou usable aquatic area, please insert a valid usable aquatic area (positive decimal)." << endl;
+				//Clearing error flag and cin buffer
+				cin.clear();
+				cin.ignore(100000, '\n');
+			}
+			else {
+				//if cin didn't fail we have a good input so we break the loop
+				break;
+			}
 		}
-		cout << endl;
-		BayouBeach b(name, Coordinates(x, y), maxCapacity, blueFlag, services, usableAquaticArea);
-		Beach *beachpntr = &b;
+
+		Beach *beachpntr = new BayouBeach(name, Coordinates(x, y), maxCapacity, blueFlag, services, usableAquaticArea);
 		beaches.emplace_back(concelho, beachpntr);
-	}
-
-
-	else {
-		cout << "Wrong input type, must be 'river' or 'bayou'" << endl;
-		return false;
 	}
 
 	cout << "Beach has been successfully created" << endl;
