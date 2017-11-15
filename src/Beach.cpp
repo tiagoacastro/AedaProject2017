@@ -54,7 +54,7 @@ void Beach::print(ostream &o){
 		o << "No services" << endl;
 	else {
 		o << "Services:" << endl;
-		for (size_t i = 0; i < services.size(); i++)
-			o << services.at(i) << endl;
+		for (auto &service: services)
+			o << service << endl;
 	}
 }
