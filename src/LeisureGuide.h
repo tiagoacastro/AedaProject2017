@@ -2,6 +2,8 @@
 #include "Coordinates.h"
 #include "Service.h"
 #include "Beach.h"
+#include "BayouBeach.h"
+#include "RiverBeach.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -25,6 +27,7 @@ private:
 	void createBeach(vector<string> &beaches);
 	void createRiverBeach(vector<string> &beach);
 	void createBayouBeach(vector<string> &beach);
+	vector<pair<string, Beach*>>::iterator findBeachByName(string name);
 public:
 	/**
 	* @brief Default constructor to allow creating an empty Leisure Guide that will receive the options afterwards
@@ -43,10 +46,26 @@ public:
 	* @param lodging		vector containing avaliable lodging in the surrounding area
 	*/
 	LeisureGuide(const vector<pair<string, Beach*>> &beaches, const vector<Restaurant> &restaurants, const vector<POI> &POIs, const vector<Lodging> &lodging);
+	/**
+	* @brief Displays all beaches by concelho
+	*/
 	void displayAllBeaches() const;
+	/**
+	* @brief Displays all POIs
+	*/
 	void displayAllPOIs() const;
+	/**
+	* @brief Displays all restaurants
+	*/
 	void displayAllRestaurants() const;
+	/**
+	* @brief Displays all lodging
+	*/
 	void displayAllLodging() const;
 	void loadFile();
-
+	/**
+	* @brief Removes a beach from the beaches vector and deletes it
+	* @param name		name of the beach that will be deleted
+	*/
+	virtual void removeBeach(string name);
 };

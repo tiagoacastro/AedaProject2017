@@ -120,10 +120,21 @@ void LeisureGuide::createBeach(string &beach){
 }
 
 void LeisureGuide::createBayouBeach(vector<string> &beach){
-	pair<string, *BayouBeach>
-
+	pair<string, BayouBeach*>;
 }
 
 void LeisureGuide::createRiverBeach(vector<string> &beach){
 
+}
+
+vector<pair<string, Beach*>>::iterator LeisureGuide::findBeachByName(string name) {
+	auto it = find_if(beaches.begin(), beaches.end(), [=](pair<string, Beach*> &p) {return p.second->getName() == name; });
+
+	return it;
+}
+
+void LeisureGuide::removeBeach(string name) {
+	vector<pair<string, Beach*>>::iterator it = findBeachByName(name);
+	delete it->second;
+	beaches.erase(it);
 }
