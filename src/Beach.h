@@ -12,6 +12,27 @@ private:
 	unsigned int maxCapacity;
 	bool blueFlag;
 	vector <Service> services;
+protected:
+	/**
+	 * @brief Modifies the Beach name based on user inputs. Is in protected access scope because it needs not be public but the derivate classes should be able to access it.
+	 */
+	void modifyName();
+	/**
+	 * @brief Modifies the Beach coordinates based on user inputs. Is in protected access scope because it needs not be public but the derivate classes should be able to access it.
+	 */
+	void modifyCoordinates();
+	/**
+	 * @brief Modifies the Beach maximum capacity based on user inputs. Is in protected access scope because it needs not be public but the derivate classes should be able to access it.
+	 */
+	void modifyMaxCapacity();
+	/**
+	 * @brief Modifies the Beach blue flag based on user inputs. Is in protected access scope because it needs not be public but the derivate classes should be able to access it.
+	 */
+	void modifyBlueFlag();
+	/**
+	 * @brief Modifies the Beach services based on user inputs. Is in protected access scope because it needs not be public but the derivate classes should be able to access it.
+	 */
+	void modifyServices();
 public:
 	/**
 	 * @brief Constructor for the Beach class

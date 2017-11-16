@@ -54,5 +54,14 @@ class RiverBeach : public Beach {
 		* @param o		The ostream to write to
 		*/
 		void print(ostream &o);
+		/**
+		 * @brief Modifies a beach based on user input
+		 */
 		void modifyBeach();
+
+	void modifyRiverWidth();
+
+	void modifyRiverFlow();
+
+	void modifyRiverMaximumDepth();
 };
