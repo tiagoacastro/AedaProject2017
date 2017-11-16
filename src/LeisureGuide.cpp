@@ -177,6 +177,9 @@ bool LeisureGuide::addBeach() {
 
 	//getline does not fail so there is no need to test cin.fail
 
+	//However, since cin was used as a stream before, it is necessary to clear potential newlines
+	cin.ignore(100000, '\n');
+
 	string concelho;
 	cout << "What concelho does the beach belong to? " << endl;
 	getline(cin, concelho);
@@ -247,7 +250,7 @@ bool LeisureGuide::addBeach() {
 
 	while (true) {
 		cin >> response;
-		if (cin.fail() || (response != "yes" && response != "no") || (response != "Yes" && response != "No")) {
+		if (cin.fail() || (response != "yes" && response != "no" && response != "Yes" && response != "No")) {
 			cout << "Invalid input, please enter yes or no." << endl;
 			//Clearing error flag and cin buffer
 			cin.clear();
@@ -265,7 +268,7 @@ bool LeisureGuide::addBeach() {
 		cout << "Do you want to add a service (yes or no)? " << endl;
 		while (true) {
 			cin >> response;
-			if (cin.fail() || (response != "yes" && response != "no") || (response != "Yes" && response != "No")) {
+			if (cin.fail() || (response != "yes" && response != "no" && response != "Yes" && response != "No")) {
 				cout << "Invalid input, please enter yes or no." << endl;
 				//Clearing error flag and cin buffer
 				cin.clear();
@@ -292,7 +295,7 @@ bool LeisureGuide::addBeach() {
 
 			while (true) {
 				getline(cin, response);
-				if (cin.fail() || (response != "yes" && response != "no") || (response != "Yes" && response != "No")) {
+				if (cin.fail() || (response != "yes" && response != "no" && response != "Yes" && response != "No")) {
 					cout << "Invalid input, please enter yes or no." << endl;
 					//Clearing error flag and cin buffer
 					cin.clear();
@@ -327,7 +330,7 @@ bool LeisureGuide::addBeach() {
 
 	while (true) {
 		cin >> beachType;
-		if (cin.fail() || (beachType != "river" && beachType != "bayou") || (beachType != "River" && beachType != "Bayou")) {
+		if (cin.fail() || (beachType != "river" && beachType != "bayou" && beachType != "River" && beachType != "Bayou")) {
 			cout << "Invalid input, please enter river or bayou." << endl;
 			//Clearing error flag and cin buffer
 			cin.clear();
@@ -396,7 +399,7 @@ bool LeisureGuide::addBeach() {
 	else {
 		double usableAquaticArea;
 
-		cout << "What is the bayou's usable aquatic area? " << endl; cin >> usableAquaticArea; cout << endl;
+		cout << "What is the bayou's usable aquatic area? " << endl;
 		while (true) {
 			cin >> usableAquaticArea;
 			if (cin.fail() || usableAquaticArea <= 0) {
