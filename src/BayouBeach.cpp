@@ -16,3 +16,7 @@ void BayouBeach::print(ostream &o) {
 	Beach::print(o);
 	o << "Usable aquatic area: " << usableAquaticArea << endl;
 }
+
+void BayouBeach::modifyBeach(){
+	cout << "Also WIP!! Not yet done!\n\n";
+}

@@ -37,3 +37,7 @@ void RiverBeach::print(ostream &o) {
 	o << "River flow: " << riverFlow << endl;
 	o << "River's max depth: " << maxDepth << endl;
 }
+
+void RiverBeach::modifyBeach(){
+	cout << "WIP! not yet done!\n\n";
+}
