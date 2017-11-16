@@ -5,11 +5,11 @@ LeisureGuide::LeisureGuide() {
 }
 
 LeisureGuide::LeisureGuide(const vector<pair<string, Beach*>> &beaches):
-																											beaches(beaches) {
+																																			beaches(beaches) {
 }
 
 LeisureGuide::LeisureGuide(const vector<pair<string, Beach*>> &beaches, const vector<Restaurant> &restaurants, const vector<POI> &POIs, const vector<Lodging> &lodging):
-																											beaches(beaches), restaurants(restaurants), POIs(POIs), lodging(lodging) {
+																																			beaches(beaches), restaurants(restaurants), POIs(POIs), lodging(lodging) {
 }
 
 void LeisureGuide::displayAllBeaches() const{
@@ -76,6 +76,106 @@ vector<Beach *> LeisureGuide::getBeachesByConcelho(const string &concelho) const
 	return output;
 }
 
+void LeisureGuide::saveFile(){
+	string file, path;
+	ofstream s;
+	cout << "what kind of information do you want to save? Points of Interest, Restaurant, Beach or Lodging";
+	getline(cin, file);
+	Utilities::trimString(file);
+	while (file != "Points of Interest" && file != "Restaurant" && file != "Beach" && file != "Lodging"){
+		cout << "Choose one of them please\n";
+		getline(cin, file);
+		Utilities::trimString(file);
+
+	}
+
+	cout << "Enter the path for the file please";
+	getline(cin, path);
+	s.open(path);
+	while(!s.is_open() ){
+		cout << "Error opening the file, enter the path again please";
+		getline(cin,path);
+		s.open(path);
+	}
+
+
+
+	switch (file){
+
+	case "Points of Interest":
+		savePOI(s);
+		break;
+	case "Restaurant":
+		saveRestaurants(s);
+		break;
+	case "Beach":
+		saveBeaches(s);
+		break;
+
+	default:
+		saveLodging(s);
+		break;
+	}
+
+	s.close();
+}
+
+
+
+void LeisureGuide::saveBeaches(ofstream &s){
+	string format;
+	for (int i = 0; i < beaches.size(); i++){
+		saveFormatb(beaches[i], format);
+	}
+}
+
+void LeisureGuide::saveFormatb(pair<string, Beach*> &s, string &format){
+
+
+}
+
+
+
+void LeisureGuide::saveRestaurants(ofstream &s){
+	string format;
+	for (int i = 0; i < restaurants.size(); i++){
+		saveFormatRestaurants(restaurants[i], format);
+	}
+}
+/*  VEJAMSE VOS DA ERRO AQUI OU SE E O ECLIPSE QUE SE LEMBROU
+void LeisureGuide::saveFormatRestaurants(Restaurant &rest, &format){
+	vector<string> sch = rest.getSchedule().week
+			format = rest.getName();
+
+
+
+}
+
+void LeisureGuide::saveFormatLodging(Lodging &lod, &format){
+
+
+}
+
+void LeisureGuide::saveFormatPOIs(POI &poi, &format){
+
+
+}*/
+void LeisureGuide::savePOI(ofstream &s){
+	string format;
+	for (int i = 0; i < POIs.size(); i++){
+		saveFormatPOIs(POIs[i], format);
+	}
+}
+void LeisureGuide::saveLodging(ofstream &s){
+	string format;
+	for (int i = 0; i < lodging.size(); i++){
+		saveFormatLodging(lodging[i], format);
+	}
+}
+
+
+
+
 void LeisureGuide::loadFile(){
 	ifstream s;
 	string file, path;
@@ -83,7 +183,7 @@ void LeisureGuide::loadFile(){
 	vector <string> stuff;
 	cout << "what kind of files do you want to read? Points of Interest, Restaurant, Beach or Lodging";
 	getline(cin, file);
-
+	Utilities::trimString(file);
 	while (file != "Points of Interest" && file != "Restaurant" && file != "Beach" && file != "Lodging"){
 		cout << "Choose one of them please\n";
 		getline(cin, file);
@@ -343,13 +443,13 @@ void LeisureGuide::createRiverBeach(vector<string> &beach){
 	services = Utilities::splitString(beach[beach.size() - 1], ';');
 
 	for (size_t i = 0; i < services.size(); i++) {
-			Utilities::trimString(services.at(i));
-			stuff = Utilities::splitString(services[i], ',');
-			Utilities::trimString(stuff[0]);
-			Utilities::trimString(stuff[1]);
-			Utilities::trimString(stuff[2]);
-			serv.push_back(Service(stuff[0], stuff[1], stuff[2]));
-		}
+		Utilities::trimString(services.at(i));
+		stuff = Utilities::splitString(services[i], ',');
+		Utilities::trimString(stuff[0]);
+		Utilities::trimString(stuff[1]);
+		Utilities::trimString(stuff[2]);
+		serv.push_back(Service(stuff[0], stuff[1], stuff[2]));
+	}
 
 
 	Beach *p = new RiverBeach(name, Coordinates(xc,yc), capacity, bf, serv, width, riverFlow, maxDepth);

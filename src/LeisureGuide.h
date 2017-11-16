@@ -36,6 +36,15 @@ private:
 	void addLodging(vector <string> &infos);
 	void createLodging(string &lodging);
 	void createLodging(vector<string> &lodging);
+	void saveFile();
+	void saveBeaches(ofstream &s);
+	void saveRestaurants(ofstream &s);
+	void savePOI(ofstream &s);
+	void saveLodging(ofstream &s);
+	void saveFormatb(pair<string, Beach*> &s, string &format);
+	void saveFormatRestaurants(Restaurant &res, string &format);
+	void saveFormatPOIs(POI &poi, string &format);
+	void saveFormatLodging(Lodging &lod, string &format);
 
 
 	/**
