@@ -21,3 +21,11 @@ ostream &operator<<(ostream &os, const Coordinates &c) {
 	os << "(" << c.latitude << " , " << c.longitude << ")";
 	return os;
 }
+
+void Coordinates::setLatitude(double lat){
+	this->latitude = lat;
+}
+
+void Coordinates::setLongitude(double longit){
+	this->longitude = longit;
+}

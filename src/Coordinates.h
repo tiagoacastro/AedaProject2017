@@ -37,4 +37,14 @@ class Coordinates{
 		 * @return Modified ostream, as is expected of this operator
 		 */
 		friend ostream & operator<<(ostream &os, const Coordinates &c);
+		/**
+		 * @brief Set function for the Coordinate's latitude
+		 * @param lat The latitude for the Coordinate
+		 */
+		void setLatitude(double lat);
+		/**
+		 * @brief Set function for the Coordinate's longitude
+		 * @param longit The longitude for the Coordinate
+		 */
+		void setLongitude(double longit);
 };
