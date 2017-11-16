@@ -176,4 +176,22 @@ namespace Utilities {
 		//hours converted to int * 60 (converting to minutes) + hhmm converted to int which now was only MM
 		return stoi(hours)*60 + stoi(hhmm);
 	}
+
+	bool correctHourFormat(string hour) {
+		if (hour.length() == 5)
+			if (hour.at(3) == ':') {
+				for (unsigned int i = 0; i < 5; i++)
+				{
+					if(i != 2)
+						if (!isNumber(hour.at(i)))
+							return false;
+				}
+				return true;
+			}
+		return false;
+	}
+
+	bool isNumber(char c) {
+		return c >= '0' && c <= '9';
+	}
 }

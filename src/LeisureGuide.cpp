@@ -119,6 +119,9 @@ void LeisureGuide::createBeach(string &beach){
 		this->createRiverBeach(infos);
 }
 
+void createRiverBeach(vector<string> &beach) {
+
+}
 
 void LeisureGuide::createBayouBeach(vector<string> &beach) {
 	pair<string, Beach*> x;
@@ -172,8 +175,6 @@ bool LeisureGuide::removeBeach() {
 }
 
 bool LeisureGuide::addBeach() {
-	Utilities::clearScreen();
-
 	vector<Service> services;
 
 	//getline does not fail so there is no need to test cin.fail
@@ -507,4 +508,108 @@ vector<Lodging>::iterator LeisureGuide::findLodgingByName(const string &name){
 		return l.getName() == name;
 	});
 	return it;
+}
+
+bool LeisureGuide::addRestaurant() {
+	string name, description, iHour, fHour, day, response;
+	Schedule sch;
+	double x, y;
+
+	cout << "What is the name of the Restaurant? " << endl;
+	getline(cin, name);
+
+	//If the restaurant is found, it already exists (it is found if the iterator returned by findRestaurantByName is different from 0)
+	if (findRestaurantByName(name) != restaurants.end()) {
+		cout << "Restaurant already exists" << endl;
+		return false;
+	}
+
+	cout << "What are the coordinates of the restaurant (X followed by Y)?" << endl;
+
+	//Getting X
+	while (true) {
+		cin >> x;
+		if (cin.fail()) {
+			cout << "Invalid X value, please insert a valid X coordinate value (decimal number)." << endl;
+			//Clearing error flag and cin buffer
+			cin.clear();
+			cin.ignore(100000, '\n');
+		}
+		else {
+			//if cin didn't fail we have a good input so we break the loop
+			break;
+		}
+	}
+
+	//Getting Y
+	while (true) {
+		cin >> y;
+		if (cin.fail()) {
+			cout << "Invalid Y value, please insert a valid Y coordinate value (decimal number)." << endl;
+			//Clearing error flag and cin buffer
+			cin.clear();
+			cin.ignore(100000, '\n');
+		}
+		else {
+			//if cin didn't fail we have a good input so we break the loop
+			break;
+		}
+	}
+
+	Coordinates coords(x, y);
+
+	for (unsigned int i = 0; i < 7; i++)
+	{
+		cout << "When does the restaurant open on " << Utilities::weekdays[i] << " (HH:MM)?" << endl;
+		while (true) {
+			getline(cin, iHour);
+			Utilities::trimString(iHour);
+			if (! Utilities::correctHourFormat(iHour)) {
+				cout << "Wrong hour format, must be HH:MM" << endl;
+			}
+			else {
+				break;
+			}
+		}
+		cout << "When does the restaurant close on " << Utilities::weekdays[i] << " (HH:MM)?" << endl;
+		while (true) {
+			getline(cin, fHour);
+			Utilities::trimString(fHour);
+			if (!Utilities::correctHourFormat(fHour)) {
+				cout << "Wrong hour format, must be HH:MM" << endl;
+			}
+			else {
+				break;
+			}
+		}
+		day = iHour + " to " + fHour;
+		sch.weekSchedule.push_back(day);
+	}
+
+	cout << "Do you want to add a description to the restaurant?" << endl;
+
+	while (true) {
+		getline(cin, response);
+		if (cin.fail() || (response != "yes" && response != "no" && response != "Yes" && response != "No")) {
+			cout << "Invalid input, please enter yes or no." << endl;
+			//Clearing error flag and cin buffer
+			cin.clear();
+			cin.ignore(100000, '\n');
+		}
+		else {
+			//if cin didn't fail we have a good input so we break the loop
+			break;
+		}
+	}
+
+	if (response == "yes" || response == "Yes") {
+		cout << "Service description: ";
+		getline(cin, description);
+
+		restaurants.emplace_back(name, sch, coords, description);
+		return true;
+	}
+
+	restaurants.emplace_back(name, sch, coords, "None");
+	return true;
 }

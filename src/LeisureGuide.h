@@ -117,5 +117,9 @@ public:
 	 * @return true if a Lodging is found and removed, false if otherwise
 	 */
 	bool removeLodging();
-
+	/**
+	* @brief Adds a restaurant to the restaurants vector
+	* @return true if restaurant is valid and was added, false if else
+	*/
+	bool addRestaurant();
 };
