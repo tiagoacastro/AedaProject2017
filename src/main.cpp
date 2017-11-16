@@ -25,7 +25,10 @@ int main() {
 	//This should work in theory, if it does not work, which was my case, please comment out the function and uncomment the next line
 	//setlocale(LC_ALL, "Portuguese");
 
-	//Tests go here
+	//Ensuring that pause is possible with cin.get
+	// by allowing getting if there is anything in the buffer with cin.rdbuf()->in_avail()
+	// (This was disabled by some compilers, was my case as well)
+	cin.sync_with_stdio(false);
 
 	//Init
 	LeisureGuide lg;
