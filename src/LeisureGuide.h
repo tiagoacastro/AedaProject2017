@@ -22,15 +22,23 @@ private:
 	 * @return Returns a vector of all the Concelhos
 	 */
 	vector<string> getAllConcelhos() const;
+	/**
+	 * @brief Gets all the beaches for a given Concelho
+	 * @param concelho Concelho to list beaches for
+	 * @return Returns a vector of Beach* (as found in the beaches vector)
+	 */
 	vector<Beach*> getBeachesByConcelho(const string &concelho) const;
 	void createBeach(string &beach);
 	void createBeach(vector<string> &beaches);
 	void createRiverBeach(vector<string> &beach);
 	void createBayouBeach(vector<string> &beach);
 	/**
-	* @brief searches a beach on the beaches vector and it returns the iterator
-	* @param name		name of the beach that will be searched
 	*/
+	/**
+	 * @brief searches a beach on the beaches vector and it returns the iterator
+	 * @param name		Name of the beach that will be searched
+	 * @return Returns an iterator to the found beach, or beaches.end() if nothing was found
+	 */
 	vector<pair<string, Beach*>>::iterator findBeachByName(string name);
 public:
 	/**
@@ -68,7 +76,7 @@ public:
 	void displayAllLodging() const;
 	void loadFile();
 	/**
-	* @brief Removes a beach from the beaches vector and deletes it
+	* @brief Removes a Beach from the Beaches vector and deletes it
 	* @return true if beach is found and removed, false if else
 	*/
 	bool removeBeach();
@@ -77,4 +85,19 @@ public:
 	* @return true if beach is valid and was added, false if else
 	*/
 	bool addBeach();
+	/**
+	 * @brief Removes a POI from the POIs vector
+	 * @return true if a POI is found and removed, false if otherwise
+	 */
+	bool removePOI();
+	/**
+	 * @brief Removes a Restaurant from the Restaurants vector
+	 * @return true if a Restaurant is found and removed, false if otherwise
+	 */
+	bool removeRestaurant();
+	/**
+	 * @brief Removes a Lodging from the Lodging vector
+	 * @return true if a Lodging is found and removed, false if otherwise
+	 */
+	bool removeLodging();
 };

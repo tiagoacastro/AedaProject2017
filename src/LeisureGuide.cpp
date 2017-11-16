@@ -145,13 +145,15 @@ void LeisureGuide::createBayouBeach(vector<string> &beach) {
 }
 
 vector<pair<string, Beach*>>::iterator LeisureGuide::findBeachByName(string name) {
-	return find_if(beaches.begin(), beaches.end(), [=](pair<string, Beach*> &p) {return p.second->getName() == name; });
+	//Searching for a beach with the given name in the beaches vector using find_if and a lambda function
+	return find_if(beaches.begin(), beaches.end(), [=](pair<string, Beach*> &p) {
+		return p.second->getName() == name;
+	});
 }
 
 bool LeisureGuide::removeBeach() {
-	Utilities::clearScreen();
 	string name;
-	cout << "What is the name of the beach you wish to remove?\n";
+	cout << "What is the name of the beach that you wish to remove?\n";
 	getline(cin, name);
 	auto it = findBeachByName(name);
 
@@ -421,4 +423,73 @@ bool LeisureGuide::addBeach() {
 	}
 
 	cout << "Beach has been successfully created" << endl;
+}
+
+bool LeisureGuide::removePOI(){
+	//Getting input
+	string name;
+	cout << "What is the name of the POI that you wish to remove?\n";
+	getline(cin, name);
+
+	//Finding the POI
+	auto it = find_if(POIs.begin(), POIs.end(), [=](const POI &poi){
+		return poi.getName() == name;
+	});
+
+	//POI was not found with the given name
+	if (it == POIs.end()) {
+		cout << "POI not found!" << endl;
+		return false;
+	}
+
+	//POI was found, removing
+	POIs.erase(it);
+
+	return true;
+}
+
+bool LeisureGuide::removeRestaurant(){
+	//Getting input
+	string name;
+	cout << "What is the name of the Restaurant that you wish to remove?\n";
+	getline(cin, name);
+
+	//Finding the Restaurant
+	auto it = find_if(restaurants.begin(), restaurants.end(), [=](const Restaurant &r){
+		return r.getName() == name;
+	});
+
+	//Restaurant was not found with the given name
+	if (it == restaurants.end()) {
+		cout << "Restaurant not found!" << endl;
+		return false;
+	}
+
+	//Restaurant was found, removing
+	restaurants.erase(it);
+
+	return true;
+}
+
+bool LeisureGuide::removeLodging(){
+	//Getting input
+	string name;
+	cout << "What is the name of the Lodging that you wish to remove?\n";
+	getline(cin, name);
+
+	//Finding the Lodging
+	auto it = find_if(lodging.begin(), lodging.end(), [=](const Lodging &l){
+		return l.getName() == name;
+	});
+
+	//Lodging was not found with the given name
+	if (it == lodging.end()) {
+		cout << "Lodging not found!" << endl;
+		return false;
+	}
+
+	//Restaurant was found, removing
+	lodging.erase(it);
+
+	return true;
 }
