@@ -37,4 +37,7 @@ class Coordinates{
 		 * @return Modified ostream, as is expected of this operator
 		 */
 		friend ostream & operator<<(ostream &os, const Coordinates &c);
+
+		string toString();
 };
+

@@ -20,4 +20,11 @@ double Coordinates::distanceTo(Coordinates coords) {
 ostream &operator<<(ostream &os, const Coordinates &c) {
 	os << "(" << c.latitude << " , " << c.longitude << ")";
 	return os;
+
+}
+
+string toString(){
+	string format = to_string(longitude) + ", " + to_string(latitude);
+
+	return format;
 }

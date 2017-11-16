@@ -87,5 +87,7 @@ public:
 	 * @brief Beach virtual destructor (so that delete works for derivate classes)
 	 */
 	virtual ~Beach();
+
+	virtual string toString() = 0;
 };
 

@@ -5,7 +5,7 @@
 //Service
 
 Service::Service(string name, string type, string description = "None") :
-	name(name), type(type), description(description) {
+name(name), type(type), description(description) {
 }
 
 string Service::getDescription() const {
@@ -41,10 +41,15 @@ ostream & operator<<(ostream &os, const Service &s){
 	return os;
 }
 
+string Service::toString(){
+	string format = name + ", " + type + ", " + description + "; ";
+	return format;
+}
+
 //Restaurant
 
 Restaurant::Restaurant(string name, Schedule sch, Coordinates coords, string description = "None") :
-	name(name), sch(sch), coords(coords), description(description){
+					name(name), sch(sch), coords(coords), description(description){
 }
 
 string Restaurant::getName() const {
@@ -90,10 +95,23 @@ void Restaurant::setDescription(const string &description){
 	this->description = description;
 }
 
+string Restaurant::toString(){
+	string format;
+	format = name + " | " + coords.toString() + " | ";
+
+	for (auto &ker : sch.weekSchedule)
+		format = format + sch.weekSchedule[ker] + ", ";
+
+	format.substr(0, format.size() - 2);
+	format += " | " + description;
+	return format;
+}
+
+
 //POI
 
 POI::POI(string name, Coordinates coords, string description = "None") :
-	name(name), coords(coords), description(description) {
+					name(name), coords(coords), description(description) {
 }
 
 string POI::getName() const {
@@ -129,10 +147,19 @@ void POI::setDescription(const string &description){
 	this->description = description;
 }
 
+
+string POI::toString(){
+	string format;
+
+
+	format = name + " | " + coords.toString() + " | " +  description;
+	return format;
+}
+
 //Lodging
 
 Lodging::Lodging(string name, Coordinates coords, bool full, string description = "None") :
-	name(name), coords(coords), full(full), description(description) {
+					name(name), coords(coords), full(full), description(description) {
 }
 
 string Lodging::getName() const {
@@ -183,4 +210,21 @@ ostream &operator<<(ostream &os, const Schedule &sch){
 	}
 
 	return os;
+}
+
+string Lodging::toString(){
+	string format;
+
+
+	format = name + " | " + coords.toString() + " | ";
+
+
+	if (full)
+		format += "1" + " | " ;
+	else
+		format += "0" + " | ";
+
+	format += description;
+
+	return format;
 }

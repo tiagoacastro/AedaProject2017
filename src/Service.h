@@ -68,6 +68,8 @@ class Service {
 		* @return Returns the modified ostream
 		*/
 		friend ostream & operator<<(ostream &o, const Service &s);
+
+		string toString();
 };
 
 class Restaurant {
@@ -133,6 +135,9 @@ public:
 	 * @return Returns the modified ostream
 	 */
 	friend ostream & operator<<(ostream &o, const Restaurant &r);
+
+	string toString();
+
 };
 
 class POI {
@@ -185,6 +190,8 @@ public:
 	 * @return Returns the modified ostream
 	 */
 	friend ostream & operator<<(ostream &o, const POI &p);
+
+	string toString();
 };
 
 class Lodging {
@@ -249,4 +256,6 @@ public:
 	 * @return Returns the modified ostream
 	 */
 	friend ostream & operator<<(ostream &o, const Lodging &l);
+
+	string toString();
 };

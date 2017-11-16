@@ -5,11 +5,11 @@ LeisureGuide::LeisureGuide() {
 }
 
 LeisureGuide::LeisureGuide(const vector<pair<string, Beach*>> &beaches):
-																																			beaches(beaches) {
+																																							beaches(beaches) {
 }
 
 LeisureGuide::LeisureGuide(const vector<pair<string, Beach*>> &beaches, const vector<Restaurant> &restaurants, const vector<POI> &POIs, const vector<Lodging> &lodging):
-																																			beaches(beaches), restaurants(restaurants), POIs(POIs), lodging(lodging) {
+																																							beaches(beaches), restaurants(restaurants), POIs(POIs), lodging(lodging) {
 }
 
 void LeisureGuide::displayAllBeaches() const{
@@ -123,54 +123,27 @@ void LeisureGuide::saveFile(){
 
 
 void LeisureGuide::saveBeaches(ofstream &s){
-	string format;
-	for (int i = 0; i < beaches.size(); i++){
-		saveFormatb(beaches[i], format);
+string format, concelho;
+	for(auto &beach : beaches){
+		format = beach.second->toString();
+		concelho = beach.first + " | ";
+		format.insert(beach.second->getName().length() + 7, concelho); //nome da praia + numero de char existentes até à posicao da latitude
 	}
 }
-
-void LeisureGuide::saveFormatb(pair<string, Beach*> &s, string &format){
-
-
-}
-
-
 
 void LeisureGuide::saveRestaurants(ofstream &s){
-	string format;
-	for (int i = 0; i < restaurants.size(); i++){
-		saveFormatRestaurants(restaurants[i], format);
-	}
-}
-/*  VEJAMSE VOS DA ERRO AQUI OU SE E O ECLIPSE QUE SE LEMBROU
-void LeisureGuide::saveFormatRestaurants(Restaurant &rest, &format){
-	vector<string> sch = rest.getSchedule().week
-			format = rest.getName();
-
-
-
+	for (auto &rest : restaurants)
+		s << rest.toString() << endl;
 }
 
-void LeisureGuide::saveFormatLodging(Lodging &lod, &format){
 
-
-}
-
-void LeisureGuide::saveFormatPOIs(POI &poi, &format){
-
-
-}*/
 void LeisureGuide::savePOI(ofstream &s){
-	string format;
-	for (int i = 0; i < POIs.size(); i++){
-		saveFormatPOIs(POIs[i], format);
-	}
+	for (auto &pois : POIs)
+		s << pois.toString() << endl;
 }
 void LeisureGuide::saveLodging(ofstream &s){
-	string format;
-	for (int i = 0; i < lodging.size(); i++){
-		saveFormatLodging(lodging[i], format);
-	}
+	for (auto &lodg : lodging)
+		s << lodg.toString() << endl;
 }
 
 

@@ -55,4 +55,6 @@ class RiverBeach : public Beach {
 		*/
 		void print(ostream &o);
 		void modifyBeach();
+		string toString();
+
 };

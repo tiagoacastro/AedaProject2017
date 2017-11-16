@@ -37,3 +37,21 @@ void RiverBeach::print(ostream &o) {
 	o << "River flow: " << riverFlow << endl;
 	o << "River's max depth: " << maxDepth << endl;
 }
+
+string RiverBeach::toString(){
+	string format = "r | " + name + " | " + coords.toString();
+		format += " | " + to_string(maxCapacity) + " | ";
+
+		if (blueFlag)
+			format += "1" + " | ";
+		else
+			format += "0" + " | ";
+		for(auto &serv : services)
+			format += services[serv];
+
+		format.substr(0 , format.size() - 2);
+
+		format += to_string(width) + " | " + to_string(riverFlow) + " | " + to_string(maxDepth);
+
+		return format;
+}
