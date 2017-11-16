@@ -172,7 +172,6 @@ bool LeisureGuide::removeBeach() {
 bool LeisureGuide::addBeach() {
 	Utilities::clearScreen();
 
-	string beachType, serviceName, serviceType, serviceDescription;
 	vector<Service> services;
 
 	//getline does not fail so there is no need to test cin.fail
@@ -264,6 +263,8 @@ bool LeisureGuide::addBeach() {
 
 	blueFlag = ((response == "yes") || (response == "Yes"));
 
+	string serviceName, serviceType, serviceDescription
+
 	while (true) {
 		cout << "Do you want to add a service (yes or no)? " << endl;
 		while (true) {
@@ -325,6 +326,7 @@ bool LeisureGuide::addBeach() {
 		}
 	}
 
+	string beachType;
 
 	cout << "Is it a river beach or a bayou beach (river or bayou)?" << endl;
 

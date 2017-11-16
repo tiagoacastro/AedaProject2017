@@ -68,7 +68,7 @@ int menuRunner(LeisureGuide &lg) {
 		//If the file was not found, an exception is thrown so we will instead use harcoded options with a warning beforehand
 		cout << "Warning: Menu.txt file not found. Path given: " << fnf.getPath();
 		cout << "\nFalling back to hardcoded Menu text. "
-			 << "(This might not be the most recent version of the Menu text)" << endl;
+			 << "(This might not be the most recent version of the Menu)" << endl;
 
 		//Clearing any data that could have been added to the Menu
 		menumaozinhas.reset();
