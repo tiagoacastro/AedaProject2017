@@ -5,11 +5,11 @@ LeisureGuide::LeisureGuide() {
 }
 
 LeisureGuide::LeisureGuide(const vector<pair<string, Beach*>> &beaches):
-									beaches(beaches) {
+																											beaches(beaches) {
 }
 
 LeisureGuide::LeisureGuide(const vector<pair<string, Beach*>> &beaches, const vector<Restaurant> &restaurants, const vector<POI> &POIs, const vector<Lodging> &lodging):
-									beaches(beaches), restaurants(restaurants), POIs(POIs), lodging(lodging) {
+																											beaches(beaches), restaurants(restaurants), POIs(POIs), lodging(lodging) {
 }
 
 void LeisureGuide::displayAllBeaches() const{
@@ -77,30 +77,159 @@ vector<Beach *> LeisureGuide::getBeachesByConcelho(const string &concelho) const
 }
 
 void LeisureGuide::loadFile(){
-	string file;
-	vector <string> poi, rest, lod, beach;
-	cout << "Insert the path for the Points of Interest path\n";
+	ifstream s;
+	string file, path;
+	char answer;
+	vector <string> stuff;
+	cout << "what kind of files do you want to read? Points of Interest, Restaurant, Beach or Lodging";
 	getline(cin, file);
-	Utilities::trimString(file);
-	poi = Utilities::ReadFile(file);
 
-	cout << "Insert the path for the Restaurants path\n";
-	getline(cin, file);
-	Utilities::trimString(file);
-	rest = Utilities::ReadFile(file);
+	while (file != "Points of Interest" && file != "Restaurant" && file != "Beach" && file != "Lodging"){
+		cout << "Choose one of them please\n";
+		getline(cin, file);
+		Utilities::trimString(file);
+	}
 
-	cout << "Insert the path for the Lodging path\n";
-	getline(cin, file);
-	Utilities::trimString(file);
-	lod = Utilities::ReadFile(file);
+	cout << "Enter the path for the file please";
+	getline(cin, path);
+	s.open(path);
+	while(!s.is_open() ){
+		cout << "Error opening the file, enter the path again please";
+		getline(cin,path);
+		s.open(path);
+	}
+	stuff = Utilities::ReadFile(s);
 
 
-	cout << "Insert the path for the Beaches file\n";
-	getline(cin, file);
-	Utilities::trimString(file);
-	beach = Utilities::ReadFile(file);
+	switch (file){
+
+	case "Points of Interest":
+		createPOI(stuff);
+		break;
+	case "Restaurant":
+		createRestaurants(stuff);
+		break;
+	case "Beach":
+		createBeach(stuff);
+		break;
+
+	default:
+		createLodging(stuff);
+		break;
+	}
+
+	s.close();
+}
+
+
+void LeisureGuide::createRestaurants(vector<string> &restaurant){
+	for(auto &restaurants : restaurant){
+		createRestaurants(restaurant);
+	}
+}
+
+void LeisureGuide::createRestaurants(string &restaurant){
+	vector<string> infos;
+	infos = Utilities::splitString(restaurant, '|');
+
+	addRestaurants(infos);
+}
+
+
+void LeisureGuide::addRestaurants(vector<string> &infos){
+	vector<string> cords, sch;
+	string name, x, y, descrip;
+
+	Utilities::trimString(infos[0]);
+	Utilities::trimString(infos[3]);
+	descrip = infos[3];
+	name= infos[0];
+	cords = Utilities::splitString(infos[2], ',');
+	Utilities::trimString(cords[0]);
+	Utilities::trimString(cords[1]);
+
+	sch = Utilities::splitString(infos[1], ',');
+
+	for (int i = 0; i < sch.size(); i++){
+		Utilities::trimString(sch[i]);
+	}
+
+	restaurants.push_back(Restaurant(name, sch, Coordinates(stod(cords[0]),stod(cords[1])), descrip));
 
 }
+
+
+
+void LeisureGuide::createPOI(vector<string> &poi){
+	for(auto &points : poi){
+		createPOI(poi);
+	}
+}
+
+void LeisureGuide::createPOI(string &poi){
+	vector<string> infos;
+	infos = Utilities::splitString(poi, '|');
+
+	addPOI(infos);
+}
+
+void LeisureGuide::addPOI(vector<string> &infos){
+	vector<string> cords;
+	string name, descrip;
+
+
+	Utilities::trimString(infos[0]);
+	Utilities::trimString(infos[2]);
+
+	name = infos[0];
+	descrip = infos[2];
+
+	cords = Utilities::splitString(infos[1], ',');
+	Utilities::trimString(cords[0]);
+	Utilities::trimString(cords[1]);
+
+	POIs.push_back(POI(name, Coordinates(stod(cords[0]),stod(cords[1])), descrip));
+
+}
+
+void LeisureGuide::createLodging(vector<string> &lodging){
+	for(auto &lodg : lodging){
+		createRestaurants(lodging);
+	}
+}
+
+void LeisureGuide::createLodging(string &lodging){
+	vector<string> infos;
+	infos = Utilities::splitString(lodging, '|');
+
+	addLodging(infos);
+}
+
+void LeisureGuide::addLodging(vector<string> &infos){
+	vector<string> cords;
+	string name, descrip;
+	bool full;
+
+	Utilities::trimString(infos[0]);
+	Utilities::trimString(infos[2]);
+	Utilities::trimString(infos[3]);
+
+	if(infos[2] == "1")
+		full = true;
+	else
+		full = false;
+
+	name = infos[0];
+	descrip = infos[2];
+	cords = Utilities::splitString(infos[1], ',');
+
+	Utilities::trimString(cords[0]);
+	Utilities::trimString(cords[1]);
+
+
+	lodging.push_back(Lodging(name, full, Coordinates(stod(cords[0]),stod(cords[1])) , descrip));
+}
+
 
 void LeisureGuide::createBeach(vector<string> &beaches){
 	for(auto &beach : beaches){
@@ -113,7 +242,7 @@ void LeisureGuide::createBeach(string &beach){
 	vector<string> infos;
 	infos = Utilities::splitString(beach, '|');
 
-	if (infos[0] == "B")
+	if (infos[0] == "B" || infos[0] == "b")
 		this->createBayouBeach(infos);
 	else
 		this->createRiverBeach(infos);
@@ -124,24 +253,108 @@ void LeisureGuide::createBayouBeach(vector<string> &beach) {
 	pair<string, Beach*> x;
 	vector <string> stuff, services;
 	vector<Service> serv;
-	x.first = beach[2];
-	x.second->setName(beach[1]);
+	double capacity, xc, yc, area;
+	bool bf;
+	string name, concelho, blueFlag;
+
+	Utilities::trimString(beach[1]);
+	Utilities::trimString(beach[2]);
+	Utilities::trimString(beach[5]);
+	Utilities::trimString(beach[4]);
+	Utilities::trimString(beach[6]);
+
+	name = beach[1];
+	concelho = beach[2];
+	capacity = stod(beach[4]);
+
 	if (beach[5] == "1")
-		x.second->setBlueFlag(true);
+		bf = true;
 	else
-		x.second->setBlueFlag(false);
-	x.second->setMaxCapacity(stod(beach[4]));
+		bf = false;
 
 	stuff = Utilities::splitString(beach[3], ',');
+	Utilities::trimString(stuff[0]);
+	Utilities::trimString(stuff[1]);
 
-	x.second->setCoordinates(Coordinates(stod(stuff[0]), stod(stuff[1])));
+	xc = stod(stuff[0]);
+	yc = stod(stuff[1]);
+
+	area = stod(beach[6]);
+
 
 	services = Utilities::splitString(beach[beach.size() - 1], ';');
 
 	for (size_t i = 0; i < services.size(); i++) {
+		Utilities::trimString(services.at(i));
 		stuff = Utilities::splitString(services[i], ',');
-		//serv.push_back(Service(stuff[0], stuff[1], stuff[2], stuff[3]));          APAGUEI ISTO AQUI PORQUE JA NAO HA SCHEDULE NO SERVICE, DA FIX PLZ
+		Utilities::trimString(stuff[0]);
+		Utilities::trimString(stuff[1]);
+		Utilities::trimString(stuff[2]);
+		serv.push_back(Service(stuff[0], stuff[1], stuff[2]));
 	}
+
+	Beach *p = new BayouBeach(name, Coordinates(xc,yc), capacity, bf, serv, area);
+
+	beaches.push_back(make_pair(concelho, p));
+
+
+}
+
+
+void LeisureGuide::createRiverBeach(vector<string> &beach){
+	vector <string> stuff, services;
+	vector<Service> serv;
+	double xc, yc, width, riverFlow, maxDepth;
+	unsigned int capacity;
+	bool bf;
+	string name, concelho, blueFlag;
+
+
+	Utilities::trimString(beach[1]);
+	Utilities::trimString(beach[2]);
+	Utilities::trimString(beach[5]);
+	Utilities::trimString(beach[4]);
+	Utilities::trimString(beach[6]);
+	Utilities::trimString(beach[7]);
+	Utilities::trimString(beach[8]);
+
+	concelho = beach[2];
+	name = beach[1];
+	capacity = stoul(beach[4]);
+
+	if (beach[5] == "1")
+		bf = true;
+	else
+		bf = false;
+
+
+
+
+	stuff = Utilities::splitString(beach[3], ',');
+	Utilities::trimString(stuff[0]);
+	Utilities::trimString(stuff[1]);
+	xc = stod(stuff[0]);
+	yc = stod(stuff[1]);
+
+	width = stod(beach[6]);
+	riverFlow = stod(beach[7]);
+	maxDepth = stod(beach[8]);
+
+	services = Utilities::splitString(beach[beach.size() - 1], ';');
+
+	for (size_t i = 0; i < services.size(); i++) {
+			Utilities::trimString(services.at(i));
+			stuff = Utilities::splitString(services[i], ',');
+			Utilities::trimString(stuff[0]);
+			Utilities::trimString(stuff[1]);
+			Utilities::trimString(stuff[2]);
+			serv.push_back(Service(stuff[0], stuff[1], stuff[2]));
+		}
+
+
+	Beach *p = new RiverBeach(name, Coordinates(xc,yc), capacity, bf, serv, width, riverFlow, maxDepth);
+
+	beaches.push_back(make_pair(concelho, p));
 }
 
 vector<pair<string, Beach*>>::iterator LeisureGuide::findBeachByName(string name) {

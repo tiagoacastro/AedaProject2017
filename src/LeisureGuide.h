@@ -27,6 +27,17 @@ private:
 	void createBeach(vector<string> &beaches);
 	void createRiverBeach(vector<string> &beach);
 	void createBayouBeach(vector<string> &beach);
+	void addRestaurants(vector<string> &infos);
+	void createRestaurants(string &restaurant);
+	void createRestaurants(vector<string> &restaurant);
+	void addPOI(vector <string> &infos);
+	void createPOI(string &poi);
+	void createPOI(vector<string> &poi);
+	void addLodging(vector <string> &infos);
+	void createLodging(string &lodging);
+	void createLodging(vector<string> &lodging);
+
+
 	/**
 	* @brief searches a beach on the beaches vector and it returns the iterator
 	* @param name		name of the beach that will be searched
