@@ -13,6 +13,7 @@
 
 class LeisureGuide {
 private:
+	///Data members
 	vector<pair<string, Beach*>> beaches;
 	vector<Restaurant> restaurants;
 	vector<POI> POIs;
@@ -33,13 +34,29 @@ private:
 	void createRiverBeach(vector<string> &beach);
 	void createBayouBeach(vector<string> &beach);
 	/**
-	*/
-	/**
-	 * @brief searches a beach on the beaches vector and it returns the iterator
-	 * @param name		Name of the beach that will be searched
+	 * @brief Searches for a beach on the beaches vector and returns the iterator
+	 * @param name		Name of the beach to search for
 	 * @return Returns an iterator to the found beach, or beaches.end() if nothing was found
 	 */
 	vector<pair<string, Beach*>>::iterator findBeachByName(string name);
+	/**
+	 * @brief Searches for a POI on the POI vector and returns the iterator
+	 * @param name		Name of the POI to search for
+	 * @return Returns an iterator to the found POI, or POIs.end() if the POI was not found
+	 */
+	vector<POI>::iterator findPOIByName(const string &name);
+	/**
+	 * @brief Searches for a Restaurant on the Restaurants vector and returns the iterator
+	 * @param name 		Name of the Restaurant to search for
+	 * @return Returns an iterator to the found Restaurant, or restaurants.end() if the Restaurant was not found
+	 */
+	vector<Restaurant>::iterator findRestaurantByName(const string &name);
+	/**
+	 * @brief Searches for Lodging on the lodging vector and returns the iterator
+	 * @param name 		Name of the Lodging to search for
+	 * @return Returns an iterator to the found Lodging, or lodging.end() if the Lodging was not found
+	 */
+	vector<Lodging>::iterator findLodgingByName(const string &name);
 public:
 	/**
 	* @brief Default constructor to allow creating an empty Leisure Guide that will receive the options afterwards
@@ -100,4 +117,5 @@ public:
 	 * @return true if a Lodging is found and removed, false if otherwise
 	 */
 	bool removeLodging();
+
 };

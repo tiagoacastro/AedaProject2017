@@ -433,9 +433,7 @@ bool LeisureGuide::removePOI(){
 	getline(cin, name);
 
 	//Finding the POI
-	auto it = find_if(POIs.begin(), POIs.end(), [=](const POI &poi){
-		return poi.getName() == name;
-	});
+	auto it = findPOIByName(name);
 
 	//POI was not found with the given name
 	if (it == POIs.end()) {
@@ -449,6 +447,12 @@ bool LeisureGuide::removePOI(){
 	return true;
 }
 
+vector<POI>::iterator LeisureGuide::findPOIByName(const string &name) {
+	return find_if(POIs.begin(), POIs.end(), [=](const POI &poi){
+		return poi.getName() == name;
+	});
+}
+
 bool LeisureGuide::removeRestaurant(){
 	//Getting input
 	string name;
@@ -456,9 +460,7 @@ bool LeisureGuide::removeRestaurant(){
 	getline(cin, name);
 
 	//Finding the Restaurant
-	auto it = find_if(restaurants.begin(), restaurants.end(), [=](const Restaurant &r){
-		return r.getName() == name;
-	});
+	auto it = findRestaurantByName(name);
 
 	//Restaurant was not found with the given name
 	if (it == restaurants.end()) {
@@ -472,6 +474,13 @@ bool LeisureGuide::removeRestaurant(){
 	return true;
 }
 
+vector<Restaurant>::iterator LeisureGuide::findRestaurantByName(const string &name){
+	auto it = find_if(restaurants.begin(), restaurants.end(), [=](const Restaurant &r){
+		return r.getName() == name;
+	});
+	return it;
+}
+
 bool LeisureGuide::removeLodging(){
 	//Getting input
 	string name;
@@ -479,9 +488,7 @@ bool LeisureGuide::removeLodging(){
 	getline(cin, name);
 
 	//Finding the Lodging
-	auto it = find_if(lodging.begin(), lodging.end(), [=](const Lodging &l){
-		return l.getName() == name;
-	});
+	auto it = findLodgingByName(name);
 
 	//Lodging was not found with the given name
 	if (it == lodging.end()) {
@@ -493,4 +500,11 @@ bool LeisureGuide::removeLodging(){
 	lodging.erase(it);
 
 	return true;
+}
+
+vector<Lodging>::iterator LeisureGuide::findLodgingByName(const string &name){
+	auto it = find_if(lodging.begin(), lodging.end(), [=](const Lodging &l){
+		return l.getName() == name;
+	});
+	return it;
 }
