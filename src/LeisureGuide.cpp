@@ -130,7 +130,7 @@ void LeisureGuide::createBayouBeach(vector<string> &beach) {
 		x.second->setBlueFlag(true);
 	else
 		x.second->setBlueFlag(false);
-	x.second->setMaxCapacity(stod(beach[4]));
+	x.second->setMaxCapacity(stoi(beach[4]));
 
 	stuff = Utilities::splitString(beach[3], ',');
 
@@ -265,7 +265,7 @@ bool LeisureGuide::addBeach() {
 
 	blueFlag = ((response == "yes") || (response == "Yes"));
 
-	string serviceName, serviceType, serviceDescription
+	string serviceName, serviceType, serviceDescription;
 
 	while (true) {
 		cout << "Do you want to add a service (yes or no)? " << endl;
@@ -423,6 +423,7 @@ bool LeisureGuide::addBeach() {
 	}
 
 	cout << "Beach has been successfully created" << endl;
+	return true;
 }
 
 bool LeisureGuide::removePOI(){
