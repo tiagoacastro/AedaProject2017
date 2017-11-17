@@ -246,25 +246,25 @@ bool LeisureGuide::addBeach() {
 		}
 	}
 
-	string response;
-	bool blueFlag;
-	cout << "Does the beach have blue flag (yes or no)? " << endl;
+		string response;
+		bool blueFlag;
+		cout << "Does the beach have blue flag (yes or no)? " << endl;
 
-	while (true) {
-		cin >> response;
-		if (cin.fail() || (response != "yes" && response != "no" && response != "Yes" && response != "No")) {
-			cout << "Invalid input, please enter yes or no." << endl;
-			//Clearing error flag and cin buffer
-			cin.clear();
-			cin.ignore(100000, '\n');
+		while (true) {
+			cin >> response;
+			if (cin.fail() || (response != "yes" && response != "no" && response != "Yes" && response != "No")) {
+				cout << "Invalid input, please enter yes or no." << endl;
+				//Clearing error flag and cin buffer
+				cin.clear();
+				cin.ignore(100000, '\n');
+			}
+			else {
+				//if cin didn't fail we have a good input so we break the loop
+				break;
+			}
 		}
-		else {
-			//if cin didn't fail we have a good input so we break the loop
-			break;
-		}
-	}
 
-	blueFlag = ((response == "yes") || (response == "Yes"));
+		blueFlag = ((response == "yes") || (response == "Yes"));
 
 	string serviceName, serviceType, serviceDescription;
 

@@ -54,6 +54,7 @@ void RiverBeach::modifyBeach(){
 	cout << "6 River Width" << endl;
 	cout << "7 River Flow" << endl;
 	cout << "8 River Maximum Depth" << endl;
+	cout << ">>> ";
 	while (true) {
 			cin >> input;
 			if (cin.fail() && (input < 1 || input > 8)) {
