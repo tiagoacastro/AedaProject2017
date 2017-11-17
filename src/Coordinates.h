@@ -41,6 +41,6 @@ public:
 	 * @brief passes data member to a string
 	 * @return Returns a string with all data members
 	 */
-	string toString();
+	string toString() const;
 };
 

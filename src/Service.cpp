@@ -41,9 +41,8 @@ ostream & operator<<(ostream &os, const Service &s){
 	return os;
 }
 
-string Service::toString(){
-	string format = name + ", " + type + ", " + description + "; ";
-	return format;
+string Service::toString() const {
+	return name + ", " + type + ", " + description;
 }
 
 //Restaurant
@@ -95,14 +94,19 @@ void Restaurant::setDescription(const string &description){
 	this->description = description;
 }
 
-string Restaurant::toString(){
-	string format;
-	format = name + " | " + coords.toString() + " | ";
+string Restaurant::toString() const {
+	string format = name + " | " + coords.toString() + " | ";
 
-	for (auto &ker : sch.weekSchedule)
-		format = format + ker + ", ";
+	//Adding the first element outside of the loop because of adding the ", " more easily
+	auto it = sch.weekSchedule.begin();
 
-	format.substr(0, format.size() - 2);
+	format += *it;
+	//Advancing to the next item since it was already written
+	++it;
+
+	for ( ; it != sch.weekSchedule.end() ; ++it)
+		format += ", " + *it;
+
 	format += " | " + description;
 	return format;
 }
@@ -148,12 +152,8 @@ void POI::setDescription(const string &description){
 }
 
 
-string POI::toString(){
-	string format;
-
-
-	format = name + " | " + coords.toString() + " | " +  description;
-	return format;
+string POI::toString() const {
+	return name + " | " + coords.toString() + " | " +  description;
 }
 
 //Lodging
@@ -212,17 +212,13 @@ ostream &operator<<(ostream &os, const Schedule &sch){
 	return os;
 }
 
-string Lodging::toString(){
-	string format;
-
-
-	format = name + " | " + coords.toString() + " | ";
-
+string Lodging::toString() const {
+	string format = name + " | " + coords.toString() + " | ";
 
 	if (full)
-		format += "1" + " | " ;
+		format += "1 | ";
 	else
-		format += "0" + " | ";
+		format += "0 | ";
 
 	format += description;
 

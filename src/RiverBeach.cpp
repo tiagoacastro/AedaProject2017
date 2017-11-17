@@ -39,19 +39,26 @@ void RiverBeach::print(ostream &o) {
 }
 
 string RiverBeach::toString(){
-	string format = "r | " + name + " | " + coords.toString();
-		format += " | " + to_string(maxCapacity) + " | ";
+	string format;
+	format = "r | " + this->getName() + " | " + this->getCoords().toString() + " | " + to_string(this->getMaxCapacity()) + " | ";
 
-		if (blueFlag)
-			format += "1" + " | ";
-		else
-			format += "0" + " | ";
-		for(auto &serv : services)
-			format += services[serv];
+	if (this->hasBlueFlag())
+		format += "1 | ";
+	else
+		format += "0 | ";
 
-		format.substr(0 , format.size() - 2);
+	//If there are any services, adding the first service first and then iterating through and adding the others because of inserting the " ; "
+	if(!this->getServices().empty()) {
+		auto it = this->getServices().begin();
+		format += it->toString();
+		//Moving to the next element
+		++it;
 
-		format += to_string(width) + " | " + to_string(riverFlow) + " | " + to_string(maxDepth);
+		for( ; it != this->getServices().end() ; ++it)
+			format += " ; " + it->toString();
+	}
 
-		return format;
+	format += " | " + to_string(width) + " | " + to_string(riverFlow) + " | " + to_string(maxDepth);
+
+	return format;
 }

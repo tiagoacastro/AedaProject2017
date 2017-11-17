@@ -24,8 +24,6 @@ ostream &operator<<(ostream &os, const Coordinates &c) {
 
 }
 
-string toString(){
-	string format = to_string(longitude) + ", " + to_string(latitude);
-
-	return format;
+string Coordinates::toString() const {
+	return to_string(longitude) + ", " + to_string(latitude);
 }

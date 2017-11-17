@@ -79,42 +79,34 @@ vector<Beach *> LeisureGuide::getBeachesByConcelho(const string &concelho) const
 void LeisureGuide::saveFile(){
 	string file, path;
 	ofstream s;
-	cout << "what kind of information do you want to save? Points of Interest, Restaurant, Beach or Lodging";
+	cout << "what kind of information do you want to save? Points of Interest (POI), Restaurant, Beach or Lodging";
 	getline(cin, file);
 	Utilities::trimString(file);
-	while (file != "Points of Interest" && file != "Restaurant" && file != "Beach" && file != "Lodging"){
+
+	while (file != "Points of Interest" && file != "Restaurant" && file != "Beach" && file != "Lodging" && file != "POI"){
 		cout << "Choose one of them please\n";
 		getline(cin, file);
 		Utilities::trimString(file);
-
 	}
 
 	cout << "Enter the path for the file please";
 	getline(cin, path);
 	s.open(path);
-	while(!s.is_open() ){
+
+	while(!s.is_open()){
 		cout << "Error opening the file, enter the path again please";
 		getline(cin,path);
 		s.open(path);
 	}
 
-
-
-	switch (file){
-
-	case "Points of Interest":
+	if(file == "Points of Interest" || file == "POI"){
 		savePOI(s);
-		break;
-	case "Restaurant":
+	} else if(file == "Restaurant"){
 		saveRestaurants(s);
-		break;
-	case "Beach":
+	} else if(file == "Beach"){
 		saveBeaches(s);
-		break;
-
-	default:
+	} else if(file == "Lodging"){
 		saveLodging(s);
-		break;
 	}
 
 	s.close();
@@ -125,27 +117,24 @@ void LeisureGuide::saveBeaches(ofstream &s){
 	for(auto &beach : beaches){
 		format = beach.second->toString();
 		concelho = beach.first + " | ";
-		format.insert(beach.second->getName().length() + 7, concelho); //nome da praia + numero de char existentes até à posicao da latitude
+		format.insert(beach.second->getName().length() + 7, concelho); //nome da praia + numero de char existentes atï¿½ ï¿½ posicao da latitude
 	}
 }
 
 void LeisureGuide::saveRestaurants(ofstream &s){
-	for (auto &rest : restaurants)
+	for (auto const &rest : restaurants)
 		s << rest.toString() << endl;
 }
 
 
 void LeisureGuide::savePOI(ofstream &s){
-	for (auto &pois : POIs)
+	for (auto const &pois : POIs)
 		s << pois.toString() << endl;
 }
 void LeisureGuide::saveLodging(ofstream &s){
-	for (auto &lodg : lodging)
+	for (auto const &lodg : lodging)
 		s << lodg.toString() << endl;
 }
-
-
-
 
 void LeisureGuide::loadFile(){
 	ifstream s;

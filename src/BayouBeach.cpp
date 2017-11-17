@@ -18,21 +18,26 @@ void BayouBeach::print(ostream &o) {
 }
 
 string BayouBeach::toString(){
-	string format = "b | " + name + " | " + coords.toString();
-	format += " | " + to_string(maxCapacity) + " | ";
+	string format = "b | " + this->getName() + " | " + this->getCoords().toString();
+	format += " | " + to_string(this->getMaxCapacity()) + " | ";
 
-	if (blueFlag)
-		format += "1" + " | ";
+	if (this->hasBlueFlag())
+		format += "1 | ";
 	else
-		format += "0" + " | ";
+		format += "0 | ";
 
-	for(auto &serv : services)
-		format += services[serv];
+	//If there are any services, adding the first service first and then iterating through and adding the others because of inserting the " ; "
+	if(!this->getServices().empty()) {
+		auto it = this->getServices().begin();
+		format += it->toString();
+		//Moving to the next element
+		++it;
 
-	format.substr(0 , format.size() - 2);
+		for( ; it != this->getServices().end() ; ++it)
+			format += " ; " + it->toString();
+	}
 
 	format += " | " + to_string(usableAquaticArea);
 
-return format;
-
+	return format;
 }

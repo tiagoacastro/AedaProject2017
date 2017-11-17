@@ -72,7 +72,7 @@ public:
 	 * @brief passes data members to a string
 	 * @return Returns a string with all data members
 	 */
-	string toString();
+	string toString() const;
 };
 
 class Restaurant {
@@ -142,8 +142,7 @@ public:
 	 * @brief passes data members to a string
 	 * @return Returns a string with all data members
 	 */
-	string toString();
-
+	string toString() const;
 };
 
 class POI {
@@ -200,7 +199,7 @@ public:
 	 * @brief passes data members to a string
 	 * @return Returns a string with all data members
 	 */
-	string toString();
+	string toString() const;
 };
 
 class Lodging {
@@ -269,5 +268,5 @@ public:
 	 * @brief passes data members to a string
 	 * @return Returns a string with all data members
 	 */
-	string toString();
+	string toString() const;
 };

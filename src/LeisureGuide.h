@@ -11,6 +11,8 @@
 #include <set>
 #include <algorithm>
 
+using namespace std;
+
 class LeisureGuide {
 private:
 	vector<pair<string, Beach*>> beaches;
