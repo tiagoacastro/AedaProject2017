@@ -43,11 +43,6 @@ private:
 	 * @param beach		vector with all BayourBeach private members separated
 	 */
 	void createBayouBeach(vector<string> &beach);
-	/*
-	 * @brief create and add to vector restaurants a Restaurant
-	 * @param infos		vector with all Restaurant private members separated
-	 */
-	void addRestaurants(vector<string> &infos);
 	/**
 	 * @brief Separate the string in all members of the class Restaurant
 	 * @param restaurant	a line of the file opened with all informations about a restaurant
@@ -58,11 +53,6 @@ private:
 	 * @param restaurant	all lines of the file opened with all informations about the restaurants
 	 */
 	void createRestaurants(vector<string> &restaurant);
-	/*
-	 * @brief create and add to vector POIs a POI
-	 * @param infos		vector with all POI private members separated
-	 */
-	void addPOI(vector <string> &infos);
 	/**
 	 * @brief Separate the string in all members of the class POI
 	 * @param poi	a line of the file opened with all informations about a point of interest
@@ -73,11 +63,6 @@ private:
 	 * @param poi		all lines of the file opened with all informations about the POI
 	 */
 	void createPOI(vector<string> &poi);
-	/*
-	 * @brief create and add to vector lodging a Lodging
-	 * @param infos		vector with all Lodging private members separated
-	 */
-	void addLodging(vector <string> &infos);
 	/**
 	 * @brief Separate the string in all members of the class Lodging
 	 * @param lodging	a line of the file opened with all informations about a lodging

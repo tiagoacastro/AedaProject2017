@@ -5,11 +5,11 @@ LeisureGuide::LeisureGuide() {
 }
 
 LeisureGuide::LeisureGuide(const vector<pair<string, Beach*>> &beaches):
-																																							beaches(beaches) {
+																																											beaches(beaches) {
 }
 
 LeisureGuide::LeisureGuide(const vector<pair<string, Beach*>> &beaches, const vector<Restaurant> &restaurants, const vector<POI> &POIs, const vector<Lodging> &lodging):
-																																							beaches(beaches), restaurants(restaurants), POIs(POIs), lodging(lodging) {
+																																											beaches(beaches), restaurants(restaurants), POIs(POIs), lodging(lodging) {
 }
 
 void LeisureGuide::displayAllBeaches() const{
@@ -121,7 +121,7 @@ void LeisureGuide::saveFile(){
 }
 
 void LeisureGuide::saveBeaches(ofstream &s){
-string format, concelho;
+	string format, concelho;
 	for(auto &beach : beaches){
 		format = beach.second->toString();
 		concelho = beach.first + " | ";
@@ -203,19 +203,15 @@ void LeisureGuide::createRestaurants(string &restaurant){
 	vector<string> infos;
 	infos = Utilities::splitString(restaurant, '|');
 
-	addRestaurants(infos);
-}
-
-
-void LeisureGuide::addRestaurants(vector<string> &infos){
 	vector<string> cords, sch;
-	string name, x, y, descrip;
+	string name, descrip;
 
 	Utilities::trimString(infos[0]);
 	Utilities::trimString(infos[3]);
 	descrip = infos[3];
 	name= infos[0];
 	cords = Utilities::splitString(infos[2], ',');
+
 	Utilities::trimString(cords[0]);
 	Utilities::trimString(cords[1]);
 
@@ -231,6 +227,7 @@ void LeisureGuide::addRestaurants(vector<string> &infos){
 
 
 
+
 void LeisureGuide::createPOI(vector<string> &poi){
 	for(auto &points : poi){
 		createPOI(poi);
@@ -241,10 +238,6 @@ void LeisureGuide::createPOI(string &poi){
 	vector<string> infos;
 	infos = Utilities::splitString(poi, '|');
 
-	addPOI(infos);
-}
-
-void LeisureGuide::addPOI(vector<string> &infos){
 	vector<string> cords;
 	string name, descrip;
 
@@ -263,20 +256,17 @@ void LeisureGuide::addPOI(vector<string> &infos){
 
 }
 
+
 void LeisureGuide::createLodging(vector<string> &lodging){
 	for(auto &lodg : lodging){
 		createRestaurants(lodging);
 	}
 }
 
-void LeisureGuide::createLodging(string &lodging){
+void LeisureGuide::createLodging(string &lodg){
 	vector<string> infos;
-	infos = Utilities::splitString(lodging, '|');
+	infos = Utilities::splitString(lodg, '|');
 
-	addLodging(infos);
-}
-
-void LeisureGuide::addLodging(vector<string> &infos){
 	vector<string> cords;
 	string name, descrip;
 	bool full;
@@ -315,8 +305,10 @@ void LeisureGuide::createBeach(string &beach){
 
 	if (infos[0] == "B" || infos[0] == "b")
 		this->createBayouBeach(infos);
-	else
+	else if (infos[0] == "R" || infos[0] == "r")
 		this->createRiverBeach(infos);
+	else
+		return;
 }
 
 
