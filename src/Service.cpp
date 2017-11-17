@@ -33,12 +33,37 @@ void Service::setType(const string &type) {
 }
 
 ostream & operator<<(ostream &os, const Service &s){
-	// os << "SERVICE" << endl;
 	os << "Name: " << s.name << endl;
 	os << "Type: " << s.type << endl;
 	os << "Description: " << s.description << endl;
-
 	return os;
+}
+
+void Service::modifyName(){
+	string name;
+	cout << "What is the new name of the service?" << endl;
+	getline(cin, name);
+
+	//Setting the new name for the service
+	this->setName(name);
+}
+
+void Service::modifyType(){
+	string type;
+	cout << "What is the new type of the service?" << endl;
+	getline(cin, type);
+
+	//Setting the new type for the service
+	this->setType(type);
+}
+
+void Service::modifyDescription(){
+	string desc;
+	cout << "What is the new description of the service?" << endl;
+	getline(cin, desc);
+
+	//Setting the new type for the service
+	this->setType(desc);
 }
 
 //Restaurant
@@ -109,7 +134,6 @@ string POI::getDescription() const {
 }
 
 ostream & operator<<(ostream &os, const POI &p) {
-	// os << "POI" << endl;
 	os << "Name: " << p.name << endl;
 	os << "Coordinates: " << p.coords << endl;
 	os << "Description: " << p.description << endl;
@@ -152,7 +176,6 @@ bool Lodging::isFull() const {
 }
 
 ostream & operator<<(ostream &os, const Lodging &l) {
-	// os << "Lodging" << endl;
 	os << "Name: " << l.name << endl;
 	os << "Coordinates: " << l.coords << endl;
 	os << "Full? " << (l.full ? "Yes" : "No") << endl;

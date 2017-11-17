@@ -62,6 +62,18 @@ class Service {
 		*/
 		void setType(const string &type);
 		/**
+		 * @brief Modifies the Service name based on user input
+		 */
+		void modifyName();
+		/**
+		 * @brief Modifies the Service type based on user input
+		 */
+		void modifyType();
+		/**
+		 * @brief Modifies the Service description based on user input
+		 */
+		void modifyDescription();
+		/**
 		* @brief Overload for the insertion operator for the Service class
 		* @param os		The ostream to write to
 		* @param s		The service that is being written to the ostream
