@@ -67,7 +67,7 @@ vector<Beach *> LeisureGuide::getBeachesByConcelho(const string &concelho) const
 
 	//Iterating for each pair of beaches vector and if the "key" (first element, representing the Concelho)
 	//matches the specified concelho, add the "data member" (second element, Beach*) to the output
-	std::for_each(beaches.begin(), beaches.end(), [&output, concelho](pair<string, Beach*> p) {
+	std::for_each(beaches.begin(), beaches.end(), [&output, concelho](const pair<string, Beach*> &p) {
 		if(p.first == concelho){
 			output.push_back(p.second);
 		}
@@ -582,7 +582,9 @@ bool LeisureGuide::addRestaurant() {
 				break;
 			}
 		}
-		day = iHour + " to " + fHour;
+
+		day.assign(iHour + " to " + fHour);
+		//Day schedule format: "HH:MM to HH:MM"
 		sch.weekSchedule.push_back(day);
 	}
 
