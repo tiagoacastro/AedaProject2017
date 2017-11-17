@@ -120,8 +120,6 @@ void LeisureGuide::saveFile(){
 	s.close();
 }
 
-
-
 void LeisureGuide::saveBeaches(ofstream &s){
 string format, concelho;
 	for(auto &beach : beaches){

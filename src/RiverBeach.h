@@ -55,6 +55,10 @@ class RiverBeach : public Beach {
 		*/
 		void print(ostream &o);
 		void modifyBeach();
+		/**
+		 * @brief passes data members to a string
+		 * @return Returns a string with all data members
+		 */
 		string toString();
 
 };

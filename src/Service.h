@@ -18,58 +18,61 @@ struct Schedule {
 };
 
 class Service {
-	private:
-		string name;
-		string type;
-		string description;
-	public:
-		/**
-		 * @brief Constructor for the Service class
-		 * @param name 			Name of the Service
-		 * @param type 			Type of the Service
-		 * @param sch 			Schedule of the Service
-		 * @param description 	Description of the Service, default value is "None"
-		 */
-		Service(string name, string type, string description);
-		/**
-		* @brief get function of the description of the service
-		* @return Returns the service's description
-		*/
-		string getDescription() const;
-		/**
-		* @brief set function of the description of the service
-		* @param description 	Description of the Service, default value is "None"
-		*/
-		void setDescription(const string &description);
-		/**
-		* @brief get function of the name of the service
-		* @return Returns the service's name
-		*/
-		string getName() const;
-		/**
-		* @brief set function of the name of the service
-		* @param name 			Name of the Service
-		*/
-		void setName(const string &name);
-		/**
-		* @brief get function of the service's type
-		* @return Returns the service's type
-		*/
-		string getType() const;
-		/**
-		* @brief set function of the type of the service
-		* @param type 			Type of the Service
-		*/
-		void setType(const string &type);
-		/**
-		* @brief Overload for the insertion operator for the Service class
-		* @param os		The ostream to write to
-		* @param s		The service that is being written to the ostream
-		* @return Returns the modified ostream
-		*/
-		friend ostream & operator<<(ostream &o, const Service &s);
-
-		string toString();
+private:
+	string name;
+	string type;
+	string description;
+public:
+	/**
+	 * @brief Constructor for the Service class
+	 * @param name 			Name of the Service
+	 * @param type 			Type of the Service
+	 * @param sch 			Schedule of the Service
+	 * @param description 	Description of the Service, default value is "None"
+	 */
+	Service(string name, string type, string description);
+	/**
+	 * @brief get function of the description of the service
+	 * @return Returns the service's description
+	 */
+	string getDescription() const;
+	/**
+	 * @brief set function of the description of the service
+	 * @param description 	Description of the Service, default value is "None"
+	 */
+	void setDescription(const string &description);
+	/**
+	 * @brief get function of the name of the service
+	 * @return Returns the service's name
+	 */
+	string getName() const;
+	/**
+	 * @brief set function of the name of the service
+	 * @param name 			Name of the Service
+	 */
+	void setName(const string &name);
+	/**
+	 * @brief get function of the service's type
+	 * @return Returns the service's type
+	 */
+	string getType() const;
+	/**
+	 * @brief set function of the type of the service
+	 * @param type 			Type of the Service
+	 */
+	void setType(const string &type);
+	/**
+	 * @brief Overload for the insertion operator for the Service class
+	 * @param os		The ostream to write to
+	 * @param s		The service that is being written to the ostream
+	 * @return Returns the modified ostream
+	 */
+	friend ostream & operator<<(ostream &o, const Service &s);
+	/**
+	 * @brief passes data members to a string
+	 * @return Returns a string with all data members
+	 */
+	string toString();
 };
 
 class Restaurant {
@@ -135,7 +138,10 @@ public:
 	 * @return Returns the modified ostream
 	 */
 	friend ostream & operator<<(ostream &o, const Restaurant &r);
-
+	/**
+	 * @brief passes data members to a string
+	 * @return Returns a string with all data members
+	 */
 	string toString();
 
 };
@@ -190,7 +196,10 @@ public:
 	 * @return Returns the modified ostream
 	 */
 	friend ostream & operator<<(ostream &o, const POI &p);
-
+	/**
+	 * @brief passes data members to a string
+	 * @return Returns a string with all data members
+	 */
 	string toString();
 };
 
@@ -256,6 +265,9 @@ public:
 	 * @return Returns the modified ostream
 	 */
 	friend ostream & operator<<(ostream &o, const Lodging &l);
-
+	/**
+	 * @brief passes data members to a string
+	 * @return Returns a string with all data members
+	 */
 	string toString();
 };

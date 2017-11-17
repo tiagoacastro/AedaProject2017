@@ -100,7 +100,7 @@ string Restaurant::toString(){
 	format = name + " | " + coords.toString() + " | ";
 
 	for (auto &ker : sch.weekSchedule)
-		format = format + sch.weekSchedule[ker] + ", ";
+		format = format + ker + ", ";
 
 	format.substr(0, format.size() - 2);
 	format += " | " + description;
