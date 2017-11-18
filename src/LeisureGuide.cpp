@@ -119,7 +119,7 @@ void LeisureGuide::createBeach(string &beach){
 		this->createRiverBeach(infos);
 }
 
-void createRiverBeach(vector<string> &beach) {
+void LeisureGuide::createRiverBeach(vector<string> &beach) {
 
 }
 
@@ -185,10 +185,12 @@ bool LeisureGuide::addBeach() {
 	string concelho;
 	cout << "What concelho does the beach belong to? " << endl;
 	getline(cin, concelho);
+	Utilities::trimString(concelho);
 
 	string name;
 	cout << "What is the name of the beach? " << endl;
 	getline(cin, name);
+	Utilities::trimString(name);
 
 	//If the beach is found, it already exists (it is found if the iterator returned by findBeachByName is different from 0)
 	if (findBeachByName(name) != beaches.end()) {
@@ -252,6 +254,7 @@ bool LeisureGuide::addBeach() {
 
 		while (true) {
 			cin >> response;
+			Utilities::trimString(response);
 			if (cin.fail() || (response != "yes" && response != "no" && response != "Yes" && response != "No")) {
 				cout << "Invalid input, please enter yes or no." << endl;
 				//Clearing error flag and cin buffer
@@ -272,6 +275,7 @@ bool LeisureGuide::addBeach() {
 		cout << "Do you want to add a service (yes or no)? " << endl;
 		while (true) {
 			cin >> response;
+			Utilities::trimString(response);
 			if (cin.fail() || (response != "yes" && response != "no" && response != "Yes" && response != "No")) {
 				cout << "Invalid input, please enter yes or no." << endl;
 				//Clearing error flag and cin buffer
@@ -291,14 +295,17 @@ bool LeisureGuide::addBeach() {
 
 			cout << "What is the service's name?" << endl;
 			getline(cin, serviceName);
+			Utilities::trimString(serviceName);
 
 			cout << "What is the service's type?" << endl;
 			getline(cin, serviceType);
+			Utilities::trimString(serviceType);
 
 			cout << "Do you want to add a description to the service?" << endl;
 
 			while (true) {
 				getline(cin, response);
+				Utilities::trimString(response);
 				if (cin.fail() || (response != "yes" && response != "no" && response != "Yes" && response != "No")) {
 					cout << "Invalid input, please enter yes or no." << endl;
 					//Clearing error flag and cin buffer
@@ -335,6 +342,7 @@ bool LeisureGuide::addBeach() {
 
 	while (true) {
 		cin >> beachType;
+		Utilities::trimString(beachType);
 		if (cin.fail() || (beachType != "river" && beachType != "bayou" && beachType != "River" && beachType != "Bayou")) {
 			cout << "Invalid input, please enter river or bayou." << endl;
 			//Clearing error flag and cin buffer
@@ -517,6 +525,7 @@ bool LeisureGuide::addRestaurant() {
 
 	cout << "What is the name of the Restaurant? " << endl;
 	getline(cin, name);
+	Utilities::trimString(name);
 
 	//If the restaurant is found, it already exists (it is found if the iterator returned by findRestaurantByName is different from 0)
 	if (findRestaurantByName(name) != restaurants.end()) {
@@ -592,6 +601,7 @@ bool LeisureGuide::addRestaurant() {
 
 	while (true) {
 		getline(cin, response);
+		Utilities::trimString(response);
 		if (cin.fail() || (response != "yes" && response != "no" && response != "Yes" && response != "No")) {
 			cout << "Invalid input, please enter yes or no." << endl;
 			//Clearing error flag and cin buffer
@@ -607,6 +617,7 @@ bool LeisureGuide::addRestaurant() {
 	if (response == "yes" || response == "Yes") {
 		cout << "Restaurant description: ";
 		getline(cin, description);
+		Utilities::trimString(description);
 
 		restaurants.emplace_back(name, sch, coords, description);
 		return true;
@@ -622,6 +633,7 @@ bool LeisureGuide::addPOI() {
 
 	cout << "What is the name of the POI? " << endl;
 	getline(cin, name);
+	Utilities::trimString(name);
 
 	//If the POI is found, it already exists (it is found if the iterator returned by findPOIByName is different from 0)
 	if (findPOIByName(name) != POIs.end()) {
@@ -667,6 +679,7 @@ bool LeisureGuide::addPOI() {
 
 	while (true) {
 		getline(cin, response);
+		Utilities::trimString(response);
 		if (cin.fail() || (response != "yes" && response != "no" && response != "Yes" && response != "No")) {
 			cout << "Invalid input, please enter yes or no." << endl;
 			//Clearing error flag and cin buffer
@@ -682,11 +695,110 @@ bool LeisureGuide::addPOI() {
 	if (response == "yes" || response == "Yes") {
 		cout << "POI description: ";
 		getline(cin, description);
+		Utilities::trimString(description);
 
 		POIs.emplace_back(name, coords, description);
 		return true;
 	}
 
 	POIs.emplace_back(name, coords, "None");
+	return true;
+}
+
+bool LeisureGuide::addLodging() {
+	string name, description, response;
+	double x, y;
+	bool full;
+
+	cout << "What is the name of the Lodging? " << endl;
+	getline(cin, name);
+	Utilities::trimString(name);
+
+	//If the Lodging is found, it already exists (it is found if the iterator returned by findLodgingByName is different from 0)
+	if (findLodgingByName(name) != lodging.end()) {
+		cout << "Lodging already exists" << endl;
+		return false;
+	}
+
+	cout << "What are the coordinates of the Lodging (X followed by Y)?" << endl;
+
+	//Getting X
+	while (true) {
+		cin >> x;
+		if (cin.fail()) {
+			cout << "Invalid X value, please insert a valid X coordinate value (decimal number)." << endl;
+			//Clearing error flag and cin buffer
+			cin.clear();
+			cin.ignore(100000, '\n');
+		}
+		else {
+			//if cin didn't fail we have a good input so we break the loop
+			break;
+		}
+	}
+
+	//Getting Y
+	while (true) {
+		cin >> y;
+		if (cin.fail()) {
+			cout << "Invalid Y value, please insert a valid Y coordinate value (decimal number)." << endl;
+			//Clearing error flag and cin buffer
+			cin.clear();
+			cin.ignore(100000, '\n');
+		}
+		else {
+			//if cin didn't fail we have a good input so we break the loop
+			break;
+		}
+	}
+
+	Coordinates coords(x, y);
+
+	cout << "Is the Lodging full (yes or no)? " << endl;
+
+	while (true) {
+		cin >> response;
+		Utilities::trimString(response);
+		if (cin.fail() || (response != "yes" && response != "no" && response != "Yes" && response != "No")) {
+			cout << "Invalid input, please enter yes or no." << endl;
+			//Clearing error flag and cin buffer
+			cin.clear();
+			cin.ignore(100000, '\n');
+		}
+		else {
+			//if cin didn't fail we have a good input so we break the loop
+			break;
+		}
+	}
+
+	full = ((response == "yes") || (response == "Yes"));
+
+	cout << "Do you want to add a description to the Lodging?" << endl;
+
+	while (true) {
+		getline(cin, response);
+		Utilities::trimString(response);
+		if (cin.fail() || (response != "yes" && response != "no" && response != "Yes" && response != "No")) {
+			cout << "Invalid input, please enter yes or no." << endl;
+			//Clearing error flag and cin buffer
+			cin.clear();
+			cin.ignore(100000, '\n');
+		}
+		else {
+			//if cin didn't fail we have a good input so we break the loop
+			break;
+		}
+	}
+
+	if (response == "yes" || response == "Yes") {
+		cout << "Lodging description: ";
+		getline(cin, description);
+		Utilities::trimString(description);
+
+		lodging.emplace_back(name, coords, full, description);
+		return true;
+	}
+
+	lodging.emplace_back(name, coords, full, "None");
 	return true;
 }

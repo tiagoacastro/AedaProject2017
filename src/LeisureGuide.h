@@ -113,7 +113,7 @@ public:
 	 */
 	bool removeRestaurant();
 	/**
-	 * @brief Removes a Lodging from the Lodging vector
+	 * @brief Removes a Lodging from the lodging vector
 	 * @return true if a Lodging is found and removed, false if otherwise
 	 */
 	bool removeLodging();
@@ -127,4 +127,9 @@ public:
 	* @return true if POI is valid and was added, false if else
 	*/
 	bool addPOI();
+	/**
+	* @brief Adds Lodging to the lodging vector
+	* @return true if the Lodging is valid and was added, false if else
+	*/
+	bool addLodging();
 };
