@@ -140,42 +140,35 @@ void LeisureGuide::loadFile(){
 	ifstream s;
 	string file, path;
 	char answer;
-	vector <string> stuff;
-	cout << "what kind of files do you want to read? Points of Interest, Restaurant, Beach or Lodging";
+	cout << "What kind of files do you want to read? (Points of Interest aka POI, Restaurant, Beach or Lodging)" << endl;
 	getline(cin, file);
 	Utilities::trimString(file);
-	while (file != "Points of Interest" && file != "Restaurant" && file != "Beach" && file != "Lodging"){
-		cout << "Choose one of them please\n";
+	while (file != "Points of Interest" && file != "POI" && file != "Restaurant" && file != "Beach" && file != "Lodging"){
+		cout << "Not a valid option! Please choose one of the options listed!\n";
 		getline(cin, file);
 		Utilities::trimString(file);
 	}
 
-	cout << "Enter the path for the file please";
+	cout << "Enter the path for the file" << endl;
 	getline(cin, path);
 	s.open(path);
-	while(!s.is_open() ){
-		cout << "Error opening the file, enter the path again please";
+
+	while(!s.is_open()){
+		cout << "Error opening the file, please enter the path again";
 		getline(cin,path);
 		s.open(path);
 	}
-	stuff = Utilities::ReadFile(s);
 
+	vector<string> readfile = Utilities::ReadFile(s);
 
-	switch (file){
-
-	case "Points of Interest":
-		createPOI(stuff);
-		break;
-	case "Restaurant":
-		createRestaurants(stuff);
-		break;
-	case "Beach":
-		createBeach(stuff);
-		break;
-
-	default:
-		createLodging(stuff);
-		break;
+	if(file == "Points of Interest"){
+		createPOI(readfile);
+	} else if(file == "Restaurant"){
+		createRestaurants(readfile);
+	} else if(file == "Beach"){
+		createBeach(readfile);
+	} else if(file == "Lodging"){
+		createLodging(readfile);
 	}
 
 	s.close();
@@ -224,10 +217,12 @@ void LeisureGuide::createPOI(vector<string> &poi){
 }
 
 void LeisureGuide::createPOI(string &poi){
-	vector<string> infos;
-	infos = Utilities::splitString(poi, '|');
+	//POI file string format
+	//name | coords | description
+	//coords are x , y
 
-	vector<string> cords;
+	vector<string> infos = Utilities::splitString(poi, '|');
+
 	string name, descrip;
 
 
@@ -237,12 +232,12 @@ void LeisureGuide::createPOI(string &poi){
 	name = infos[0];
 	descrip = infos[2];
 
-	cords = Utilities::splitString(infos[1], ',');
-	Utilities::trimString(cords[0]);
-	Utilities::trimString(cords[1]);
+	vector<string> coords = Utilities::splitString(infos[1], ',');
 
-	POIs.push_back(POI(name, Coordinates(stod(cords[0]),stod(cords[1])), descrip));
+	Utilities::trimString(coords[0]);
+	Utilities::trimString(coords[1]);
 
+	POIs.emplace_back(name, Coordinates(stod(coords[0]),stod(coords[1])), descrip);
 }
 
 
@@ -253,31 +248,29 @@ void LeisureGuide::createLodging(vector<string> &lodging){
 }
 
 void LeisureGuide::createLodging(string &lodg){
-	vector<string> infos;
-	infos = Utilities::splitString(lodg, '|');
+	//Lodging file string format
+	//name | coords | isFull | description
+	//coords are x , y
+	//isFull can be 0 or 1
 
-	vector<string> cords;
-	string name, descrip;
-	bool full;
+	vector<string> infos = Utilities::splitString(lodg, '|');
 
+	//Trimming the read strings to remove extra spaces
 	Utilities::trimString(infos[0]);
 	Utilities::trimString(infos[2]);
 	Utilities::trimString(infos[3]);
 
-	if(infos[2] == "1")
-		full = true;
-	else
-		full = false;
+	bool full = (infos[2] == "1");
 
-	name = infos[0];
-	descrip = infos[2];
-	cords = Utilities::splitString(infos[1], ',');
+	string name = infos[0];
+	string desc = infos[2];
+	vector<string> coords = Utilities::splitString(infos[1], ',');
 
-	Utilities::trimString(cords[0]);
-	Utilities::trimString(cords[1]);
+	Utilities::trimString(coords[0]);
+	Utilities::trimString(coords[1]);
 
 
-	lodging.push_back(Lodging(name, full, Coordinates(stod(cords[0]),stod(cords[1])) , descrip));
+	lodging.emplace_back(name, Coordinates(stod(coords[0]),stod(coords[1])), full, desc);
 }
 
 
@@ -289,67 +282,63 @@ void LeisureGuide::createBeach(vector<string> &beaches){
 
 void LeisureGuide::createBeach(string &beach){
 
-	vector<string> infos;
-	infos = Utilities::splitString(beach, '|');
+	vector<string> infos = Utilities::splitString(beach, '|');
 
 	if (infos[0] == "B" || infos[0] == "b")
 		this->createBayouBeach(infos);
 	else if (infos[0] == "R" || infos[0] == "r")
 		this->createRiverBeach(infos);
 	else
-		return;
+		//Throwing exception since file is in the wrong format
+		throw Utilities::WrongFileFormat("Beach");
 }
 
 
 void LeisureGuide::createBayouBeach(vector<string> &beach) {
-	pair<string, Beach*> x;
-	vector <string> stuff, services;
+
+	//beachtype ([rR] or [bB]) | Name | Concelho | x , y (coords) | capacity | blue flag | width | RiverFlow | maxDepth | services
+	//services are name, type, description ; name, type, description; name, type, description
+
 	vector<Service> serv;
-	double capacity, xc, yc, area;
+	double xc, yc, area;
 	bool bf;
-	string name, concelho, blueFlag;
+	string blueFlag;
 
-	Utilities::trimString(beach[1]);
-	Utilities::trimString(beach[2]);
-	Utilities::trimString(beach[5]);
-	Utilities::trimString(beach[4]);
-	Utilities::trimString(beach[6]);
+	//Eliminate whitespace for all the items
+	for(auto &item : beach){
+		Utilities::trimString(item);
+	}
 
-	name = beach[1];
-	concelho = beach[2];
-	capacity = stod(beach[4]);
+	string name = beach[1];
+	string concelho = beach[2];
+	unsigned int capacity = static_cast<unsigned int>(stoul(beach[4]));
 
-	if (beach[5] == "1")
-		bf = true;
-	else
-		bf = false;
+	bf = (beach[5] == "1");
 
-	stuff = Utilities::splitString(beach[3], ',');
-	Utilities::trimString(stuff[0]);
-	Utilities::trimString(stuff[1]);
+	vector <string> rawcoordinates = Utilities::splitString(beach[3], ',');
+	Utilities::trimString(rawcoordinates[0]);
+	Utilities::trimString(rawcoordinates[1]);
 
-	xc = stod(stuff[0]);
-	yc = stod(stuff[1]);
+	xc = stod(rawcoordinates[0]);
+	yc = stod(rawcoordinates[1]);
 
 	area = stod(beach[6]);
 
 
-	services = Utilities::splitString(beach[beach.size() - 1], ';');
+	vector <string> services = Utilities::splitString(beach[beach.size() - 1], ';');
+	vector <string> serviceitems;
 
-	for (size_t i = 0; i < services.size(); i++) {
-		Utilities::trimString(services.at(i));
-		stuff = Utilities::splitString(services[i], ',');
-		Utilities::trimString(stuff[0]);
-		Utilities::trimString(stuff[1]);
-		Utilities::trimString(stuff[2]);
-		serv.push_back(Service(stuff[0], stuff[1], stuff[2]));
+	for(auto &service : services) {
+		Utilities::trimString(service);
+		serviceitems = Utilities::splitString(service, ',');
+		Utilities::trimString(serviceitems[0]);
+		Utilities::trimString(serviceitems[1]);
+		Utilities::trimString(serviceitems[2]);
+		serv.emplace_back(serviceitems[0], serviceitems[1], serviceitems[2]);
 	}
 
 	Beach *p = new BayouBeach(name, Coordinates(xc,yc), capacity, bf, serv, area);
-
-	beaches.push_back(make_pair(concelho, p));
-
-
+	beaches.emplace_back(concelho, p);
 }
 
 
