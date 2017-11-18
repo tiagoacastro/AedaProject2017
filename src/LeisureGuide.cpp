@@ -605,7 +605,7 @@ bool LeisureGuide::addRestaurant() {
 	}
 
 	if (response == "yes" || response == "Yes") {
-		cout << "Service description: ";
+		cout << "Restaurant description: ";
 		getline(cin, description);
 
 		restaurants.emplace_back(name, sch, coords, description);
@@ -613,5 +613,80 @@ bool LeisureGuide::addRestaurant() {
 	}
 
 	restaurants.emplace_back(name, sch, coords, "None");
+	return true;
+}
+
+bool LeisureGuide::addPOI() {
+	string name, description, response;
+	double x, y;
+
+	cout << "What is the name of the POI? " << endl;
+	getline(cin, name);
+
+	//If the POI is found, it already exists (it is found if the iterator returned by findPOIByName is different from 0)
+	if (findPOIByName(name) != POIs.end()) {
+		cout << "POI already exists" << endl;
+		return false;
+	}
+
+	cout << "What are the coordinates of the POI (X followed by Y)?" << endl;
+
+	//Getting X
+	while (true) {
+		cin >> x;
+		if (cin.fail()) {
+			cout << "Invalid X value, please insert a valid X coordinate value (decimal number)." << endl;
+			//Clearing error flag and cin buffer
+			cin.clear();
+			cin.ignore(100000, '\n');
+		}
+		else {
+			//if cin didn't fail we have a good input so we break the loop
+			break;
+		}
+	}
+
+	//Getting Y
+	while (true) {
+		cin >> y;
+		if (cin.fail()) {
+			cout << "Invalid Y value, please insert a valid Y coordinate value (decimal number)." << endl;
+			//Clearing error flag and cin buffer
+			cin.clear();
+			cin.ignore(100000, '\n');
+		}
+		else {
+			//if cin didn't fail we have a good input so we break the loop
+			break;
+		}
+	}
+
+	Coordinates coords(x, y);
+
+	cout << "Do you want to add a description to the POI?" << endl;
+
+	while (true) {
+		getline(cin, response);
+		if (cin.fail() || (response != "yes" && response != "no" && response != "Yes" && response != "No")) {
+			cout << "Invalid input, please enter yes or no." << endl;
+			//Clearing error flag and cin buffer
+			cin.clear();
+			cin.ignore(100000, '\n');
+		}
+		else {
+			//if cin didn't fail we have a good input so we break the loop
+			break;
+		}
+	}
+
+	if (response == "yes" || response == "Yes") {
+		cout << "POI description: ";
+		getline(cin, description);
+
+		POIs.emplace_back(name, coords, description);
+		return true;
+	}
+
+	POIs.emplace_back(name, coords, "None");
 	return true;
 }

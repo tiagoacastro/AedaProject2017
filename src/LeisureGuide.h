@@ -122,4 +122,9 @@ public:
 	* @return true if restaurant is valid and was added, false if else
 	*/
 	bool addRestaurant();
+	/**
+	* @brief Adds a POI to the POIs vector
+	* @return true if POI is valid and was added, false if else
+	*/
+	bool addPOI();
 };
