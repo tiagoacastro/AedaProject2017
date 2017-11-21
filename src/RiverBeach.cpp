@@ -73,20 +73,28 @@ void RiverBeach::modifyBeach(){
 	switch(input){
 		case 1:
 			this->modifyName();
+			break;
 		case 2:
 			this->modifyCoordinates();
+			break;
 		case 3:
 			this->modifyMaxCapacity();
+			break;
 		case 4:
 			this->modifyBlueFlag();
+			break;
 		case 5:
 			this->modifyServices();
+			break;
 		case 6:
 			this->modifyRiverWidth();
+			break;
 		case 7:
 			this->modifyRiverFlow();
+			break;
 		case 8:
 			this->modifyRiverMaximumDepth();
+			break;
 	}
 }
 

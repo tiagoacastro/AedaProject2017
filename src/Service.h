@@ -88,6 +88,22 @@ private:
 	Schedule sch;
 	Coordinates coords;
 	string description;
+	/**
+	* @brief Modifies the Restaurant name based on user inputs.
+	*/
+	void modifyName();
+	/**
+	* @brief Modifies the Restaurant coordinates based on user inputs.
+	*/
+	void modifyCoordinates();
+	/**
+	* @brief Modifies the Restaurant coordinates based on user inputs.
+	*/
+	void modifySchedule();
+	/**
+	* @brief Modifies the Restaurant coordinates based on user inputs.
+	*/
+	void modifyDescription();
 public:
 
 	/**
@@ -145,6 +161,10 @@ public:
 	 * @return Returns the modified ostream
 	 */
 	friend ostream & operator<<(ostream &o, const Restaurant &r);
+	/**
+	* @brief Modifies the Restaurant based on user input.
+	*/
+	void modifyRestaurant();
 };
 
 class POI {
@@ -152,6 +172,18 @@ private:
 	string name;
 	Coordinates coords;
 	string description;
+	/**
+	* @brief Modifies the POI name based on user inputs.
+	*/
+	void modifyName();
+	/**
+	* @brief Modifies the POI coordinates based on user inputs.
+	*/
+	void modifyCoordinates();
+	/**
+	* @brief Modifies the POI coordinates based on user inputs.
+	*/
+	void modifyDescription();
 public:
 	/**
 	 * @brief Constructor for the POI class
@@ -197,6 +229,10 @@ public:
 	 * @return Returns the modified ostream
 	 */
 	friend ostream & operator<<(ostream &o, const POI &p);
+	/**
+	* @brief Modifies the POI based on user input.
+	*/
+	void modifyPOI();
 };
 
 class Lodging {
@@ -205,6 +241,22 @@ private:
 	Coordinates coords;
 	bool full;
 	string description;
+	/**
+	* @brief Modifies the Lodging name based on user inputs.
+	*/
+	void modifyName();
+	/**
+	* @brief Modifies the Loding coordinates based on user inputs.
+	*/
+	void modifyCoordinates();
+	/**
+	* @brief Modifies the Loding full flag based on user inputs.
+	*/
+	void modifyFull();
+	/**
+	* @brief Modifies the Lodging coordinates based on user inputs.
+	*/
+	void modifyDescription();
 public:
 	/**
 	 * @brief Constructor for the Lodging class
@@ -261,4 +313,8 @@ public:
 	 * @return Returns the modified ostream
 	 */
 	friend ostream & operator<<(ostream &o, const Lodging &l);
+	/**
+	* @brief Modifies the Lodging based on user input.
+	*/
+	void modifyLodging();
 };

@@ -137,4 +137,19 @@ public:
 	* @return true if the Lodging is valid and was added, false if else
 	*/
 	bool addLodging();
+	/**
+	* @brief Modifies a Restaurant based on its name
+	* @return returns true if a Restaurant is found and modified, false if not found
+	*/
+	bool modifyRestaurant();
+	/**
+	* @brief Modifies a POI based on its name
+	* @return returns true if a POI is found and modified, false if not found
+	*/
+	bool modifyPOI();
+	/**
+	* @brief Modifies a Lodging based on its name
+	* @return returns true if a Lodging is found and modified, false if not found
+	*/
+	bool modifyLodging();
 };

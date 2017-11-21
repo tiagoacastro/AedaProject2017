@@ -820,3 +820,57 @@ bool LeisureGuide::modifyBeach(){
 	it->second->modifyBeach();
 	return true;
 }
+
+bool LeisureGuide::modifyRestaurant() {
+	string restaurantname;
+	cout << "What is the name of the restaurant you want to modify?" << endl;
+	getline(cin, restaurantname);
+	Utilities::trimString(restaurantname);
+
+	auto it = findRestaurantByName(restaurantname);
+
+	if (it == restaurants.end()) {
+		cout << "Restaurant not found! Exiting..." << endl;
+		return false;
+	}
+
+	cout << "Restaurant found! Initiating modification process." << endl;
+	it->modifyRestaurant();
+	return true;
+}
+
+bool LeisureGuide::modifyPOI() {
+	string POIname;
+	cout << "What is the name of the POI you want to modify?" << endl;
+	getline(cin, POIname);
+	Utilities::trimString(POIname);
+
+	auto it = findPOIByName(POIname);
+
+	if (it == POIs.end()) {
+		cout << "POI not found! Exiting..." << endl;
+		return false;
+	}
+
+	cout << "POI found! Initiating modification process." << endl;
+	it->modifyPOI();
+	return true;
+}
+
+bool LeisureGuide::modifyLodging() {
+	string lodgingname;
+	cout << "What is the name of the Lodging you want to modify?" << endl;
+	getline(cin, lodgingname);
+	Utilities::trimString(lodgingname);
+
+	auto it = findLodgingByName(lodgingname);
+
+	if (it == lodging.end()) {
+		cout << "Lodging not found! Exiting..." << endl;
+		return false;
+	}
+
+	cout << "Lodging found! Initiating modification process." << endl;
+	it->modifyLodging();
+	return true;
+}
