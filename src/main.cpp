@@ -78,12 +78,12 @@ int menuRunner(LeisureGuide &lg) {
 
 		menumaozinhas.addOption("1 View");
 		menumaozinhas.addOption("1.1 Unconditional Listing");
-		menumaozinhas.addOption("1.1.1 All Beaches sorted by Conselho");
+		menumaozinhas.addOption("1.1.1 All Beaches sorted by Concelho");
 		menumaozinhas.addOption("1.1.2 All POIs");
 		menumaozinhas.addOption("1.1.3 All Restaurants");
 		menumaozinhas.addOption("1.1.4 All Lodging");
 		menumaozinhas.addOption("1.2 Conditional Listing");
-		menumaozinhas.addOption("1.2.1 List Beaches by Conselho");
+		menumaozinhas.addOption("1.2.1 List Beaches by Concelho");
 		menumaozinhas.addOption("1.2.2 Recommendations near a Beach");
 		menumaozinhas.addOption("2 Manage");
 		menumaozinhas.addOption("2.1 Beaches");
@@ -277,6 +277,42 @@ bool callFunctions(string &id, LeisureGuide &lg) {
 		return true;
 	}
 
+	//Lists Beaches by Concelho
+	if (id == "1.2.1") {
+		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
+		id = id.substr(0, id.find_last_of('.'));
+		//calls function based on hardcoded id
+		cout << "To be implemented!" << endl;
+		//pause to see output
+		Utilities::pause();
+		//function was found, return true
+		return true;
+	}
+
+	//Lists recomendations near Beaches
+	if (id == "1.2.2") {
+		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
+		id = id.substr(0, id.find_last_of('.'));
+		//calls function based on hardcoded id
+		cout << "To be implemented!" << endl;
+		//pause to see output
+		Utilities::pause();
+		//function was found, return true
+		return true;
+	}
+
+	//Display information for a beach
+	if (id == "2.1.1") {
+		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
+		id = id.substr(0, id.find_last_of('.'));
+		//calls function based on hardcoded id
+		cout << "To be implemented!" << endl;
+		//pause to see output
+		Utilities::pause();
+		//function was found, return true
+		return true;
+	}
+
 	//Adds a new beach based on user input
 	if (id == "2.1.2") {
 		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
@@ -295,6 +331,186 @@ bool callFunctions(string &id, LeisureGuide &lg) {
 		id = id.substr(0, id.find_last_of('.'));
 		//calls function based on hardcoded id
 		lg.removeBeach();
+		//pause to see output
+		Utilities::pause();
+		//function was found, return true
+		return true;
+	}
+
+	//Modifies a beach based on its name
+	if (id == "2.1.4") {
+		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
+		id = id.substr(0, id.find_last_of('.'));
+		//calls function based on hardcoded id
+		lg.modifyBeach();
+		//pause to see output
+		Utilities::pause();
+		//function was found, return true
+		return true;
+	}
+
+	//Display information for a POI
+	if (id == "2.2.1") {
+		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
+		id = id.substr(0, id.find_last_of('.'));
+		//calls function based on hardcoded id
+		cout << "To be implemented!" << endl;
+		//pause to see output
+		Utilities::pause();
+		//function was found, return true
+		return true;
+	}
+
+	//Add a POI
+	if (id == "2.2.2") {
+		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
+		id = id.substr(0, id.find_last_of('.'));
+		//calls function based on hardcoded id
+		lg.addPOI();
+		//pause to see output
+		Utilities::pause();
+		//function was found, return true
+		return true;
+	}
+
+	//Remove a POI based on its name
+	if (id == "2.2.3") {
+		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
+		id = id.substr(0, id.find_last_of('.'));
+		//calls function based on hardcoded id
+		lg.removePOI();
+		//pause to see output
+		Utilities::pause();
+		//function was found, return true
+		return true;
+	}
+
+	//Modify a POI based on its name
+	if (id == "2.2.4") {
+		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
+		id = id.substr(0, id.find_last_of('.'));
+		//calls function based on hardcoded id
+		cout << "To be implemented!" << endl;
+		//pause to see output
+		Utilities::pause();
+		//function was found, return true
+		return true;
+	}
+
+	//Display information for a Restaurant
+	if (id == "2.3.1") {
+		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
+		id = id.substr(0, id.find_last_of('.'));
+		//calls function based on hardcoded id
+		cout << "To be implemented!" << endl;
+		//pause to see output
+		Utilities::pause();
+		//function was found, return true
+		return true;
+	}
+
+	//Add a Restaurant
+	if (id == "2.3.2") {
+		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
+		id = id.substr(0, id.find_last_of('.'));
+		//calls function based on hardcoded id
+		lg.addRestaurant();
+		//pause to see output
+		Utilities::pause();
+		//function was found, return true
+		return true;
+	}
+
+	//Remove a Restaurant based on its name
+	if (id == "2.3.3") {
+		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
+		id = id.substr(0, id.find_last_of('.'));
+		//calls function based on hardcoded id
+		lg.removeRestaurant();
+		//pause to see output
+		Utilities::pause();
+		//function was found, return true
+		return true;
+	}
+
+	//Modify a Restaurant based on its name
+	if (id == "2.3.4") {
+		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
+		id = id.substr(0, id.find_last_of('.'));
+		//calls function based on hardcoded id
+		cout << "To be implemented!" << endl;
+		//pause to see output
+		Utilities::pause();
+		//function was found, return true
+		return true;
+	}
+
+	//Display information for a Lodging
+	if (id == "2.4.1") {
+		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
+		id = id.substr(0, id.find_last_of('.'));
+		//calls function based on hardcoded id
+		cout << "To be implemented!" << endl;
+		//pause to see output
+		Utilities::pause();
+		//function was found, return true
+		return true;
+	}
+
+	//Add a Lodging
+	if (id == "2.4.2") {
+		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
+		id = id.substr(0, id.find_last_of('.'));
+		//calls function based on hardcoded id
+		lg.addLodging();
+		//pause to see output
+		Utilities::pause();
+		//function was found, return true
+		return true;
+	}
+
+	//Remove a Lodging based on its name
+	if (id == "2.4.3") {
+		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
+		id = id.substr(0, id.find_last_of('.'));
+		//calls function based on hardcoded id
+		lg.removeLodging();
+		//pause to see output
+		Utilities::pause();
+		//function was found, return true
+		return true;
+	}
+
+	//Modify a Lodging based on its name
+	if (id == "2.4.4") {
+		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
+		id = id.substr(0, id.find_last_of('.'));
+		//calls function based on hardcoded id
+		cout << "To be implemented!" << endl;
+		//pause to see output
+		Utilities::pause();
+		//function was found, return true
+		return true;
+	}
+
+	//File Load
+	if (id == "3.1") {
+		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
+		id = id.substr(0, id.find_last_of('.'));
+		//calls function based on hardcoded id
+		lg.loadFile();
+		//pause to see output
+		Utilities::pause();
+		//function was found, return true
+		return true;
+	}
+
+	//File Save
+	if (id == "3.2") {
+		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
+		id = id.substr(0, id.find_last_of('.'));
+		//calls function based on hardcoded id
+		//lg.saveFile();
 		//pause to see output
 		Utilities::pause();
 		//function was found, return true
