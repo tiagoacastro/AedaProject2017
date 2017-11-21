@@ -14,7 +14,7 @@ void BayouBeach::setUsableAquaticArea(double usableAquaticArea) {
 
 void BayouBeach::print(ostream &o) {
 	Beach::print(o);
-	o << "Usable aquatic area: " << usableAquaticArea << endl;
+	o << "Usable aquatic area: " << usableAquaticArea << endl << endl;
 }
 
 void BayouBeach::modifyUsableAquaticArea() {

@@ -35,7 +35,7 @@ void RiverBeach::print(ostream &o) {
 	Beach::print(o);
 	o << "River width: " << width << endl;
 	o << "River flow: " << riverFlow << endl;
-	o << "River's max depth: " << maxDepth << endl;
+	o << "River's max depth: " << maxDepth << endl << endl;
 }
 
 void RiverBeach::modifyBeach(){

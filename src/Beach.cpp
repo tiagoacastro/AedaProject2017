@@ -55,7 +55,7 @@ void Beach::print(ostream &o){
 	else {
 		o << "Services:" << endl;
 		for (auto &service: services)
-			o << service << endl;
+			o << service;
 	}
 }
 
