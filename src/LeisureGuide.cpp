@@ -802,3 +802,21 @@ bool LeisureGuide::addLodging() {
 	lodging.emplace_back(name, coords, full, "None");
 	return true;
 }
+
+bool LeisureGuide::modifyBeach(){
+	string beachname;
+	cout << "What is the name of the beach you want to modify?" << endl;
+	getline(cin, beachname);
+	Utilities::trimString(beachname);
+
+	auto it = findBeachByName(beachname);
+
+	if(it == beaches.end()){
+		cout << "Beach not found! Exiting..." << endl;
+		return false;
+	}
+
+	cout << "Beach found! Initiating modification process." << endl;
+	it->second->modifyBeach();
+	return true;
+}

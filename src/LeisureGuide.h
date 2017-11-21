@@ -98,6 +98,11 @@ public:
 	*/
 	bool removeBeach();
 	/**
+	 * @brief Modifies a Beach based on its name
+	 * @return returns true if a beach is found and modified, false if not found
+	 */
+	bool modifyBeach();
+	/**
 	* @brief Adds a beach to the beaches vector
 	* @return true if beach is valid and was added, false if else
 	*/
