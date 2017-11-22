@@ -56,6 +56,25 @@ private:
 	 * @return Returns an iterator to the found Lodging, or lodging.end() if the Lodging was not found
 	 */
 	vector<Lodging>::iterator findLodgingByName(const string &name);
+	/**
+	 * @brief Sorts Lodging, Restaurants and POIs by distance to a certain beach
+	 * @param b The beach in order to sort to
+	 */
+	void sortEverythingByDistanceToBeach(Beach *b);
+	/**
+	 * @brief Sorts Restaurants by distance to a certain beach
+	 * @param b The beach in order to sort to
+	 */
+	void sortRestaurantsByDistanceToBeach(Beach *b);
+	/**
+	 * @brief Sorts POIs by distance to a certain beach
+	 * @param b The beach in order to sort to
+	 */
+	void sortPOIsByDistanceToBeach(Beach *b);	/**
+	 * @brief Sorts Lodging by distance to a certain beach
+	 * @param b The beach in order to sort to
+	 */
+	void sortLodgingByDistanceToBeach(Beach *b);
 public:
 	/**
 	 * @brief Default constructor to allow creating an empty Leisure Guide that will receive the options afterwards
@@ -90,6 +109,13 @@ public:
 	 * @brief Displays all lodging
 	 */
 	void displayAllLodging() const;
+	/**
+	 * @brief Displays the POIs, Restaurants and Lodging closest to a certain beach
+	 */
+	void displaySortedByDistance();
+	/**
+	 * @brief Loads file contents into program memory
+	 */
 	void loadFile();
 	/**
 	 * @brief Removes and deletes a beach from the beaches vector based on a given name
@@ -202,7 +228,7 @@ public:
 	 */
 	void createLodging(vector<string> &lodging);
 	/**
-	 * @brief allows the user to choose wich files he want to save
+	 * @brief Saves the program runtime contents to a file, chosen based on user input
 	 */
 	void saveFile();
 	/**

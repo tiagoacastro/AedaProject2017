@@ -54,9 +54,6 @@ int main() {
 //Running the menu with a simple implementation of a state machine
 int menuRunner(LeisureGuide &lg) {
 
-	string currentselection; //current selection holds the menu state
-	unsigned int tempinput; //temporary input holder - unsigned int to make sure that only numbers are inputted
-
 	Menu menumaozinhas;
 
 	try {
@@ -115,6 +112,11 @@ int menuRunner(LeisureGuide &lg) {
 	//clear screen of whatever was printed before, just in case with a pause before so all output is read with time
 	Utilities::pause();
 	Utilities::clearScreen();
+
+	//current selection holds the menu state
+	string currentselection;
+	//temporary input holder - unsigned int to make sure that only numbers are inputted
+	unsigned int tempinput;
 
 	//Menu loop
 	while (true) {
@@ -294,7 +296,7 @@ bool callFunctions(string &id, LeisureGuide &lg) {
 		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
 		id = id.substr(0, id.find_last_of('.'));
 		//calls function based on hardcoded id
-		cout << "To be implemented!" << endl;
+		lg.displaySortedByDistance();
 		//pause to see output
 		Utilities::pause();
 		//function was found, return true

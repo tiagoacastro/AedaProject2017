@@ -217,9 +217,6 @@ void LeisureGuide::createRestaurants(string &restaurant){
 	restaurants.push_back(Restaurant(name, sch, Coordinates(stod(coords[0]),stod(coords[1])), descrip));
 }
 
-
-
-
 void LeisureGuide::createPOI(vector<string> &poi){
 	for(auto &points : poi){
 		createPOI(poi);
@@ -1128,4 +1125,94 @@ bool LeisureGuide::modifyLodging() {
 	cout << "Lodging found! Initiating modification process." << endl;
 	it->modifyLodging();
 	return true;
+}
+
+void LeisureGuide::sortEverythingByDistanceToBeach(Beach *b){
+	sortPOIsByDistanceToBeach(b);
+	sortRestaurantsByDistanceToBeach(b);
+	sortLodgingByDistanceToBeach(b);
+}
+
+void LeisureGuide::sortRestaurantsByDistanceToBeach(Beach *b){
+	auto beachcoords = b->getCoords();
+	sort(restaurants.begin(), restaurants.end(), [&beachcoords](const Restaurant &r1, const Restaurant &r2){
+		return r1.getCoordinates().distanceTo(beachcoords) < r2.getCoordinates().distanceTo(beachcoords);
+	});
+}
+
+void LeisureGuide::sortPOIsByDistanceToBeach(Beach *b){
+	auto beachcoords = b->getCoords();
+	sort(POIs.begin(), POIs.end(), [&beachcoords](const POI &poi1, const POI &poi2){
+		return poi1.getCoordinates().distanceTo(beachcoords) < poi2.getCoordinates().distanceTo(beachcoords);
+	});
+}
+
+void LeisureGuide::sortLodgingByDistanceToBeach(Beach *b){
+	auto beachcoords = b->getCoords();
+	sort(lodging.begin(), lodging.end(), [&beachcoords](const Lodging &l1, const Lodging &l2){
+		return l1.getCoordinates().distanceTo(beachcoords) < l2.getCoordinates().distanceTo(beachcoords);
+	});
+}
+
+void LeisureGuide::displaySortedByDistance(){
+	string beachname;
+	cout << "What is the name of the beach you want to search for?" << endl;
+	cin.clear();
+	cin.ignore(100000, '\n');
+
+	getline(cin, beachname);
+	Utilities::trimString(beachname);
+
+	auto it = findBeachByName(beachname);
+
+	if(it == beaches.end()){
+		cout << "Beach not found! Exiting..." << endl;
+		return;
+	}
+
+	//Keeping it at 3 results for now, but we can ask for user input later on
+	int nresults = 3;
+
+	//Sorting the internal data by distance to the found beach
+	sortEverythingByDistanceToBeach(it->second);
+
+	//Getting the coordinates of the beach for distance printing
+	auto beachcoords = it->second->getCoords();
+
+	//Printing the results
+
+	//For Restaurants
+	cout << "The " << nresults << " closest Restaurants to the given beach are:" << endl;
+	for(unsigned int i = 0; i < nresults && i < restaurants.size(); ++i){
+		cout << i+1 << "-th result:" << endl;
+		cout << restaurants[i];
+		cout << "Distance to given beach: " << restaurants[i].getCoordinates().distanceTo(beachcoords) << endl;
+	}
+
+	Utilities::pause();
+	cout << endl << endl;
+
+	//For POIs
+	cout << "The " << nresults << " closest POIs to the given beach are:" << endl;
+	for(unsigned int i = 0; i < nresults && i < POIs.size(); ++i){
+		cout << i+1 << "-th result:" << endl;
+		cout << POIs[i];
+		cout << "Distance to given beach: " << POIs[i].getCoordinates().distanceTo(beachcoords) << endl;
+	}
+
+	Utilities::pause();
+	cout << endl << endl;
+
+	//For Lodging
+	cout << "The " << nresults << " closest Lodging to the given beach are:" << endl;
+	for(unsigned int i = 0; i < nresults && i < lodging.size(); ++i){
+		cout << i+1 << "-th result:" << endl;
+		cout << lodging[i];
+		cout << "Distance to given beach: " << lodging[i].getCoordinates().distanceTo(beachcoords) << endl;
+	}
+
+	Utilities::pause();
+	cout << endl << endl;
+
+	//All results listed successfully
 }
