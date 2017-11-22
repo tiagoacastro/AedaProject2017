@@ -50,12 +50,12 @@ void Beach::print(ostream &o){
 		o << "Has Blue Flag" << endl;
 	else
 		o << "Doesn't have Blue Flag" << endl;
-	if (services.size() == 0)
+	if (services.empty())
 		o << "No services" << endl;
 	else {
 		o << "Services:" << endl;
 		for (auto &service: services)
-			o << service << endl;
+			o << service;
 	}
 }
 
@@ -65,4 +65,161 @@ Beach::~Beach() {
 
 void Beach::setCoordinates(const Coordinates &coords){
 	this->coords = coords;
+}
+
+void Beach::modifyName(){
+	string name;
+	cout << "What is the new name of the beach?" << endl;
+	getline(cin, name);
+
+	//Setting the new name for the beach
+	this->setName(name);
+}
+
+void Beach::modifyCoordinates(){
+	double x, y;
+	cout << "What are the new coordinates of the beach (X followed by Y)?" << endl;
+
+	//Getting X
+	while (true) {
+		cin >> x;
+		if (cin.fail()) {
+			cout << "Invalid X value, please insert a valid X coordinate value (decimal number)." << endl;
+			//Clearing error flag and cin buffer
+			cin.clear();
+			cin.ignore(100000, '\n');
+		}
+		else {
+			//if cin didn't fail we have a good input so we break the loop
+			break;
+		}
+	}
+
+	//Getting Y
+	while (true) {
+		cin >> y;
+		if (cin.fail()) {
+			cout << "Invalid Y value, please insert a valid Y coordinate value (decimal number)." << endl;
+			//Clearing error flag and cin buffer
+			cin.clear();
+			cin.ignore(100000, '\n');
+		}
+		else {
+			//if cin didn't fail we have a good input so we break the loop
+			break;
+		}
+	}
+
+	//Setting the new coordinates
+	this->coords.setLatitude(x);
+	this->coords.setLongitude(y);
+}
+
+void Beach::modifyMaxCapacity(){
+	unsigned int maxCapacity;
+	cout << "What is the beach's new maximum capacity?" << endl;
+
+	while (true) {
+		cin >> maxCapacity;
+		if (cin.fail()) {
+			cout << "Invalid max capacity value, please insert a valid maximum capacity value (positive integer)." << endl;
+			//Clearing error flag and cin buffer
+			cin.clear();
+			cin.ignore(100000, '\n');
+		}
+		else {
+			//if cin didn't fail we have a good input so we break the loop
+			break;
+		}
+	}
+
+	//Sets the new max capacity
+	this->setMaxCapacity(maxCapacity);
+}
+
+void Beach::modifyBlueFlag(){
+	string response;
+	cout << "Does the beach have a blue flag (yes or no)?" << endl;
+
+	while (true) {
+		cin >> response;
+		if (cin.fail() || (response != "yes" && response != "no" && response != "Yes" && response != "No")) {
+			cout << "Invalid input, please enter yes or no." << endl;
+			//Clearing error flag and cin buffer
+			cin.clear();
+			cin.ignore(100000, '\n');
+		}
+		else {
+			//if cin didn't fail we have a good input so we break the loop
+			break;
+		}
+	}
+
+	//Setting the new blue flag
+	//Since the previous loop ensures the input is "Yes", "yes", "No" or "no"
+	this->setBlueFlag((response == "yes") || (response == "Yes"));
+}
+
+void Beach::modifyServices(){
+	if(services.empty()){
+		cout << "There are no services to modify in this beach!" << endl;
+		return;
+	}
+
+	cout << "The services that exist in this beach are:" << endl;
+	this->listAllServices();
+	cout << "\nWhich do you want to alter (insert service name)?" << endl;
+	string tempservicename;
+	getline(cin, tempservicename);
+
+	auto it = findServiceByName(tempservicename);
+
+	if(it == services.end()){
+		cout << "Service not found! Exiting!" << endl;
+		return;
+	}
+
+	//Altering the service
+	cout << "Service found! Which field do you want to alter?" << endl;
+	int input;
+	cout << "1 Name" << endl;
+	cout << "2 Type" << endl;
+	cout << "3 Description" << endl;
+	cout << ">>> ";
+
+	while (true) {
+			cin >> input;
+			if (cin.fail() && (input < 1 || input > 3)) {
+				cout << "Invalid option value, please insert a valid option (positive integer between 1 and 3)." << endl;
+				//Clearing error flag and cin buffer
+				cin.clear();
+				cin.ignore(100000, '\n');
+			}
+			else {
+				//if cin didn't fail we have a good input so we break the loop
+				break;
+			}
+		}
+
+	//Doing respective modification
+	switch(input){
+		case 1:
+			it->modifyName();
+		case 2:
+			it->modifyType();
+		case 3:
+			it->modifyDescription();
+	}
+}
+
+vector<Service>::iterator Beach::findServiceByName(const string &servicename) {
+	return find_if(services.begin(), services.end(), [=](const Service &s){
+		return s.getName() == servicename;
+	});
+}
+
+void Beach::listAllServices() const{
+	for(auto const &service : services){
+		cout << service << endl;
+	}
 }

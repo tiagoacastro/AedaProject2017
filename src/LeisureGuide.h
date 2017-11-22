@@ -15,6 +15,7 @@ using namespace std;
 
 class LeisureGuide {
 private:
+	///Data members
 	vector<pair<string, Beach*>> beaches;
 	vector<Restaurant> restaurants;
 	vector<POI> POIs;
@@ -24,12 +25,22 @@ private:
 	 * @return Returns a vector of all the Concelhos
 	 */
 	vector<string> getAllConcelhos() const;
+	/**
+	 * @brief Gets all the beaches for a given Concelho
+	 * @param concelho Concelho to list beaches for
+	 * @return Returns a vector of Beach* (as found in the beaches vector)
+	 */
 	vector<Beach*> getBeachesByConcelho(const string &concelho) const;
 	/**
 	 * @brief Separate the string in all members of the class Beach
 	 * @param beach		a line of the file opened with all informations about a beach
 	 */
 	void createBeach(string &beach);
+	/**
+	 * @brief for loop that chooses a line to add to member beachs
+	 * @param beach		all lines of the file opened with all informations about the beaches
+	 */
+	void createBeach(vector<string> &beaches);
 	/**
 	 * @brief for loop that chooses a line to add to member beachs
 	 * @param beach		all lines of the file opened with all informations about the beaches
@@ -85,25 +96,44 @@ private:
 	 */
 	void saveBeaches(ofstream &s);
 	/**
-		 * @brief Write all Restaurants to a file
-		 * @param s		ofstream to write to
-		 */
+	 * @brief Write all Restaurants to a file
+	 * @param s		ofstream to write to
+	 */
 	void saveRestaurants(ofstream &s);
 	/**
-		 * @brief Write all POI to a file
-		 * @param s		ofstream to write to
-		 */
+	 * @brief Write all POI to a file
+	 * @param s		ofstream to write to
+	 */
 	void savePOI(ofstream &s);
 	/**
-		 * @brief Write all Lodging to a file
-		 * @param s		ofstream to write to
-		 */
+	 * @brief Write all Lodging to a file
+	 * @param s		ofstream to write to
+	 */
 	void saveLodging(ofstream &s);
 	/**
-	 * @brief searches a beach on the beaches vector and it returns the iterator
-	 * @param name		name of the beach that will be searched
+	 * @brief Searches for a beach on the beaches vector and returns the iterator
+	 * @param name		Name of the beach to search for
+	 * @return Returns an iterator to the found beach, or beaches.end() if nothing was found
 	 */
 	vector<pair<string, Beach*>>::iterator findBeachByName(string name);
+	/**
+	 * @brief Searches for a POI on the POI vector and returns the iterator
+	 * @param name		Name of the POI to search for
+	 * @return Returns an iterator to the found POI, or POIs.end() if the POI was not found
+	 */
+	vector<POI>::iterator findPOIByName(const string &name);
+	/**
+	 * @brief Searches for a Restaurant on the Restaurants vector and returns the iterator
+	 * @param name 		Name of the Restaurant to search for
+	 * @return Returns an iterator to the found Restaurant, or restaurants.end() if the Restaurant was not found
+	 */
+	vector<Restaurant>::iterator findRestaurantByName(const string &name);
+	/**
+	 * @brief Searches for Lodging on the lodging vector and returns the iterator
+	 * @param name 		Name of the Lodging to search for
+	 * @return Returns an iterator to the found Lodging, or lodging.end() if the Lodging was not found
+	 */
+	vector<Lodging>::iterator findLodgingByName(const string &name);
 public:
 	/**
 	 * @brief Default constructor to allow creating an empty Leisure Guide that will receive the options afterwards
@@ -140,13 +170,63 @@ public:
 	void displayAllLodging() const;
 	void loadFile();
 	/**
-	 * @brief Removes a beach from the beaches vector and deletes it
+	 * @brief Removes and deletes a beach from the beaches vector based on a given name
 	 * @return true if beach is found and removed, false if else
 	 */
 	bool removeBeach();
 	/**
-	 * @brief Adds a beach to the beaches vector
-	 * @return true if beach is valid and was added, false if else
+	 * @brief Modifies a Beach based on its name
+	 * @return returns true if a beach is found and modified, false if not found
 	 */
+	bool modifyBeach();
+	/**
+	* @brief Adds a beach to the beaches vector
+	* @return true if beach is valid and was added, false if else
+	*/
 	bool addBeach();
+	/**
+	 * @brief Removes a POI from the POIs vector
+	 * @return true if a POI is found and removed, false if otherwise
+	 */
+	bool removePOI();
+	/**
+	 * @brief Removes a Restaurant from the Restaurants vector
+	 * @return true if a Restaurant is found and removed, false if otherwise
+	 */
+	bool removeRestaurant();
+	/**
+	 * @brief Removes a Lodging from the lodging vector
+	 * @return true if a Lodging is found and removed, false if otherwise
+	 */
+	bool removeLodging();
+	/**
+	* @brief Adds a restaurant to the restaurants vector
+	* @return true if restaurant is valid and was added, false if else
+	*/
+	bool addRestaurant();
+	/**
+	* @brief Adds a POI to the POIs vector
+	* @return true if POI is valid and was added, false if else
+	*/
+	bool addPOI();
+	/**
+	* @brief Adds Lodging to the lodging vector
+	* @return true if the Lodging is valid and was added, false if else
+	*/
+	bool addLodging();
+	/**
+	* @brief Modifies a Restaurant based on its name
+	* @return returns true if a Restaurant is found and modified, false if not found
+	*/
+	bool modifyRestaurant();
+	/**
+	* @brief Modifies a POI based on its name
+	* @return returns true if a POI is found and modified, false if not found
+	*/
+	bool modifyPOI();
+	/**
+	* @brief Modifies a Lodging based on its name
+	* @return returns true if a Lodging is found and modified, false if not found
+	*/
+	bool modifyLodging();
 };

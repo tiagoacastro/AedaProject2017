@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 class Beach {
 private:
@@ -12,6 +13,37 @@ private:
 	unsigned int maxCapacity;
 	bool blueFlag;
 	vector <Service> services;
+	/**
+	 * @brief Lists all the services in the class
+	 */
+	void listAllServices() const;
+	/**
+	 * @brief Searches for a Service in the services vector based on its name
+	 * @param servicename The name of the service to search for
+	 * @return Returns an iterator to the found service or services.end() if there is no match
+	 */
+	vector<Service>::iterator findServiceByName(const string &servicename);
+protected:
+	/**
+	 * @brief Modifies the Beach name based on user inputs. Is in protected access scope because it needs not be public but the derivate classes should be able to access it.
+	 */
+	void modifyName();
+	/**
+	 * @brief Modifies the Beach coordinates based on user inputs. Is in protected access scope because it needs not be public but the derivate classes should be able to access it.
+	 */
+	void modifyCoordinates();
+	/**
+	 * @brief Modifies the Beach maximum capacity based on user inputs. Is in protected access scope because it needs not be public but the derivate classes should be able to access it.
+	 */
+	void modifyMaxCapacity();
+	/**
+	 * @brief Modifies the Beach blue flag based on user inputs. Is in protected access scope because it needs not be public but the derivate classes should be able to access it.
+	 */
+	void modifyBlueFlag();
+	/**
+	 * @brief Modifies the Beach services based on user inputs. Is in protected access scope because it needs not be public but the derivate classes should be able to access it.
+	 */
+	void modifyServices();
 public:
 	/**
 	 * @brief Constructor for the Beach class

@@ -27,3 +27,11 @@ ostream &operator<<(ostream &os, const Coordinates &c) {
 string Coordinates::toString() const {
 	return to_string(longitude) + ", " + to_string(latitude);
 }
+
+void Coordinates::setLatitude(double lat){
+	this->latitude = lat;
+}
+
+void Coordinates::setLongitude(double longit){
+	this->longitude = longit;
+}

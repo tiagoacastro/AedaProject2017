@@ -201,7 +201,18 @@ namespace Utilities {
 	 * @return Returns the number of minutes that the HH:MM string corresponds to
 	 */
 	unsigned int HHMMtoMinutes(string hhmm);
-
+	/**
+	* @brief Checks if string is in HH:MM format
+	* @param hour		String to analyze
+	* @return Returns true if it's in the desired format, false if else
+	*/
+	bool correctHourFormat(string hour);
+	/**
+	* @brief Checks if character is a number
+	* @param c			Character to analyze
+	* @return Returns true if it's a number, false if else
+	*/
+	bool isNumber(char c);
 	/**
 	 * @brief FileNotFound exception (For use in exception throwing in file handling)
 	 */
