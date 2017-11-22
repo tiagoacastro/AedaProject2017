@@ -223,5 +223,13 @@ namespace Utilities {
 		explicit FileNotFound(const string &path) : path(path){};
 		string getPath() const{return path;}
 	};
+
+	class WrongFileFormat{
+	private:
+		string filetype;
+	public:
+		explicit WrongFileFormat(const string &filetype) : filetype(filetype){};
+		string getType() const {return filetype;}
+	};
 }
 /*! @} End of Doxygen Utilities group*/

@@ -1,5 +1,6 @@
 #include "Coordinates.h"
 
+
 Coordinates::Coordinates(double longitude, double latitude):
 	longitude(longitude), latitude(latitude){}
 
@@ -20,6 +21,11 @@ double Coordinates::distanceTo(Coordinates coords) {
 ostream &operator<<(ostream &os, const Coordinates &c) {
 	os << "(" << c.latitude << " , " << c.longitude << ")";
 	return os;
+
+}
+
+string Coordinates::toString() const {
+	return to_string(longitude) + ", " + to_string(latitude);
 }
 
 void Coordinates::setLatitude(double lat){

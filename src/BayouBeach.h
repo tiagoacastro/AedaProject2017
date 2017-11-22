@@ -34,4 +34,10 @@ class BayouBeach : public Beach {
 		void print(ostream &o);
 		void modifyUsableAquaticArea();
 		void modifyBeach();
+		/**
+		 * @brief passes data member to a string
+		 * @return Returns a string with all data members
+		 */
+		string toString();
+
 };

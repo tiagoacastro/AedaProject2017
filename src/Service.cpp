@@ -5,7 +5,7 @@
 //Service
 
 Service::Service(string name, string type, string description = "None") :
-	name(name), type(type), description(description) {
+name(name), type(type), description(description) {
 }
 
 string Service::getDescription() const {
@@ -36,7 +36,12 @@ ostream & operator<<(ostream &os, const Service &s){
 	os << "Name: " << s.name << endl;
 	os << "Type: " << s.type << endl;
 	os << "Description: " << s.description << endl;
+
 	return os;
+}
+
+string Service::toString() const {
+	return name + ", " + type + ", " + description;
 }
 
 void Service::modifyName(){
@@ -61,15 +66,12 @@ void Service::modifyDescription(){
 	string desc;
 	cout << "What is the new description of the service?" << endl;
 	getline(cin, desc);
-
-	//Setting the new type for the service
-	this->setType(desc);
 }
 
 //Restaurant
 
-Restaurant::Restaurant(string name, Schedule sch, Coordinates coords, string description = "None") :
-	name(name), sch(sch), coords(coords), description(description){
+Restaurant::Restaurant(string name, Schedule sch, Coordinates coords, string description = "None")
+	: name(name), sch(sch), coords(coords), description(description){
 }
 
 string Restaurant::getName() const {
@@ -113,6 +115,23 @@ void Restaurant::setCoords(const Coordinates &coords){
 
 void Restaurant::setDescription(const string &description){
 	this->description = description;
+}
+
+string Restaurant::toString() const {
+	string format = name + " | " + coords.toString() + " | ";
+
+	//Adding the first element outside of the loop because of adding the ", " more easily
+	auto it = sch.weekSchedule.begin();
+
+	format += *it;
+	//Advancing to the next item since it was already written
+	++it;
+
+	for ( ; it != sch.weekSchedule.end() ; ++it)
+		format += ", " + *it;
+
+	format += " | " + description;
+	return format;
 }
 
 void Restaurant::modifyRestaurant() {
@@ -250,8 +269,8 @@ void Restaurant::modifyDescription() {
 
 //POI
 
-POI::POI(string name, Coordinates coords, string description = "None") :
-	name(name), coords(coords), description(description) {
+POI::POI(string name, Coordinates coords, string description = "None")
+	: name(name), coords(coords), description(description) {
 }
 
 string POI::getName() const {
@@ -284,6 +303,10 @@ void POI::setCoords(const Coordinates &coords){
 
 void POI::setDescription(const string &description){
 	this->description = description;
+}
+
+string POI::toString() const {
+	return name + " | " + coords.toString() + " | " +  description;
 }
 
 void POI::modifyPOI() {
@@ -382,8 +405,8 @@ void POI::modifyDescription() {
 
 //Lodging
 
-Lodging::Lodging(string name, Coordinates coords, bool full, string description = "None") :
-	name(name), coords(coords), full(full), description(description) {
+Lodging::Lodging(string name, Coordinates coords, bool full, string description = "None")
+	: name(name), coords(coords), full(full), description(description) {
 }
 
 string Lodging::getName() const {
@@ -433,6 +456,20 @@ ostream &operator<<(ostream &os, const Schedule &sch){
 	}
 
 	return os;
+}
+
+string Lodging::toString() const {
+	string format = name + " | " + coords.toString() + " | ";
+
+	if (full)
+		format += "1 | ";
+	else
+		format += "0 | ";
+
+	format += description;
+
+	return format;
+}
 }
 
 void Lodging::modifyName() {

@@ -58,6 +58,11 @@ class RiverBeach : public Beach {
 		 * @brief Modifies a beach based on user input
 		 */
 		void modifyBeach();
+		/**
+		 * @brief passes data members to a string
+		 * @return Returns a string with all data members
+		 */
+		string toString();
 
 		void modifyRiverWidth();
 

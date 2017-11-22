@@ -35,7 +35,32 @@ void RiverBeach::print(ostream &o) {
 	Beach::print(o);
 	o << "River width: " << width << endl;
 	o << "River flow: " << riverFlow << endl;
-	o << "River's max depth: " << maxDepth << endl << endl;
+	o << "River's max depth: " << maxDepth << endl;
+}
+
+string RiverBeach::toString(){
+	string format;
+	format = "r | " + this->getName() + " | " + this->getCoords().toString() + " | " + to_string(this->getMaxCapacity()) + " | ";
+
+	if (this->hasBlueFlag())
+		format += "1 | ";
+	else
+		format += "0 | ";
+
+	//If there are any services, adding the first service first and then iterating through and adding the others because of inserting the " ; "
+	if(!this->getServices().empty()) {
+		auto it = this->getServices().begin();
+		format += it->toString();
+		//Moving to the next element
+		++it;
+
+		for( ; it != this->getServices().end() ; ++it)
+			format += " ; " + it->toString();
+	}
+
+	format += " | " + to_string(width) + " | " + to_string(riverFlow) + " | " + to_string(maxDepth);
+
+	return format;
 }
 
 void RiverBeach::modifyBeach(){
@@ -56,18 +81,18 @@ void RiverBeach::modifyBeach(){
 	cout << "8 River Maximum Depth" << endl;
 	cout << ">>> ";
 	while (true) {
-			cin >> input;
-			if (cin.fail() && (input < 1 || input > 8)) {
-				cout << "Invalid option value, please insert a valid option (positive integer between 1 and 8)." << endl;
-				//Clearing error flag and cin buffer
-				cin.clear();
-				cin.ignore(100000, '\n');
-			}
-			else {
-				//if cin didn't fail we have a good input so we break the loop
-				break;
-			}
+		cin >> input;
+		if (cin.fail() && (input < 1 || input > 8)) {
+			cout << "Invalid option value, please insert a valid option (positive integer between 1 and 8)." << endl;
+			//Clearing error flag and cin buffer
+			cin.clear();
+			cin.ignore(100000, '\n');
 		}
+		else {
+			//if cin didn't fail we have a good input so we break the loop
+			break;
+		}
+	}
 
 	//Calling respective modify function
 	switch(input){

@@ -120,5 +120,6 @@ public:
 	 */
 	virtual ~Beach();
 
+	virtual string toString() = 0;
 };
 
