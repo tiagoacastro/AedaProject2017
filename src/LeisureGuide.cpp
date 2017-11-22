@@ -79,6 +79,11 @@ vector<Beach *> LeisureGuide::getBeachesByConcelho(const string &concelho) const
 void LeisureGuide::saveFile(){
 	string file, path;
 	ofstream s;
+
+	//cin was somewhere used as a stream before (probably menu) so we need to clear the buffer to not get a "Not a valid option" straight away
+	cin.clear();
+	cin.ignore(100000, '\n');
+
 	cout << "what kind of information do you want to save? Points of Interest (POI), Restaurant, Beach or Lodging";
 	getline(cin, file);
 	Utilities::trimString(file);
@@ -140,6 +145,11 @@ void LeisureGuide::loadFile(){
 	ifstream s;
 	string file, path;
 	char answer;
+
+	//cin was somewhere used as a stream before (probably menu) so we need to clear the buffer to not get a "Not a valid option" straight away
+	cin.clear();
+	cin.ignore(100000, '\n');
+
 	cout << "What kind of files do you want to read? (Points of Interest aka POI, Restaurant, Beach or Lodging)" << endl;
 	getline(cin, file);
 	Utilities::trimString(file);
@@ -293,10 +303,6 @@ void LeisureGuide::createBeach(string &beach){
 		throw Utilities::WrongFileFormat("Beach");
 }
 
-void LeisureGuide::createRiverBeach(vector<string> &beach) {
-
-}
-
 void LeisureGuide::createBayouBeach(vector<string> &beach) {
 
 	//beachtype ([rR] or [bB]) | Name | Concelho | x , y (coords) | capacity | blue flag | width | RiverFlow | maxDepth | services
@@ -328,13 +334,6 @@ void LeisureGuide::createBayouBeach(vector<string> &beach) {
 
 
 	vector<Service> serv;
-	x.first = beach[2];
-	x.second->setName(beach[1]);
-	if (beach[5] == "1")
-		x.second->setBlueFlag(true);
-	else
-		x.second->setBlueFlag(false);
-	x.second->setMaxCapacity(stoi(beach[4]));
 	//If the string at beach.size() - 1 is empty, aka the part where the services would be listed is empty
 	//Then we add no services (the vector is initializated as empty, so there is no problem there)
 	if(!beach[beach.size() - 1].empty()) {

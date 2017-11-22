@@ -340,7 +340,6 @@ public:
 	 * @return Returns a string with all data members
 	 */
 	string toString() const;
-};
 	/**
 	* @brief Modifies the Lodging based on user input.
 	*/

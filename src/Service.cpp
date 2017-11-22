@@ -470,7 +470,6 @@ string Lodging::toString() const {
 
 	return format;
 }
-}
 
 void Lodging::modifyName() {
 	string newName;
