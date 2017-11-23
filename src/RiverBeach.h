@@ -63,10 +63,16 @@ class RiverBeach : public Beach {
 		 * @return Returns a string with all data members
 		 */
 		string toString();
-
+		/**
+		* @brief Modifies river width based on user input
+		*/
 		void modifyRiverWidth();
-
+		/**
+		* @brief Modifies river flow based on user input
+		*/
 		void modifyRiverFlow();
-
+		/**
+		* @brief Modifies maximum depth based on user input
+		*/
 		void modifyRiverMaximumDepth();
 };

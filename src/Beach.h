@@ -119,7 +119,10 @@ public:
 	 * @brief Beach virtual destructor (so that delete works for derivate classes)
 	 */
 	virtual ~Beach();
-
+	/**
+	* @brief passes data member to a string
+	* @return Returns a string with all data members (pure virtual do be implemented on derived classes)
+	*/
 	virtual string toString() = 0;
 };
 

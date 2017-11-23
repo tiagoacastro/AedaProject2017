@@ -47,10 +47,10 @@ class Coordinates{
 		 * @param longit The longitude for the Coordinate
 		 */
 		void setLongitude(double longit);
-	/**
-	 * @brief passes data member to a string
-	 * @return Returns a string with all data members
-	 */
-	string toString() const;
+		/**
+		* @brief passes data member to a string
+		 * @return Returns a string with all data members
+		 */
+		string toString() const;
 };
 

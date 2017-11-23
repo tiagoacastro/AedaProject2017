@@ -32,12 +32,17 @@ class BayouBeach : public Beach {
 		* @param o		The ostream to write to
 		*/
 		void print(ostream &o);
+		/**
+		* @brief modifys usable aquatic area member on Bayou Beach by user input
+		*/
 		void modifyUsableAquaticArea();
+		/**
+		* @brief modifys beach on user input (calls other modifys)
+		*/
 		void modifyBeach();
 		/**
 		 * @brief passes data member to a string
 		 * @return Returns a string with all data members
 		 */
 		string toString();
-
 };
