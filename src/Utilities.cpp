@@ -64,6 +64,13 @@ namespace Utilities {
 	}
 
 	void trimString(string &s) {
+		cout << "dbg: " << s << endl;
+		if(s.find_first_not_of(' ') == string::npos){
+			//String is only spaces, set it to empty string and return
+			s = "";
+			return;
+		}
+
 		if (s.find(' ') != string::npos) {
 			s = s.substr(s.find_first_not_of(' ')); // Cut spaces to the left
 			s = s.substr(0, s.find_last_not_of(' ') + 1); // Cut spaces to the right

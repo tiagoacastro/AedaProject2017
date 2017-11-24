@@ -320,7 +320,7 @@ void LeisureGuide::createBeach(string &beach){
 
 void LeisureGuide::createBayouBeach(vector<string> &beach) {
 
-	//beachtype ([rR] or [bB]) | Name | Concelho | x , y (coords) | capacity | blue flag | width | RiverFlow | maxDepth | services
+	//beachtype ([bB]) | Name | Concelho | x , y (coords) | capacity | blue flag | services | area
 	//services are name, type, description ; name, type, description; name, type, description
 
 	double xc, yc, area;
@@ -329,6 +329,7 @@ void LeisureGuide::createBayouBeach(vector<string> &beach) {
 
 	string name = beach[1];
 	string concelho = beach[2];
+
 	unsigned int capacity = static_cast<unsigned int>(stoul(beach[4]));
 
 	bf = (beach[5] == "1");
@@ -337,16 +338,19 @@ void LeisureGuide::createBayouBeach(vector<string> &beach) {
 	Utilities::trimString(rawcoordinates[0]);
 	Utilities::trimString(rawcoordinates[1]);
 
+	cout << "DBG: Rawcoords\n";
+	Utilities::printVector(rawcoordinates);
 	xc = stod(rawcoordinates[0]);
 	yc = stod(rawcoordinates[1]);
 
-	area = stod(beach[6]);
+	area = stod(beach[7]);
 
-
+	cout << "stods, 345\n";
 	vector<Service> serv;
 	//If the string at beach.size() - 1 is empty, aka the part where the services would be listed is empty
 	//Then we add no services (the vector is initializated as empty, so there is no problem there)
-	if(!beach[beach.size() - 1].empty()) {
+	cout << "Line 349\n";
+	if(!beach[6].empty()) {
 		//If it isn't empty then there are services to search for, so we parse the text as usual
 		vector<string> services = Utilities::splitString(beach[beach.size() - 1], ';');
 		vector<string> serviceitems;
@@ -367,6 +371,9 @@ void LeisureGuide::createBayouBeach(vector<string> &beach) {
 
 
 void LeisureGuide::createRiverBeach(vector<string> &beach){
+	//beachtype ([rR] or [bB]) | Name | Concelho | x , y (coords) | capacity | blue flag | services | width | RiverFlow | maxDepth
+	//services are name, type, description ; name, type, description; name, type, description
+
 	vector<string> stuff;
 
 	//Eliminate whitespace for all the items
@@ -387,14 +394,14 @@ void LeisureGuide::createRiverBeach(vector<string> &beach){
 	double xc = stod(stuff[0]);
 	double yc = stod(stuff[1]);
 
-	double width = stod(beach[6]);
-	double riverFlow = stod(beach[7]);
-	double maxDepth = stod(beach[8]);
+	double width = stod(beach[7]);
+	double riverFlow = stod(beach[8]);
+	double maxDepth = stod(beach[9]);
 
 	vector<Service> serv;
 	//If the string at beach.size() - 1 is empty, aka the part where the services would be listed is empty
 	//Then we add no services (the vector is initializated as empty, so there is no problem there)
-	if(!beach[beach.size() - 1].empty()) {
+	if(!beach[6].empty()) {
 		//If it isn't empty then there are services to search for, so we parse the text as usual
 		vector<string> services = Utilities::splitString(beach[beach.size() - 1], ';');
 
