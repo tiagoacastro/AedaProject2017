@@ -107,8 +107,6 @@ void LeisureGuide::saveFile(){
 		s.open(path);
 	}
 
-	cout << "DBG: 109\n";
-
 	if(file == "Points of Interest" || file == "POI"){
 		savePOI(s);
 	} else if(file == "Restaurant"){
@@ -124,7 +122,7 @@ void LeisureGuide::saveFile(){
 
 void LeisureGuide::saveBeaches(ofstream &s){
 	string format, concelho;
-	cout << "DBG: 124\n";
+
 	for(auto &beach : beaches){
 		format = beach.second->toString();
 		concelho = beach.first + " | ";
@@ -346,7 +344,6 @@ void LeisureGuide::createBayouBeach(vector<string> &beach) {
 		Utilities::trimString(rawcoordinates[0]);
 		Utilities::trimString(rawcoordinates[1]);
 
-		Utilities::printVector(rawcoordinates);
 		xc = stod(rawcoordinates[0]);
 		yc = stod(rawcoordinates[1]);
 
