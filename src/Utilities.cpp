@@ -181,16 +181,25 @@ namespace Utilities {
 	}
 
 	bool correctHourFormat(string hour) {
-		if (hour.length() == 5)
-			if (hour.at(3) == ':') {
+		if (hour.length() == 5) {
+			if (hour.at(2) == ':') {
 				for (unsigned int i = 0; i < 5; i++)
 				{
-					if(i != 2)
+					if (i != 2)
 						if (!isNumber(hour.at(i)))
 							return false;
 				}
+			}
+			if (hour.at(0) < '3') {
+				if (hour.at(0) == '2') {
+					if (hour.at(1) >= '4')
+						return false;
+				}
+				if (hour.at(3) >= '6')
+					return false;
 				return true;
 			}
+		}
 		return false;
 	}
 

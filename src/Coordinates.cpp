@@ -19,7 +19,7 @@ double Coordinates::distanceTo(Coordinates coords) {
 }
 
 ostream &operator<<(ostream &os, const Coordinates &c) {
-	os << "(" << c.latitude << " , " << c.longitude << ")";
+	os << "(" << c.longitude << " , " << c.latitude << ")";
 	return os;
 
 }

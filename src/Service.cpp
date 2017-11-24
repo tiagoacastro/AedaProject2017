@@ -146,13 +146,14 @@ void Restaurant::modifyRestaurant() {
 	cout << ">>> ";
 	while (true) {
 		cin >> input;
-		if (cin.fail() && (input < 1 || input > 8)) {
+		if (cin.fail() && (input < 1 || input > 4)) {
 			cout << "Invalid option value, please insert a valid option (positive integer between 1 and 4)." << endl;
 			//Clearing error flag and cin buffer
-			cin.clear();
-			cin.ignore(100000, '\n');
+			Utilities::clearCinBuffer();
 		}
 		else {
+			//Clearing error flag and cin buffer
+			Utilities::clearCinBuffer();
 			//if cin didn't fail we have a good input so we break the loop
 			break;
 		}
@@ -194,10 +195,11 @@ void Restaurant::modifyCoordinates() {
 		if (cin.fail()) {
 			cout << "Invalid X value, please insert a valid X coordinate value (decimal number)." << endl;
 			//Clearing error flag and cin buffer
-			cin.clear();
-			cin.ignore(100000, '\n');
+			Utilities::clearCinBuffer();
 		}
 		else {
+			//Clearing error flag and cin buffer
+			Utilities::clearCinBuffer();
 			//if cin didn't fail we have a good input so we break the loop
 			break;
 		}
@@ -209,10 +211,11 @@ void Restaurant::modifyCoordinates() {
 		if (cin.fail()) {
 			cout << "Invalid Y value, please insert a valid Y coordinate value (decimal number)." << endl;
 			//Clearing error flag and cin buffer
-			cin.clear();
-			cin.ignore(100000, '\n');
+			Utilities::clearCinBuffer();
 		}
 		else {
+			//Clearing error flag and cin buffer
+			Utilities::clearCinBuffer();
 			//if cin didn't fail we have a good input so we break the loop
 			break;
 		}
@@ -320,13 +323,14 @@ void POI::modifyPOI() {
 	cout << ">>> ";
 	while (true) {
 		cin >> input;
-		if (cin.fail() && (input < 1 || input > 8)) {
+		if (cin.fail() && (input < 1 || input > 3)) {
 			cout << "Invalid option value, please insert a valid option (positive integer between 1 and 3)." << endl;
 			//Clearing error flag and cin buffer
-			cin.clear();
-			cin.ignore(100000, '\n');
+			Utilities::clearCinBuffer();
 		}
 		else {
+			//Clearing error flag and cin buffer
+			Utilities::clearCinBuffer();
 			//if cin didn't fail we have a good input so we break the loop
 			break;
 		}
@@ -365,10 +369,11 @@ void POI::modifyCoordinates() {
 		if (cin.fail()) {
 			cout << "Invalid X value, please insert a valid X coordinate value (decimal number)." << endl;
 			//Clearing error flag and cin buffer
-			cin.clear();
-			cin.ignore(100000, '\n');
+			Utilities::clearCinBuffer();
 		}
 		else {
+			//Clearing error flag and cin buffer
+			Utilities::clearCinBuffer();
 			//if cin didn't fail we have a good input so we break the loop
 			break;
 		}
@@ -380,10 +385,11 @@ void POI::modifyCoordinates() {
 		if (cin.fail()) {
 			cout << "Invalid Y value, please insert a valid Y coordinate value (decimal number)." << endl;
 			//Clearing error flag and cin buffer
-			cin.clear();
-			cin.ignore(100000, '\n');
+			Utilities::clearCinBuffer();
 		}
 		else {
+			//Clearing error flag and cin buffer
+			Utilities::clearCinBuffer();
 			//if cin didn't fail we have a good input so we break the loop
 			break;
 		}
@@ -490,10 +496,11 @@ void Lodging::modifyCoordinates() {
 		if (cin.fail()) {
 			cout << "Invalid X value, please insert a valid X coordinate value (decimal number)." << endl;
 			//Clearing error flag and cin buffer
-			cin.clear();
-			cin.ignore(100000, '\n');
+			Utilities::clearCinBuffer();
 		}
 		else {
+			//Clearing error flag and cin buffer
+			Utilities::clearCinBuffer();
 			//if cin didn't fail we have a good input so we break the loop
 			break;
 		}
@@ -505,10 +512,11 @@ void Lodging::modifyCoordinates() {
 		if (cin.fail()) {
 			cout << "Invalid Y value, please insert a valid Y coordinate value (decimal number)." << endl;
 			//Clearing error flag and cin buffer
-			cin.clear();
-			cin.ignore(100000, '\n');
+			Utilities::clearCinBuffer();
 		}
 		else {
+			//Clearing error flag and cin buffer
+			Utilities::clearCinBuffer();
 			//if cin didn't fail we have a good input so we break the loop
 			break;
 		}
@@ -538,10 +546,11 @@ void Lodging::modifyFull() {
 		if (cin.fail() || (response != "yes" && response != "no" && response != "Yes" && response != "No")) {
 			cout << "Invalid input, please enter yes or no." << endl;
 			//Clearing error flag and cin buffer
-			cin.clear();
-			cin.ignore(100000, '\n');
+			Utilities::clearCinBuffer();
 		}
 		else {
+			//Clearing error flag and cin buffer
+			Utilities::clearCinBuffer();
 			//if cin didn't fail we have a good input so we break the loop
 			break;
 		}
@@ -562,13 +571,14 @@ void Lodging::modifyLodging() {
 	cout << ">>> ";
 	while (true) {
 		cin >> input;
-		if (cin.fail() && (input < 1 || input > 8)) {
+		if (cin.fail() && (input < 1 || input > 4)) {
 			cout << "Invalid option value, please insert a valid option (positive integer between 1 and 4)." << endl;
 			//Clearing error flag and cin buffer
-			cin.clear();
-			cin.ignore(100000, '\n');
+			Utilities::clearCinBuffer();
 		}
 		else {
+			//Clearing error flag and cin buffer
+			Utilities::clearCinBuffer();
 			//if cin didn't fail we have a good input so we break the loop
 			break;
 		}

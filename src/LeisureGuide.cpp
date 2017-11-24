@@ -816,7 +816,8 @@ bool LeisureGuide::addRestaurant() {
 
 	//Ensuring cin is clear after using it as a stream
 	Utilities::clearCinBuffer();
-
+	
+	string transition;
 	for (unsigned int i = 0; i < 7; i++)
 	{
 		cout << "When does the restaurant open on " << Utilities::weekdays[i] << " (HH:MM)?" << endl;
@@ -824,7 +825,7 @@ bool LeisureGuide::addRestaurant() {
 			getline(cin, iHour);
 			Utilities::trimString(iHour);
 			if (! Utilities::correctHourFormat(iHour)) {
-				cout << "Wrong hour format, must be HH:MM" << endl;
+				cout << "Wrong hour format, must be HH:MM and max hour must be 23:59" << endl;
 			}
 			else {
 				break;
@@ -835,13 +836,17 @@ bool LeisureGuide::addRestaurant() {
 			getline(cin, fHour);
 			Utilities::trimString(fHour);
 			if (!Utilities::correctHourFormat(fHour)) {
-				cout << "Wrong hour format, must be HH:MM" << endl;
+				cout << "Wrong hour format, must be HH:MM and max hour must be 23:59" << endl;
 			}
 			else {
 				break;
 			}
 		}
-
+		if (iHour > fHour) {
+			transition = iHour;
+			iHour = fHour;
+			fHour = transition;
+		}
 		day.assign(iHour + " to " + fHour);
 		//Day schedule format: "HH:MM to HH:MM"
 		sch.weekSchedule.push_back(day);
