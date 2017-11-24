@@ -33,7 +33,7 @@ void Service::setType(const string &type) {
 }
 
 ostream & operator<<(ostream &os, const Service &s){
-	os << "Name: " << s.name << endl;
+	os << "- Name: " << s.name << endl;
 	os << "Type: " << s.type << endl;
 	os << "Description: " << s.description << endl;
 

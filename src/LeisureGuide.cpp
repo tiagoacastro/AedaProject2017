@@ -463,6 +463,8 @@ bool LeisureGuide::addBeach() {
 			Utilities::clearCinBuffer();
 		}
 		else {
+			//Clearing error flag and cin buffer
+			Utilities::clearCinBuffer();
 			//if cin didn't fail we have a good input so we break the loop
 			break;
 		}
@@ -477,6 +479,8 @@ bool LeisureGuide::addBeach() {
 			Utilities::clearCinBuffer();
 		}
 		else {
+			//Clearing error flag and cin buffer
+			Utilities::clearCinBuffer();
 			//if cin didn't fail we have a good input so we break the loop
 			break;
 		}
@@ -493,6 +497,8 @@ bool LeisureGuide::addBeach() {
 			Utilities::clearCinBuffer();
 		}
 		else {
+			//Clearing error flag and cin buffer
+			Utilities::clearCinBuffer();
 			//if cin didn't fail we have a good input so we break the loop
 			break;
 		}
@@ -563,6 +569,8 @@ bool LeisureGuide::addBeach() {
 					//It is not necessary to clear the buffer since getline leaves the buffer in a good state
 				}
 				else {
+					//Clearing error flag and cin buffer
+					Utilities::clearCinBuffer();
 					//if cin didn't fail we have a good input so we break the loop
 					break;
 				}
@@ -579,7 +587,6 @@ bool LeisureGuide::addBeach() {
 
 			//If the user does not want to add a service description
 			services.emplace_back(serviceName, serviceType, "None");
-			cout << endl;
 		} else {
 			//If the user entered "no" or "No", he does not wish to input any (further) services
 			break;
@@ -621,6 +628,8 @@ bool LeisureGuide::addBeach() {
 				Utilities::clearCinBuffer();
 			}
 			else {
+				//Clearing error flag and cin buffer
+				Utilities::clearCinBuffer();
 				//if cin didn't fail we have a good input so we break the loop
 				break;
 			}
@@ -635,6 +644,8 @@ bool LeisureGuide::addBeach() {
 				Utilities::clearCinBuffer();
 			}
 			else {
+				//Clearing error flag and cin buffer
+				Utilities::clearCinBuffer();
 				//if cin didn't fail we have a good input so we break the loop
 				break;
 			}
@@ -671,6 +682,8 @@ bool LeisureGuide::addBeach() {
 				//Clearing error flag and cin buffer
 				Utilities::clearCinBuffer();
 			} else {
+				//Clearing error flag and cin buffer
+				Utilities::clearCinBuffer();
 				//if cin didn't fail we have a good input so we break the loop
 				break;
 			}
@@ -793,6 +806,8 @@ bool LeisureGuide::addRestaurant() {
 			Utilities::clearCinBuffer();
 		}
 		else {
+			//Clearing error flag and cin buffer
+			Utilities::clearCinBuffer();
 			//if cin didn't fail we have a good input so we break the loop
 			break;
 		}

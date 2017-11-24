@@ -173,7 +173,7 @@ void Beach::modifyServices(){
 
 	cout << "The services that exist in this beach are:" << endl;
 	this->listAllServices();
-	cout << "\nWhich do you want to alter (insert service name)?" << endl;
+	cout << "Which do you want to alter (insert service name)?" << endl;
 	string tempservicename;
 	getline(cin, tempservicename);
 
@@ -211,10 +211,13 @@ void Beach::modifyServices(){
 	switch(input){
 		case 1:
 			it->modifyName();
+			break;
 		case 2:
 			it->modifyType();
+			break;
 		case 3:
 			it->modifyDescription();
+			break;
 	}
 }
 
