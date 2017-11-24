@@ -72,7 +72,7 @@ namespace Utilities {
 	 * @param splitter Character for which to search
 	 * @return Returns a vector of 'input', split at every ocurrence of 'splitter'
 	 */
-	vector<string> splitString(string input, char splitter);
+	vector<string> splitString(const string &input, char splitter);
 	/**
 	 * @brief Clears the screen
 	 */

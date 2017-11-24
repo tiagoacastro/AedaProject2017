@@ -85,8 +85,17 @@ namespace Utilities {
 		return output;
 	}
 
-	vector<string> splitString(string input, char splitter) {
-		return splitString(input, to_string(splitter));
+	vector<string> splitString(const string &input, char splitter) {
+		vector<string> output;
+		stringstream temp(input);
+		string currentsegment;
+
+		//while the splitter sequence exists in the stream
+		while (getline(temp, currentsegment, splitter)) {
+			output.push_back(currentsegment);
+		}
+
+		return output;
 	}
 
 	void clearScreen() {

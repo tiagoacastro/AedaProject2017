@@ -304,6 +304,11 @@ void LeisureGuide::createBeach(string &beach){
 
 	vector<string> infos = Utilities::splitString(beach, '|');
 
+	//Eliminate whitespace for all the items
+	for(auto &item : infos){
+		Utilities::trimString(item);
+	}
+
 	if (infos[0] == "B" || infos[0] == "b")
 		this->createBayouBeach(infos);
 	else if (infos[0] == "R" || infos[0] == "r")
@@ -321,11 +326,6 @@ void LeisureGuide::createBayouBeach(vector<string> &beach) {
 	double xc, yc, area;
 	bool bf;
 	string blueFlag;
-
-	//Eliminate whitespace for all the items
-	for(auto &item : beach){
-		Utilities::trimString(item);
-	}
 
 	string name = beach[1];
 	string concelho = beach[2];
