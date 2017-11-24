@@ -105,10 +105,7 @@ namespace Utilities {
 
 		//If there are more than 0 characters in the cin buffer, clear them
 		if (cin.rdbuf()->in_avail() > 0) {
-			//Ignores everything in the cin buffer
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			//Clears any potential set flags
-			cin.clear();
+			Utilities::clearCinBuffer();
 		}
 
 		//Pause to see output
@@ -116,7 +113,10 @@ namespace Utilities {
 		cin.get();
 
 		//Ensuring cin is clear after receiving input in it (cin.get())
-		Utilities::clearCinBuffer();
+		//If cin.get received input (if it was just enter there is no need to clear, thus this verification again)
+		if (cin.rdbuf()->in_avail() > 0) {
+			Utilities::clearCinBuffer();
+		}
 	}
 
 	string minutesToHHMM(unsigned int minutes) {
