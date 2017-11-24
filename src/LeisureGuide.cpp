@@ -80,7 +80,7 @@ void LeisureGuide::saveFile(){
 	string file, path;
 	ofstream s;
 
-	cout << "What kind of information do you want to save? (Points of Interest (POI), Restaurant, Beach or Lodging)";
+	cout << "What kind of information do you want to save? (Points of Interest (POI), Restaurant, Beach or Lodging)" << endl;
 	getline(cin, file);
 	Utilities::trimString(file);
 
