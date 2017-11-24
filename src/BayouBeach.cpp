@@ -57,7 +57,7 @@ void BayouBeach::modifyBeach(){
 	cout << ">>> ";
 	while (true) {
 		cin >> input;
-		if (cin.fail() && (input < 1 || input > 8)) {
+		if (cin.fail() && (input < 1 || input > 6)) {
 			cout << "Invalid option value, please insert a valid option (positive integer between 1 and 6)." << endl;
 			//Clearing error flag and cin buffer
 			Utilities::clearCinBuffer();

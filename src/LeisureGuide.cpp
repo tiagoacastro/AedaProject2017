@@ -541,12 +541,11 @@ bool LeisureGuide::addBeach() {
 			cout << "Do you want to add a description to the service?" << endl;
 
 			while (true) {
-				getline(cin, response);
+				cin >> response;
 				Utilities::trimString(response);
 				if (cin.fail() || (response != "yes" && response != "no" && response != "Yes" && response != "No")) {
 					cout << "Invalid input, please enter yes or no." << endl;
-					//Clearing error flag and cin buffer
-					Utilities::clearCinBuffer();
+					//It is not necessary to clear the buffer since getline leaves the buffer in a good state
 				}
 				else {
 					//if cin didn't fail we have a good input so we break the loop
@@ -840,8 +839,7 @@ bool LeisureGuide::addRestaurant() {
 		Utilities::trimString(response);
 		if (cin.fail() || (response != "yes" && response != "no" && response != "Yes" && response != "No")) {
 			cout << "Invalid input, please enter yes or no." << endl;
-			//Clearing error flag and cin buffer
-			Utilities::clearCinBuffer();
+			//It is not necessary to clear the buffer since getline leaves the buffer in a good state
 		}
 		else {
 			//if cin didn't fail we have a good input so we break the loop
@@ -918,8 +916,7 @@ bool LeisureGuide::addPOI() {
 		Utilities::trimString(response);
 		if (cin.fail() || (response != "yes" && response != "no" && response != "Yes" && response != "No")) {
 			cout << "Invalid input, please enter yes or no." << endl;
-			//Clearing error flag and cin buffer
-			Utilities::clearCinBuffer();
+			//It is not necessary to clear the buffer since getline leaves the buffer in a good state
 		}
 		else {
 			//if cin didn't fail we have a good input so we break the loop
@@ -1016,8 +1013,7 @@ bool LeisureGuide::addLodging() {
 		Utilities::trimString(response);
 		if (cin.fail() || (response != "yes" && response != "no" && response != "Yes" && response != "No")) {
 			cout << "Invalid input, please enter yes or no." << endl;
-			//Clearing error flag and cin buffer
-			Utilities::clearCinBuffer();
+			//It is not necessary to clear the buffer since getline leaves the buffer in a good state
 		}
 		else {
 			//if cin didn't fail we have a good input so we break the loop
@@ -1237,6 +1233,7 @@ void LeisureGuide::displayBeachInfo() {
 
 	if(it == beaches.end()){
 		cout << "Beach not found! Exiting!" << endl;
+		return;
 	}
 
 	cout << "The info for the requested beach is:" << endl;
@@ -1254,6 +1251,7 @@ void LeisureGuide::displayPOIInfo() {
 
 	if(it == POIs.end()){
 		cout << "POI not found! Exiting!" << endl;
+		return;
 	}
 
 	cout << "The info for the requested POI is:" << endl;
@@ -1271,6 +1269,7 @@ void LeisureGuide::displayRestaurantInfo() {
 
 	if(it == restaurants.end()){
 		cout << "Restaurant not found! Exiting!" << endl;
+		return;
 	}
 
 	cout << "The info for the requested restaurant is:" << endl;
@@ -1288,6 +1287,7 @@ void LeisureGuide::displayLodgingInfo() {
 
 	if(it == lodging.end()){
 		cout << "Lodging not found! Exiting!" << endl;
+		return;
 	}
 
 	cout << "The info for the requested lodging is:" << endl;
