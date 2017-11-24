@@ -463,8 +463,6 @@ bool LeisureGuide::addBeach() {
 			Utilities::clearCinBuffer();
 		}
 		else {
-			//Clearing error flag and cin buffer
-			Utilities::clearCinBuffer();
 			//if cin didn't fail we have a good input so we break the loop
 			break;
 		}
@@ -806,8 +804,6 @@ bool LeisureGuide::addRestaurant() {
 			Utilities::clearCinBuffer();
 		}
 		else {
-			//Clearing error flag and cin buffer
-			Utilities::clearCinBuffer();
 			//if cin didn't fail we have a good input so we break the loop
 			break;
 		}
@@ -1012,6 +1008,8 @@ bool LeisureGuide::addLodging() {
 			Utilities::clearCinBuffer();
 		}
 		else {
+			//Clearing error flag and cin buffer
+			Utilities::clearCinBuffer();
 			//if cin didn't fail we have a good input so we break the loop
 			break;
 		}
@@ -1168,7 +1166,7 @@ void LeisureGuide::sortLodgingByDistanceToBeach(Beach *b){
 	});
 }
 
-void LeisureGuide::displaySortedByDistance(){
+void LeisureGuide::displaySortedByDistance() {
 	string beachname;
 	cout << "What is the name of the beach you want to search for?" << endl;
 
@@ -1177,12 +1175,12 @@ void LeisureGuide::displaySortedByDistance(){
 
 	auto it = findBeachByName(beachname);
 
-	if(it == beaches.end()){
+	if (it == beaches.end()) {
 		cout << "Beach not found! Exiting..." << endl;
 		return;
 	}
 
-	//Keeping it at 3 results for now, but we can ask for user input later on
+	//Keeping it at 3 results for now, but we can ask for user input later on if need be
 	int nresults = 3;
 
 	//Sorting the internal data by distance to the found beach
@@ -1194,36 +1192,74 @@ void LeisureGuide::displaySortedByDistance(){
 	//Printing the results
 
 	//For Restaurants
-	cout << "The " << nresults << " closest Restaurants to the given beach are:" << endl;
-	for(unsigned int i = 0; i < nresults && i < restaurants.size(); ++i){
-		cout << i+1 << "-th result:" << endl;
-		cout << restaurants[i];
-		cout << "Distance to given beach: " << restaurants[i].getCoordinates().distanceTo(beachcoords) << endl;
+	if (restaurants.size() != 0) {
+		if (restaurants.size() < nresults) {
+			if(restaurants.size()==1)
+				cout << "The closest Restaurant to the given beach is:" << endl;
+			else
+				cout << "The " << restaurants.size() << " closest Restaurants to the given beach are:" << endl;
+			nresults = restaurants.size();
+		}
+		else
+		cout << "The " << nresults << " closest Restaurants to the given beach are:" << endl;
+		for (unsigned int i = 0; i < nresults; ++i) {
+			cout << "result number " << i + 1 << ":" << endl;
+			cout << restaurants.at(i);
+			cout << "Distance to given beach: " << restaurants[i].getCoordinates().distanceTo(beachcoords) << endl << endl;
+		}
+	} else {
+		cout << "There are no restaurants listed on the leisure guide " << endl;
 	}
 
 	Utilities::pause();
-	cout << endl << endl;
+	cout << endl;
+
+	nresults = 3;
 
 	//For POIs
-	cout << "The " << nresults << " closest POIs to the given beach are:" << endl;
-	for(unsigned int i = 0; i < nresults && i < POIs.size(); ++i){
-		cout << i+1 << "-th result:" << endl;
-		cout << POIs[i];
-		cout << "Distance to given beach: " << POIs[i].getCoordinates().distanceTo(beachcoords) << endl;
+	if (POIs.size() != 0) {
+		if (POIs.size() < nresults) {
+			if (POIs.size() == 1)
+				cout << "The closest POI to the given beach is:" << endl;
+			else
+				cout << "The " << POIs.size() << " closest POIs to the given beach are:" << endl;
+			nresults = POIs.size();
+		}
+		else
+			cout << "The " << nresults << " closest POIs to the given beach are:" << endl;
+		for (unsigned int i = 0; i < nresults; ++i) {
+			cout << "result number " << i + 1 << ":" << endl;
+			cout << POIs.at(i);
+			cout << "Distance to given beach: " << POIs[i].getCoordinates().distanceTo(beachcoords) << endl << endl;
+		}
+	} else {
+		cout << "There are no POIs listed on the leisure guide " << endl;
 	}
 
 	Utilities::pause();
-	cout << endl << endl;
+	cout << endl;
+
+	nresults = 3;
 
 	//For Lodging
-	cout << "The " << nresults << " closest Lodging to the given beach are:" << endl;
-	for(unsigned int i = 0; i < nresults && i < lodging.size(); ++i){
-		cout << i+1 << "-th result:" << endl;
-		cout << lodging[i];
-		cout << "Distance to given beach: " << lodging[i].getCoordinates().distanceTo(beachcoords) << endl;
+	if (lodging.size() != 0) {
+		if (lodging.size() < nresults) {
+			if (lodging.size() == 1)
+				cout << "The closest Lodging facility to the given beach is:" << endl;
+			else
+				cout << "The " << lodging.size() << " closest Lodging facilities to the given beach are:" << endl;
+			nresults = lodging.size();
+		}
+		else
+			cout << "The " << nresults << " closest Lodging facilities to the given beach are:" << endl;
+		for (unsigned int i = 0; i < nresults; ++i) {
+			cout << "result number " << i + 1 << ":" << endl;
+			cout << lodging.at(i);
+			cout << "Distance to given beach: " << lodging[i].getCoordinates().distanceTo(beachcoords) << endl << endl;
+		}
+	} else {
+		cout << "There are no lodging facilities listed on the leisure guide " << endl;
 	}
-
-	Utilities::pause();
 
 	//All results listed successfully
 }
