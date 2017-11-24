@@ -130,7 +130,7 @@ int menuRunner(LeisureGuide &lg) {
 				Utilities::clearCinBuffer();
 				//Clearing screen and reprinting
 				Utilities::clearScreen();
-				cout << "Seleção inválida! Tente novamente!\n\n";
+				cout << "Invalid Selection! Try again!\n\n";
 				menuobj.DisplayByID(currentselection);
 			}
 			else {

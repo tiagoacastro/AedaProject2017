@@ -199,9 +199,9 @@ namespace Utilities {
 	}
 
 	void clearCinBuffer(){
-		//Ignores everything in the cin buffer
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		//Clears any potential set flags
 		cin.clear();
+		//Ignores everything in the cin buffer
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 	}
 }

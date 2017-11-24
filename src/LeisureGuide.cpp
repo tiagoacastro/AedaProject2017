@@ -159,6 +159,7 @@ void LeisureGuide::loadFile(){
 
 	cout << "Enter the path for the file (EOF to exit)" << endl;
 	getline(cin, path);
+	Utilities::trimString(path);
 	s.open(path);
 
 	while(!s.is_open()){
@@ -170,6 +171,7 @@ void LeisureGuide::loadFile(){
 		}
 		cout << "Error opening the file, please enter the path again (EOF to exit)" << endl;
 		getline(cin,path);
+		Utilities::trimString(path);
 		s.open(path);
 	}
 
@@ -557,6 +559,7 @@ bool LeisureGuide::addBeach() {
 				Utilities::trimString(response);
 				if (cin.fail() || (response != "yes" && response != "no" && response != "Yes" && response != "No")) {
 					cout << "Invalid input, please enter yes or no." << endl;
+					Utilities::clearCinBuffer();
 					//It is not necessary to clear the buffer since getline leaves the buffer in a good state
 				}
 				else {
