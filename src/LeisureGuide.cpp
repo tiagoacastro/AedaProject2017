@@ -90,12 +90,18 @@ void LeisureGuide::saveFile(){
 		Utilities::trimString(file);
 	}
 
-	cout << "Enter the path for the file please";
+	cout << "Enter the path for the file please (EOF to exit)" << endl;
 	getline(cin, path);
 	s.open(path);
 
 	while(!s.is_open()){
-		cout << "Error opening the file, enter the path again please";
+		if(cin.eof()){
+			cout << "EOF received, exiting file saving operation!" << endl;
+			//Clearing the EOF
+			Utilities::clearCinBuffer();
+			return;
+		}
+		cout << "Error opening the file, enter the path again please (EOF to exit)" << endl;
 		getline(cin,path);
 		s.open(path);
 	}
@@ -151,12 +157,18 @@ void LeisureGuide::loadFile(){
 		Utilities::trimString(file);
 	}
 
-	cout << "Enter the path for the file" << endl;
+	cout << "Enter the path for the file (EOF to exit)" << endl;
 	getline(cin, path);
 	s.open(path);
 
 	while(!s.is_open()){
-		cout << "Error opening the file, please enter the path again";
+		if(cin.eof()){
+			cout << "EOF received, exiting file loading operation!" << endl;
+			//Clearing the EOF
+			Utilities::clearCinBuffer();
+			return;
+		}
+		cout << "Error opening the file, please enter the path again (EOF to exit)" << endl;
 		getline(cin,path);
 		s.open(path);
 	}
