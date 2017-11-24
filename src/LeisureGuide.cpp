@@ -1216,3 +1216,31 @@ void LeisureGuide::displaySortedByDistance(){
 
 	//All results listed successfully
 }
+
+void LeisureGuide::displayBeachesByConcelho() const{
+
+	cout << "What Concelho do you want to display the beaches for?" << endl;
+
+	string input;
+	getline(cin, input);
+	Utilities::trimString(input);
+
+	auto allConcelhos = getAllConcelhos();
+
+	auto it = find(allConcelhos.begin(), allConcelhos.end(), input);
+
+	if(it == allConcelhos.end()){
+		cout << "Given concelho was not found!" << endl;
+		return;
+	}
+
+	auto desiredBeaches = getBeachesByConcelho(input);
+	if(!desiredBeaches.empty()) {
+		cout << "The beaches for " << input << " are:" << endl;
+		for(auto const &desiredBeach : desiredBeaches){
+			desiredBeach->print(cout);
+		}
+	} else {
+		cout << "No beaches were found for the given concelho!" << endl;
+	}
+}

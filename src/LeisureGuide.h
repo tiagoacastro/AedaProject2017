@@ -114,6 +114,10 @@ public:
 	 */
 	void displaySortedByDistance();
 	/**
+	 * @brief Displays the beaches for a certain concelho
+	 */
+	void displayBeachesByConcelho() const;
+	/**
 	 * @brief Loads file contents into program memory
 	 */
 	void loadFile();
