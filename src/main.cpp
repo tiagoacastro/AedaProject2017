@@ -308,7 +308,7 @@ bool callFunctions(string &id, LeisureGuide &lg) {
 		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
 		id = id.substr(0, id.find_last_of('.'));
 		//calls function based on hardcoded id
-		cout << "To be implemented!" << endl;
+		lg.displayBeachInfo();
 		//pause to see output
 		Utilities::pause();
 		//function was found, return true
@@ -356,7 +356,7 @@ bool callFunctions(string &id, LeisureGuide &lg) {
 		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
 		id = id.substr(0, id.find_last_of('.'));
 		//calls function based on hardcoded id
-		cout << "To be implemented!" << endl;
+		lg.displayPOIInfo();
 		//pause to see output
 		Utilities::pause();
 		//function was found, return true
@@ -404,7 +404,7 @@ bool callFunctions(string &id, LeisureGuide &lg) {
 		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
 		id = id.substr(0, id.find_last_of('.'));
 		//calls function based on hardcoded id
-		cout << "To be implemented!" << endl;
+		lg.displayRestaurantInfo();
 		//pause to see output
 		Utilities::pause();
 		//function was found, return true
@@ -452,7 +452,7 @@ bool callFunctions(string &id, LeisureGuide &lg) {
 		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
 		id = id.substr(0, id.find_last_of('.'));
 		//calls function based on hardcoded id
-		cout << "To be implemented!" << endl;
+		lg.displayLodgingInfo();
 		//pause to see output
 		Utilities::pause();
 		//function was found, return true

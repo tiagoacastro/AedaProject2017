@@ -116,7 +116,23 @@ public:
 	/**
 	 * @brief Displays the beaches for a certain concelho
 	 */
-	void displayBeachesByConcelho() const;
+	void displayBeachesByConcelho();
+	/**
+	 * @brief Displays detailed information for a certain beach, requested by its name
+	 */
+	void displayBeachInfo();
+	/**
+	 * @brief Displays detailed information for a certain POI, requested by its name
+	 */
+	void displayPOIInfo();
+	/**
+	 * @brief Displays detailed information for a certain Restaurant, requested by its name
+	 */
+	void displayRestaurantInfo();
+	/**
+	 * @brief Displays detailed information for a certain Lodging, requested by its name
+	 */
+	void displayLodgingInfo();
 	/**
 	 * @brief Loads file contents into program memory
 	 */
@@ -196,7 +212,7 @@ public:
 	 * @param beach		vector with all RiverBeach private members separated
 	 */
 	void createRiverBeach(vector<string> &beach);
-	/*
+	/**
 	 * @brief create and add to vector beaches a BayouBeach
 	 * @param beach		vector with all BayourBeach private members separated
 	 */

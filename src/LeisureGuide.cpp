@@ -735,7 +735,7 @@ bool LeisureGuide::removeRestaurant(){
 	return true;
 }
 
-vector<Restaurant>::iterator LeisureGuide::findRestaurantByName(const string &name){
+vector<Restaurant>::iterator LeisureGuide::findRestaurantByName(const string &name) {
 	auto it = find_if(restaurants.begin(), restaurants.end(), [=](const Restaurant &r){
 		return r.getName() == name;
 	});
@@ -763,7 +763,7 @@ bool LeisureGuide::removeLodging(){
 	return true;
 }
 
-vector<Lodging>::iterator LeisureGuide::findLodgingByName(const string &name){
+vector<Lodging>::iterator LeisureGuide::findLodgingByName(const string &name) {
 	auto it = find_if(lodging.begin(), lodging.end(), [=](const Lodging &l){
 		return l.getName() == name;
 	});
@@ -1217,7 +1217,7 @@ void LeisureGuide::displaySortedByDistance(){
 	//All results listed successfully
 }
 
-void LeisureGuide::displayBeachesByConcelho() const{
+void LeisureGuide::displayBeachesByConcelho() {
 
 	cout << "What Concelho do you want to display the beaches for?" << endl;
 
@@ -1243,4 +1243,73 @@ void LeisureGuide::displayBeachesByConcelho() const{
 	} else {
 		cout << "No beaches were found for the given concelho!" << endl;
 	}
+}
+
+void LeisureGuide::displayBeachInfo() {
+
+	cout << "What is the name of the beach for which you desire to print the info for?" << endl;
+	string name;
+	getline(cin, name);
+
+	Utilities::trimString(name);
+
+	auto it = findBeachByName(name);
+
+	if(it == beaches.end()){
+		cout << "Beach not found! Exiting!" << endl;
+	}
+
+	cout << "The info for the requested beach is:" << endl;
+	it->second->print(cout);
+}
+
+void LeisureGuide::displayPOIInfo() {
+	cout << "What is the name of the POI for which you desire to print the info for?" << endl;
+	string name;
+	getline(cin, name);
+
+	Utilities::trimString(name);
+
+	auto it = findPOIByName(name);
+
+	if(it == POIs.end()){
+		cout << "POI not found! Exiting!" << endl;
+	}
+
+	cout << "The info for the requested POI is:" << endl;
+	cout << *it;
+}
+
+void LeisureGuide::displayRestaurantInfo() {
+	cout << "What is the name of the Restaurant for which you desire to print the info for?" << endl;
+	string name;
+	getline(cin, name);
+
+	Utilities::trimString(name);
+
+	auto it = findRestaurantByName(name);
+
+	if(it == restaurants.end()){
+		cout << "Restaurant not found! Exiting!" << endl;
+	}
+
+	cout << "The info for the requested restaurant is:" << endl;
+	cout << *it;
+}
+
+void LeisureGuide::displayLodgingInfo() {
+	cout << "What is the name of the Lodging for which you desire to print the info for?" << endl;
+	string name;
+	getline(cin, name);
+
+	Utilities::trimString(name);
+
+	auto it = findLodgingByName(name);
+
+	if(it == lodging.end()){
+		cout << "Lodging not found! Exiting!" << endl;
+	}
+
+	cout << "The info for the requested lodging is:" << endl;
+	cout << *it;
 }
