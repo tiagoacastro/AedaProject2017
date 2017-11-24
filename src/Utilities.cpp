@@ -64,7 +64,6 @@ namespace Utilities {
 	}
 
 	void trimString(string &s) {
-		cout << "dbg: " << s << endl;
 		if(s.find_first_not_of(' ') == string::npos){
 			//String is only spaces, set it to empty string and return
 			s = "";

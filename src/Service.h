@@ -3,6 +3,7 @@
 #include <vector>
 #include "Coordinates.h"
 #include "Utilities.h"
+#include <ostream>
 
 using namespace std;
 

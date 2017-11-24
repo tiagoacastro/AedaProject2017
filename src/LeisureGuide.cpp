@@ -92,6 +92,7 @@ void LeisureGuide::saveFile(){
 
 	cout << "Enter the path for the file please (EOF to exit)" << endl;
 	getline(cin, path);
+	Utilities::trimString(path);
 	s.open(path);
 
 	while(!s.is_open()){
@@ -105,6 +106,8 @@ void LeisureGuide::saveFile(){
 		getline(cin,path);
 		s.open(path);
 	}
+
+	cout << "DBG: 109\n";
 
 	if(file == "Points of Interest" || file == "POI"){
 		savePOI(s);
@@ -121,12 +124,13 @@ void LeisureGuide::saveFile(){
 
 void LeisureGuide::saveBeaches(ofstream &s){
 	string format, concelho;
+	cout << "DBG: 124\n";
 	for(auto &beach : beaches){
 		format = beach.second->toString();
 		concelho = beach.first + " | ";
 		//nome da praia + numero de char existentes até à posicao da latitude
 		format.insert(beach.second->getName().length() + 7, concelho);
-		s << format;
+		s << format << '\n';
 	}
 }
 
@@ -323,50 +327,54 @@ void LeisureGuide::createBayouBeach(vector<string> &beach) {
 	//beachtype ([bB]) | Name | Concelho | x , y (coords) | capacity | blue flag | services | area
 	//services are name, type, description ; name, type, description; name, type, description
 
-	double xc, yc, area;
-	bool bf;
-	string blueFlag;
 
-	string name = beach[1];
-	string concelho = beach[2];
+	//For throwing WrongFileFormat exception if anything goes wrong in parsing
+	try {
 
-	unsigned int capacity = static_cast<unsigned int>(stoul(beach[4]));
+		double xc, yc, area;
+		bool bf;
+		string blueFlag;
 
-	bf = (beach[5] == "1");
+		string name = beach[1];
+		string concelho = beach[2];
 
-	vector <string> rawcoordinates = Utilities::splitString(beach[3], ',');
-	Utilities::trimString(rawcoordinates[0]);
-	Utilities::trimString(rawcoordinates[1]);
+		unsigned int capacity = static_cast<unsigned int>(stoul(beach[4]));
 
-	cout << "DBG: Rawcoords\n";
-	Utilities::printVector(rawcoordinates);
-	xc = stod(rawcoordinates[0]);
-	yc = stod(rawcoordinates[1]);
+		bf = (beach[5] == "1");
 
-	area = stod(beach[7]);
+		vector<string> rawcoordinates = Utilities::splitString(beach[3], ',');
+		Utilities::trimString(rawcoordinates[0]);
+		Utilities::trimString(rawcoordinates[1]);
 
-	cout << "stods, 345\n";
-	vector<Service> serv;
-	//If the string at beach.size() - 1 is empty, aka the part where the services would be listed is empty
-	//Then we add no services (the vector is initializated as empty, so there is no problem there)
-	cout << "Line 349\n";
-	if(!beach[6].empty()) {
-		//If it isn't empty then there are services to search for, so we parse the text as usual
-		vector<string> services = Utilities::splitString(beach[beach.size() - 1], ';');
-		vector<string> serviceitems;
+		Utilities::printVector(rawcoordinates);
+		xc = stod(rawcoordinates[0]);
+		yc = stod(rawcoordinates[1]);
 
-		for(auto &service : services) {
-			Utilities::trimString(service);
-			serviceitems = Utilities::splitString(service, ',');
-			Utilities::trimString(serviceitems[0]);
-			Utilities::trimString(serviceitems[1]);
-			Utilities::trimString(serviceitems[2]);
-			serv.emplace_back(serviceitems[0], serviceitems[1], serviceitems[2]);
+		area = stod(beach[7]);
+
+		vector<Service> serv;
+		//If the string at beach.size() - 1 is empty, aka the part where the services would be listed is empty
+		//Then we add no services (the vector is initializated as empty, so there is no problem there)
+		if(!beach[6].empty()) {
+			//If it isn't empty then there are services to search for, so we parse the text as usual
+			vector<string> services = Utilities::splitString(beach[6], ';');
+			vector<string> serviceitems;
+
+			for(auto &service : services) {
+				Utilities::trimString(service);
+				serviceitems = Utilities::splitString(service, ',');
+				Utilities::trimString(serviceitems[0]);
+				Utilities::trimString(serviceitems[1]);
+				Utilities::trimString(serviceitems[2]);
+				serv.emplace_back(serviceitems[0], serviceitems[1], serviceitems[2]);
+			}
 		}
-	}
 
-	Beach *p = new BayouBeach(name, Coordinates(xc,yc), capacity, bf, serv, area);
-	beaches.emplace_back(concelho, p);
+		Beach *p = new BayouBeach(name, Coordinates(xc, yc), capacity, bf, serv, area);
+		beaches.emplace_back(concelho, p);
+	} catch(...){
+		throw Utilities::WrongFileFormat("Bayou Beach");
+	}
 }
 
 
@@ -374,49 +382,54 @@ void LeisureGuide::createRiverBeach(vector<string> &beach){
 	//beachtype ([rR] or [bB]) | Name | Concelho | x , y (coords) | capacity | blue flag | services | width | RiverFlow | maxDepth
 	//services are name, type, description ; name, type, description; name, type, description
 
-	vector<string> stuff;
+	//For throwing WrongFileFormat exception if anything goes wrong in parsing
+	try {
+		vector<string> stuff;
 
-	//Eliminate whitespace for all the items
-	for(auto &item : beach) {
-		Utilities::trimString(item);
-	}
-
-	string concelho = beach[2];
-	string name = beach[1];
-
-	unsigned int capacity = static_cast<unsigned int>(stoul(beach[4]));
-
-	bool bf = (beach[5] == "1");
-
-	stuff = Utilities::splitString(beach[3], ',');
-	Utilities::trimString(stuff[0]);
-	Utilities::trimString(stuff[1]);
-	double xc = stod(stuff[0]);
-	double yc = stod(stuff[1]);
-
-	double width = stod(beach[7]);
-	double riverFlow = stod(beach[8]);
-	double maxDepth = stod(beach[9]);
-
-	vector<Service> serv;
-	//If the string at beach.size() - 1 is empty, aka the part where the services would be listed is empty
-	//Then we add no services (the vector is initializated as empty, so there is no problem there)
-	if(!beach[6].empty()) {
-		//If it isn't empty then there are services to search for, so we parse the text as usual
-		vector<string> services = Utilities::splitString(beach[beach.size() - 1], ';');
-
-		for(auto &service : services) {
-			Utilities::trimString(service);
-			stuff = Utilities::splitString(service, ',');
-			Utilities::trimString(stuff[0]);
-			Utilities::trimString(stuff[1]);
-			Utilities::trimString(stuff[2]);
-			serv.emplace_back(stuff[0], stuff[1], stuff[2]);
+		//Eliminate whitespace for all the items
+		for(auto &item : beach) {
+			Utilities::trimString(item);
 		}
-	}
 
-	Beach *p = new RiverBeach(name, Coordinates(xc,yc), capacity, bf, serv, width, riverFlow, maxDepth);
-	beaches.emplace_back(concelho, p);
+		string concelho = beach[2];
+		string name = beach[1];
+
+		unsigned int capacity = static_cast<unsigned int>(stoul(beach[4]));
+
+		bool bf = (beach[5] == "1");
+
+		stuff = Utilities::splitString(beach[3], ',');
+		Utilities::trimString(stuff[0]);
+		Utilities::trimString(stuff[1]);
+		double xc = stod(stuff[0]);
+		double yc = stod(stuff[1]);
+
+		double width = stod(beach[7]);
+		double riverFlow = stod(beach[8]);
+		double maxDepth = stod(beach[9]);
+
+		vector<Service> serv;
+		//If the string at beach.size() - 1 is empty, aka the part where the services would be listed is empty
+		//Then we add no services (the vector is initializated as empty, so there is no problem there)
+		if(!beach[6].empty()) {
+			//If it isn't empty then there are services to search for, so we parse the text as usual
+			vector<string> services = Utilities::splitString(beach[6], ';');
+
+			for(auto &service : services) {
+				Utilities::trimString(service);
+				stuff = Utilities::splitString(service, ',');
+				Utilities::trimString(stuff[0]);
+				Utilities::trimString(stuff[1]);
+				Utilities::trimString(stuff[2]);
+				serv.emplace_back(stuff[0], stuff[1], stuff[2]);
+			}
+		}
+
+		Beach *p = new RiverBeach(name, Coordinates(xc, yc), capacity, bf, serv, width, riverFlow, maxDepth);
+		beaches.emplace_back(concelho, p);
+	} catch(...){
+		throw Utilities::WrongFileFormat("River Beach");
+	}
 }
 
 vector<pair<string, Beach*>>::iterator LeisureGuide::findBeachByName(string name) {

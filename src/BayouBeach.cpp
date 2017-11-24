@@ -106,6 +106,16 @@ string BayouBeach::toString(){
 
 	//If there are any services, adding the first service first and then iterating through and adding the others because of inserting the " ; "
 	if(!this->getServices().empty()) {
+		auto servicestemp = this->getServices();
+
+		for(unsigned int i = 0; i < servicestemp.size(); ++i){
+			if(i == 0) {
+				format += servicestemp[i].toString();
+			} else {
+				format += " ; " + servicestemp[i].toString();
+			}
+		}
+/*
 		auto it = this->getServices().begin();
 		format += it->toString();
 		//Moving to the next element
@@ -113,6 +123,9 @@ string BayouBeach::toString(){
 
 		for( ; it != this->getServices().end() ; ++it)
 			format += " ; " + it->toString();
+
+		*/
+
 	}
 
 	format += " | " + to_string(usableAquaticArea);
