@@ -124,7 +124,9 @@ void LeisureGuide::saveBeaches(ofstream &s){
 	for(auto &beach : beaches){
 		format = beach.second->toString();
 		concelho = beach.first + " | ";
-		format.insert(beach.second->getName().length() + 7, concelho); //nome da praia + numero de char existentes at� � posicao da latitude
+		//nome da praia + numero de char existentes até à posicao da latitude
+		format.insert(beach.second->getName().length() + 7, concelho);
+		s << format;
 	}
 }
 
@@ -177,16 +179,21 @@ void LeisureGuide::loadFile(){
 
 	vector<string> readfile = Utilities::ReadFile(s);
 
-	if(file == "Points of Interest"){
-		createPOI(readfile);
-	} else if(file == "Restaurant"){
-		createRestaurants(readfile);
-	} else if(file == "Beach"){
-		createBeach(readfile);
-	} else if(file == "Lodging"){
-		createLodging(readfile);
+	try{
+		if(file == "Points of Interest"){
+			createPOI(readfile);
+		} else if(file == "Restaurant"){
+			createRestaurants(readfile);
+		} else if(file == "Beach"){
+			createBeach(readfile);
+		} else if(file == "Lodging") {
+			createLodging(readfile);
+		}
+	} catch(Utilities::WrongFileFormat &wff){
+		cout << "Wrong file format! Error in : " << wff.getType() << " format!" << endl;
 	}
 
+	//Always closing the stream before exiting
 	s.close();
 }
 
@@ -303,7 +310,7 @@ void LeisureGuide::createBeach(string &beach){
 		this->createRiverBeach(infos);
 	else
 		//Throwing exception since file is in the wrong format
-		throw Utilities::WrongFileFormat("Beach");
+		throw Utilities::WrongFileFormat("Beach identifier");
 }
 
 void LeisureGuide::createBayouBeach(vector<string> &beach) {
