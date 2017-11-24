@@ -114,6 +114,9 @@ namespace Utilities {
 		//Pause to see output
 		cout << "Press enter to continue....";
 		cin.get();
+
+		//Ensuring cin is clear after receiving input in it (cin.get())
+		Utilities::clearCinBuffer();
 	}
 
 	string minutesToHHMM(unsigned int minutes) {
