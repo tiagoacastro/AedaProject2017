@@ -80,11 +80,7 @@ void LeisureGuide::saveFile(){
 	string file, path;
 	ofstream s;
 
-	//cin was somewhere used as a stream before (probably menu) so we need to clear the buffer to not get a "Not a valid option" straight away
-	cin.clear();
-	cin.ignore(100000, '\n');
-
-	cout << "what kind of information do you want to save? Points of Interest (POI), Restaurant, Beach or Lodging";
+	cout << "What kind of information do you want to save? (Points of Interest (POI), Restaurant, Beach or Lodging)";
 	getline(cin, file);
 	Utilities::trimString(file);
 
@@ -145,10 +141,6 @@ void LeisureGuide::loadFile(){
 	ifstream s;
 	string file, path;
 	char answer;
-
-	//cin was somewhere used as a stream before (probably menu) so we need to clear the buffer to not get a "Not a valid option" straight away
-	cin.clear();
-	cin.ignore(100000, '\n');
 
 	cout << "What kind of files do you want to read? (Points of Interest aka POI, Restaurant, Beach or Lodging)" << endl;
 	getline(cin, file);
@@ -429,11 +421,6 @@ bool LeisureGuide::removeBeach() {
 bool LeisureGuide::addBeach() {
 	vector<Service> services;
 
-	//getline does not fail so there is no need to test cin.fail
-
-	//However, since cin was used as a stream before, it is necessary to clear potential newlines
-	cin.ignore(100000, '\n');
-
 	string concelho;
 	cout << "What concelho does the beach belong to? " << endl;
 	getline(cin, concelho);
@@ -459,8 +446,7 @@ bool LeisureGuide::addBeach() {
 		if (cin.fail()) {
 			cout << "Invalid X value, please insert a valid X coordinate value (decimal number)." << endl;
 			//Clearing error flag and cin buffer
-			cin.clear();
-			cin.ignore(100000, '\n');
+			Utilities::clearCinBuffer();
 		}
 		else {
 			//if cin didn't fail we have a good input so we break the loop
@@ -474,8 +460,7 @@ bool LeisureGuide::addBeach() {
 		if (cin.fail()) {
 			cout << "Invalid Y value, please insert a valid Y coordinate value (decimal number)." << endl;
 			//Clearing error flag and cin buffer
-			cin.clear();
-			cin.ignore(100000, '\n');
+			Utilities::clearCinBuffer();
 		}
 		else {
 			//if cin didn't fail we have a good input so we break the loop
@@ -491,8 +476,7 @@ bool LeisureGuide::addBeach() {
 		if (cin.fail()) {
 			cout << "Invalid max capacity value, please insert a valid maximum capacity value (positive integer)." << endl;
 			//Clearing error flag and cin buffer
-			cin.clear();
-			cin.ignore(100000, '\n');
+			Utilities::clearCinBuffer();
 		}
 		else {
 			//if cin didn't fail we have a good input so we break the loop
@@ -500,26 +484,28 @@ bool LeisureGuide::addBeach() {
 		}
 	}
 
-		string response;
-		bool blueFlag;
-		cout << "Does the beach have blue flag (yes or no)? " << endl;
+	string response;
+	bool blueFlag;
+	cout << "Does the beach have blue flag (yes or no)? " << endl;
 
-		while (true) {
-			cin >> response;
-			Utilities::trimString(response);
-			if (cin.fail() || (response != "yes" && response != "no" && response != "Yes" && response != "No")) {
-				cout << "Invalid input, please enter yes or no." << endl;
-				//Clearing error flag and cin buffer
-				cin.clear();
-				cin.ignore(100000, '\n');
-			}
-			else {
-				//if cin didn't fail we have a good input so we break the loop
-				break;
-			}
+	while (true) {
+		cin >> response;
+		Utilities::trimString(response);
+		if (cin.fail() || (response != "yes" && response != "no" && response != "Yes" && response != "No")) {
+			cout << "Invalid input, please enter yes or no." << endl;
+			//Clearing error flag and cin buffer
+			Utilities::clearCinBuffer();
 		}
+		else {
+			//if cin didn't fail we have a good input so we break the loop
+			break;
+		}
+	}
 
-		blueFlag = ((response == "yes") || (response == "Yes"));
+	blueFlag = ((response == "yes") || (response == "Yes"));
+
+	//Ensuring cin is clear after using it as a stream
+	Utilities::clearCinBuffer();
 
 	string serviceName, serviceType, serviceDescription;
 
@@ -531,8 +517,7 @@ bool LeisureGuide::addBeach() {
 			if (cin.fail() || (response != "yes" && response != "no" && response != "Yes" && response != "No")) {
 				cout << "Invalid input, please enter yes or no." << endl;
 				//Clearing error flag and cin buffer
-				cin.clear();
-				cin.ignore(100000, '\n');
+				Utilities::clearCinBuffer();
 			}
 			else {
 				//if cin didn't fail we have a good input so we break the loop
@@ -540,10 +525,10 @@ bool LeisureGuide::addBeach() {
 			}
 		}
 
-		if (response == "yes" || response == "Yes") {
+		//Ensuring cin is clear after using it as a stream
+		Utilities::clearCinBuffer();
 
-			//Must use ignore before getline since cin was used as a stream before, a newline might be stuck in the buffer
-			cin.ignore(100000, '\n');
+		if (response == "yes" || response == "Yes") {
 
 			cout << "What is the service's name?" << endl;
 			getline(cin, serviceName);
@@ -561,8 +546,7 @@ bool LeisureGuide::addBeach() {
 				if (cin.fail() || (response != "yes" && response != "no" && response != "Yes" && response != "No")) {
 					cout << "Invalid input, please enter yes or no." << endl;
 					//Clearing error flag and cin buffer
-					cin.clear();
-					cin.ignore(100000, '\n');
+					Utilities::clearCinBuffer();
 				}
 				else {
 					//if cin didn't fail we have a good input so we break the loop
@@ -598,8 +582,7 @@ bool LeisureGuide::addBeach() {
 		if (cin.fail() || (beachType != "river" && beachType != "bayou" && beachType != "River" && beachType != "Bayou")) {
 			cout << "Invalid input, please enter river or bayou." << endl;
 			//Clearing error flag and cin buffer
-			cin.clear();
-			cin.ignore(100000, '\n');
+			Utilities::clearCinBuffer();
 		}
 		else {
 			//if cin didn't fail we have a good input so we break the loop
@@ -607,6 +590,9 @@ bool LeisureGuide::addBeach() {
 		}
 	}
 
+
+	//Ensuring cin is clear after using it as a stream
+	Utilities::clearCinBuffer();
 
 	//If the user wants to create a river beach
 	if (beachType == "river" || beachType == "River") {
@@ -618,8 +604,7 @@ bool LeisureGuide::addBeach() {
 			if (cin.fail() || width <= 0) {
 				cout << "Invalid river width value, please insert a valid river width value (positive decimal)." << endl;
 				//Clearing error flag and cin buffer
-				cin.clear();
-				cin.ignore(100000, '\n');
+				Utilities::clearCinBuffer();
 			}
 			else {
 				//if cin didn't fail we have a good input so we break the loop
@@ -633,8 +618,7 @@ bool LeisureGuide::addBeach() {
 			if (cin.fail() || riverFlow <= 0) {
 				cout << "Invalid river flow value, please insert a valid river flow value (positive decimal)." << endl;
 				//Clearing error flag and cin buffer
-				cin.clear();
-				cin.ignore(100000, '\n');
+				Utilities::clearCinBuffer();
 			}
 			else {
 				//if cin didn't fail we have a good input so we break the loop
@@ -648,14 +632,15 @@ bool LeisureGuide::addBeach() {
 			if (cin.fail() || maxDepth <= 0) {
 				cout << "Invalid river max depth, please insert a valid river maximum depth (positive decimal)." << endl;
 				//Clearing error flag and cin buffer
-				cin.clear();
-				cin.ignore(100000, '\n');
-			}
-			else {
+				Utilities::clearCinBuffer();
+			} else {
 				//if cin didn't fail we have a good input so we break the loop
 				break;
 			}
 		}
+
+		//Ensuring cin is clear after using it as a stream
+		Utilities::clearCinBuffer();
 
 		Beach *beachpntr = new RiverBeach(name, Coordinates(x, y), maxCapacity, blueFlag, services, width, riverFlow, maxDepth);
 		beaches.emplace_back(concelho, beachpntr);
@@ -670,10 +655,8 @@ bool LeisureGuide::addBeach() {
 			if (cin.fail() || usableAquaticArea <= 0) {
 				cout << "Invalid bayou usable aquatic area, please insert a valid usable aquatic area (positive decimal)." << endl;
 				//Clearing error flag and cin buffer
-				cin.clear();
-				cin.ignore(100000, '\n');
-			}
-			else {
+				Utilities::clearCinBuffer();
+			} else {
 				//if cin didn't fail we have a good input so we break the loop
 				break;
 			}
@@ -793,8 +776,7 @@ bool LeisureGuide::addRestaurant() {
 		if (cin.fail()) {
 			cout << "Invalid X value, please insert a valid X coordinate value (decimal number)." << endl;
 			//Clearing error flag and cin buffer
-			cin.clear();
-			cin.ignore(100000, '\n');
+			Utilities::clearCinBuffer();
 		}
 		else {
 			//if cin didn't fail we have a good input so we break the loop
@@ -808,8 +790,7 @@ bool LeisureGuide::addRestaurant() {
 		if (cin.fail()) {
 			cout << "Invalid Y value, please insert a valid Y coordinate value (decimal number)." << endl;
 			//Clearing error flag and cin buffer
-			cin.clear();
-			cin.ignore(100000, '\n');
+			Utilities::clearCinBuffer();
 		}
 		else {
 			//if cin didn't fail we have a good input so we break the loop
@@ -818,6 +799,9 @@ bool LeisureGuide::addRestaurant() {
 	}
 
 	Coordinates coords(x, y);
+
+	//Ensuring cin is clear after using it as a stream
+	Utilities::clearCinBuffer();
 
 	for (unsigned int i = 0; i < 7; i++)
 	{
@@ -857,8 +841,7 @@ bool LeisureGuide::addRestaurant() {
 		if (cin.fail() || (response != "yes" && response != "no" && response != "Yes" && response != "No")) {
 			cout << "Invalid input, please enter yes or no." << endl;
 			//Clearing error flag and cin buffer
-			cin.clear();
-			cin.ignore(100000, '\n');
+			Utilities::clearCinBuffer();
 		}
 		else {
 			//if cin didn't fail we have a good input so we break the loop
@@ -901,8 +884,7 @@ bool LeisureGuide::addPOI() {
 		if (cin.fail()) {
 			cout << "Invalid X value, please insert a valid X coordinate value (decimal number)." << endl;
 			//Clearing error flag and cin buffer
-			cin.clear();
-			cin.ignore(100000, '\n');
+			Utilities::clearCinBuffer();
 		}
 		else {
 			//if cin didn't fail we have a good input so we break the loop
@@ -916,8 +898,7 @@ bool LeisureGuide::addPOI() {
 		if (cin.fail()) {
 			cout << "Invalid Y value, please insert a valid Y coordinate value (decimal number)." << endl;
 			//Clearing error flag and cin buffer
-			cin.clear();
-			cin.ignore(100000, '\n');
+			Utilities::clearCinBuffer();
 		}
 		else {
 			//if cin didn't fail we have a good input so we break the loop
@@ -927,6 +908,9 @@ bool LeisureGuide::addPOI() {
 
 	Coordinates coords(x, y);
 
+	//Ensuring the cin buffer is clear to use getline
+	Utilities::clearCinBuffer();
+
 	cout << "Do you want to add a description to the POI?" << endl;
 
 	while (true) {
@@ -935,8 +919,7 @@ bool LeisureGuide::addPOI() {
 		if (cin.fail() || (response != "yes" && response != "no" && response != "Yes" && response != "No")) {
 			cout << "Invalid input, please enter yes or no." << endl;
 			//Clearing error flag and cin buffer
-			cin.clear();
-			cin.ignore(100000, '\n');
+			Utilities::clearCinBuffer();
 		}
 		else {
 			//if cin didn't fail we have a good input so we break the loop
@@ -980,8 +963,7 @@ bool LeisureGuide::addLodging() {
 		if (cin.fail()) {
 			cout << "Invalid X value, please insert a valid X coordinate value (decimal number)." << endl;
 			//Clearing error flag and cin buffer
-			cin.clear();
-			cin.ignore(100000, '\n');
+			Utilities::clearCinBuffer();
 		}
 		else {
 			//if cin didn't fail we have a good input so we break the loop
@@ -995,14 +977,14 @@ bool LeisureGuide::addLodging() {
 		if (cin.fail()) {
 			cout << "Invalid Y value, please insert a valid Y coordinate value (decimal number)." << endl;
 			//Clearing error flag and cin buffer
-			cin.clear();
-			cin.ignore(100000, '\n');
+			Utilities::clearCinBuffer();
 		}
 		else {
 			//if cin didn't fail we have a good input so we break the loop
 			break;
 		}
 	}
+
 
 	Coordinates coords(x, y);
 
@@ -1014,8 +996,7 @@ bool LeisureGuide::addLodging() {
 		if (cin.fail() || (response != "yes" && response != "no" && response != "Yes" && response != "No")) {
 			cout << "Invalid input, please enter yes or no." << endl;
 			//Clearing error flag and cin buffer
-			cin.clear();
-			cin.ignore(100000, '\n');
+			Utilities::clearCinBuffer();
 		}
 		else {
 			//if cin didn't fail we have a good input so we break the loop
@@ -1025,6 +1006,9 @@ bool LeisureGuide::addLodging() {
 
 	full = ((response == "yes") || (response == "Yes"));
 
+	//Ensuring cin is clear after using it as a stream
+	Utilities::clearCinBuffer();
+
 	cout << "Do you want to add a description to the Lodging?" << endl;
 
 	while (true) {
@@ -1033,8 +1017,7 @@ bool LeisureGuide::addLodging() {
 		if (cin.fail() || (response != "yes" && response != "no" && response != "Yes" && response != "No")) {
 			cout << "Invalid input, please enter yes or no." << endl;
 			//Clearing error flag and cin buffer
-			cin.clear();
-			cin.ignore(100000, '\n');
+			Utilities::clearCinBuffer();
 		}
 		else {
 			//if cin didn't fail we have a good input so we break the loop
@@ -1157,8 +1140,6 @@ void LeisureGuide::sortLodgingByDistanceToBeach(Beach *b){
 void LeisureGuide::displaySortedByDistance(){
 	string beachname;
 	cout << "What is the name of the beach you want to search for?" << endl;
-	cin.clear();
-	cin.ignore(100000, '\n');
 
 	getline(cin, beachname);
 	Utilities::trimString(beachname);
@@ -1212,7 +1193,6 @@ void LeisureGuide::displaySortedByDistance(){
 	}
 
 	Utilities::pause();
-	cout << endl << endl;
 
 	//All results listed successfully
 }

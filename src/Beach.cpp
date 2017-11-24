@@ -86,8 +86,7 @@ void Beach::modifyCoordinates(){
 		if (cin.fail()) {
 			cout << "Invalid X value, please insert a valid X coordinate value (decimal number)." << endl;
 			//Clearing error flag and cin buffer
-			cin.clear();
-			cin.ignore(100000, '\n');
+			Utilities::clearCinBuffer();
 		}
 		else {
 			//if cin didn't fail we have a good input so we break the loop
@@ -101,14 +100,16 @@ void Beach::modifyCoordinates(){
 		if (cin.fail()) {
 			cout << "Invalid Y value, please insert a valid Y coordinate value (decimal number)." << endl;
 			//Clearing error flag and cin buffer
-			cin.clear();
-			cin.ignore(100000, '\n');
+			Utilities::clearCinBuffer();
 		}
 		else {
 			//if cin didn't fail we have a good input so we break the loop
 			break;
 		}
 	}
+
+	//Ensuring cin is clear after using it as a stream
+	Utilities::clearCinBuffer();
 
 	//Setting the new coordinates
 	this->coords.setLatitude(x);
@@ -124,14 +125,16 @@ void Beach::modifyMaxCapacity(){
 		if (cin.fail()) {
 			cout << "Invalid max capacity value, please insert a valid maximum capacity value (positive integer)." << endl;
 			//Clearing error flag and cin buffer
-			cin.clear();
-			cin.ignore(100000, '\n');
+			Utilities::clearCinBuffer();
 		}
 		else {
 			//if cin didn't fail we have a good input so we break the loop
 			break;
 		}
 	}
+
+	//Ensuring cin is clear after using it as a stream
+	Utilities::clearCinBuffer();
 
 	//Sets the new max capacity
 	this->setMaxCapacity(maxCapacity);
@@ -146,14 +149,16 @@ void Beach::modifyBlueFlag(){
 		if (cin.fail() || (response != "yes" && response != "no" && response != "Yes" && response != "No")) {
 			cout << "Invalid input, please enter yes or no." << endl;
 			//Clearing error flag and cin buffer
-			cin.clear();
-			cin.ignore(100000, '\n');
+			Utilities::clearCinBuffer();
 		}
 		else {
 			//if cin didn't fail we have a good input so we break the loop
 			break;
 		}
 	}
+
+	//Ensuring cin is clear after using it as a stream
+	Utilities::clearCinBuffer();
 
 	//Setting the new blue flag
 	//Since the previous loop ensures the input is "Yes", "yes", "No" or "no"
@@ -188,18 +193,19 @@ void Beach::modifyServices(){
 	cout << ">>> ";
 
 	while (true) {
-			cin >> input;
-			if (cin.fail() && (input < 1 || input > 3)) {
-				cout << "Invalid option value, please insert a valid option (positive integer between 1 and 3)." << endl;
-				//Clearing error flag and cin buffer
-				cin.clear();
-				cin.ignore(100000, '\n');
-			}
-			else {
-				//if cin didn't fail we have a good input so we break the loop
-				break;
-			}
+		cin >> input;
+		if (cin.fail() && (input < 1 || input > 3)) {
+			cout << "Invalid option value, please insert a valid option (positive integer between 1 and 3)." << endl;
+			//Clearing error flag and cin buffer
+			Utilities::clearCinBuffer();
+		} else {
+			//if cin didn't fail we have a good input so we break the loop
+			break;
 		}
+	}
+
+	//Ensuring cin is clear after using it as a stream
+	Utilities::clearCinBuffer();
 
 	//Doing respective modification
 	switch(input){

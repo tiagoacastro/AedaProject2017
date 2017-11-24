@@ -19,20 +19,22 @@ void BayouBeach::print(ostream &o) {
 
 void BayouBeach::modifyUsableAquaticArea() {
 	double uaa;
-	cout << "What is the bayou's usable aquatic area? " << endl;
+	cout << "What is the bayou's new usable aquatic area? " << endl;
 	while (true) {
 		cin >> uaa;
 		if (cin.fail() || uaa <= 0) {
 			cout << "Invalid usable aquatic area, please insert a valid usable aquatic area (positive decimal)." << endl;
 			//Clearing error flag and cin buffer
-			cin.clear();
-			cin.ignore(100000, '\n');
+			Utilities::clearCinBuffer();
 		}
 		else {
 			//if cin didn't fail we have a good input so we break the loop
 			break;
 		}
 	}
+
+	//Ensuring cin is clear after using it as a stream
+	Utilities::clearCinBuffer();
 
 	//Setting the new max depth
 	usableAquaticArea = uaa;
@@ -58,14 +60,16 @@ void BayouBeach::modifyBeach(){
 		if (cin.fail() && (input < 1 || input > 8)) {
 			cout << "Invalid option value, please insert a valid option (positive integer between 1 and 6)." << endl;
 			//Clearing error flag and cin buffer
-			cin.clear();
-			cin.ignore(100000, '\n');
+			Utilities::clearCinBuffer();
 		}
 		else {
 			//if cin didn't fail we have a good input so we break the loop
 			break;
 		}
 	}
+
+	//Ensuring cin is clear after using it as a stream
+	Utilities::clearCinBuffer();
 
 	//Calling respective modify function
 	switch (input) {

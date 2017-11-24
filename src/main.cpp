@@ -54,13 +54,13 @@ int main() {
 //Running the menu with a simple implementation of a state machine
 int menuRunner(LeisureGuide &lg) {
 
-	Menu menumaozinhas;
+	Menu menuobj;
 
 	try {
 		//Clearing any data that could have been added to the Menu
-		menumaozinhas.reset();
+		menuobj.reset();
 		//Attempting to load options into the Menu using the default txt file location
-		menumaozinhas.load(Menu::menutxt_defaultlocation);
+		menuobj.load(Menu::menutxt_defaultlocation);
 	} catch(Utilities::FileNotFound &fnf){
 		//If the file was not found, an exception is thrown so we will instead use harcoded options with a warning beforehand
 		cout << "Warning: Menu.txt file not found. Path given: " << fnf.getPath();
@@ -68,44 +68,44 @@ int menuRunner(LeisureGuide &lg) {
 			 << "(This might not be the most recent version of the Menu)" << endl;
 
 		//Clearing any data that could have been added to the Menu
-		menumaozinhas.reset();
+		menuobj.reset();
 
 		//Hardcoded options adding:
 		//Development NOTE: Try to always add the options here besides the txt file
 
-		menumaozinhas.addOption("1 View");
-		menumaozinhas.addOption("1.1 Unconditional Listing");
-		menumaozinhas.addOption("1.1.1 All Beaches sorted by Concelho");
-		menumaozinhas.addOption("1.1.2 All POIs");
-		menumaozinhas.addOption("1.1.3 All Restaurants");
-		menumaozinhas.addOption("1.1.4 All Lodging");
-		menumaozinhas.addOption("1.2 Conditional Listing");
-		menumaozinhas.addOption("1.2.1 List Beaches by Concelho");
-		menumaozinhas.addOption("1.2.2 Recommendations near a Beach");
-		menumaozinhas.addOption("2 Manage");
-		menumaozinhas.addOption("2.1 Beaches");
-		menumaozinhas.addOption("2.1.1 View Details");
-		menumaozinhas.addOption("2.1.2 Add");
-		menumaozinhas.addOption("2.1.3 Remove");
-		menumaozinhas.addOption("2.1.4 Modify");
-		menumaozinhas.addOption("2.2 POIs");
-		menumaozinhas.addOption("2.2.1 View Details");
-		menumaozinhas.addOption("2.2.2 Add");
-		menumaozinhas.addOption("2.2.3 Remove");
-		menumaozinhas.addOption("2.2.4 Modify");
-		menumaozinhas.addOption("2.3 Restaurants");
-		menumaozinhas.addOption("2.3.1 View Details");
-		menumaozinhas.addOption("2.3.2 Add");
-		menumaozinhas.addOption("2.3.3 Remove");
-		menumaozinhas.addOption("2.3.4 Modify");
-		menumaozinhas.addOption("2.4 Lodging");
-		menumaozinhas.addOption("2.4.1 View Details");
-		menumaozinhas.addOption("2.4.2 Add");
-		menumaozinhas.addOption("2.4.3 Remove");
-		menumaozinhas.addOption("2.4.4 Modify");
-		menumaozinhas.addOption("3 File I/O");
-		menumaozinhas.addOption("3.1 Load");
-		menumaozinhas.addOption("3.2 Save");
+		menuobj.addOption("1 View");
+		menuobj.addOption("1.1 Unconditional Listing");
+		menuobj.addOption("1.1.1 All Beaches sorted by Concelho");
+		menuobj.addOption("1.1.2 All POIs");
+		menuobj.addOption("1.1.3 All Restaurants");
+		menuobj.addOption("1.1.4 All Lodging");
+		menuobj.addOption("1.2 Conditional Listing");
+		menuobj.addOption("1.2.1 List Beaches by Concelho");
+		menuobj.addOption("1.2.2 Recommendations near a Beach");
+		menuobj.addOption("2 Manage");
+		menuobj.addOption("2.1 Beaches");
+		menuobj.addOption("2.1.1 View Details");
+		menuobj.addOption("2.1.2 Add");
+		menuobj.addOption("2.1.3 Remove");
+		menuobj.addOption("2.1.4 Modify");
+		menuobj.addOption("2.2 POIs");
+		menuobj.addOption("2.2.1 View Details");
+		menuobj.addOption("2.2.2 Add");
+		menuobj.addOption("2.2.3 Remove");
+		menuobj.addOption("2.2.4 Modify");
+		menuobj.addOption("2.3 Restaurants");
+		menuobj.addOption("2.3.1 View Details");
+		menuobj.addOption("2.3.2 Add");
+		menuobj.addOption("2.3.3 Remove");
+		menuobj.addOption("2.3.4 Modify");
+		menuobj.addOption("2.4 Lodging");
+		menuobj.addOption("2.4.1 View Details");
+		menuobj.addOption("2.4.2 Add");
+		menuobj.addOption("2.4.3 Remove");
+		menuobj.addOption("2.4.4 Modify");
+		menuobj.addOption("3 File I/O");
+		menuobj.addOption("3.1 Load");
+		menuobj.addOption("3.2 Save");
 	}
 
 
@@ -121,76 +121,36 @@ int menuRunner(LeisureGuide &lg) {
 	//Menu loop
 	while (true) {
 
-		menumaozinhas.DisplayByID(currentselection);
+		menuobj.DisplayByID(currentselection);
 		while (true) {
 			cin >> tempinput;
 
 			if (cin.fail()) {
 				//Clearing error flag and cin buffer
-				cin.clear();
-				cin.ignore(1000000, '\n');
+				Utilities::clearCinBuffer();
 				//Clearing screen and reprinting
 				Utilities::clearScreen();
 				cout << "Seleção inválida! Tente novamente!\n\n";
-				menumaozinhas.DisplayByID(currentselection);
+				menuobj.DisplayByID(currentselection);
 			}
 			else {
 				//if cin didn't fail we have a good input so we break the loop
 				break;
 			}
-
-			break;
 		}
+
+		//Ensuring that the cin stream is clean for use if there is a getline afterwards
+		Utilities::clearCinBuffer();
 
 		if (currentselection.empty() && tempinput == 0) {
 			//This means we are at the main menu and the exit option was selected so we can exit the program by exiting the loop
-
-			//TODO: Implement having unsaved changes
-
-			//But first, checking if there are unsaved changes
-			//This was lg.getIfHasUnsavedChanges()
-			if (false) {
-				string option;
-				cout << "Tem alterações não gravadas, deseja mesmo assim sair do programa? (S/N)" << endl;
-				cout << ">> ";
-				while (true) {
-					cin >> option;
-					if (cin.fail() || (option != "S" && option != "N")) {
-						//Clearing error flags and buffer
-						cin.clear();
-						cin.ignore(10000, '\n');
-						//Clearing screen to display input prompt again
-						cout << "Opção inválida." << endl;
-						cout << "Tem alterações não gravadas, deseja mesmo assim sair do programa? (S/N)" << endl;
-						cout << ">> ";
-					}
-					else {
-						//input is valid so we break the loop
-						break;
-					}
-				}
-
-				//If the user specifies that he does not want to exit the program because he has unsaved progress we do not exit the program
-				if (option == "N") {
-					//As such, we do nothing
-				}
-				else {
-					//Otherwise, the user specified that he does want to exit so we break the loop to exit the program
-					break;
-				}
-			}
-			else {
-				//If the user does not have unsaved changes we simply exit the program as usual
-				break;
-			}
-
+			break;
 		}
-		else
+
 		if (!currentselection.empty() && tempinput == 0) {
 			//This means we are in a submenu and want to go back to the main menu
 			currentselection = "";
-		}
-		else {
+		} else {
 			//in order to not append a dot to an empty string and get ".1" which wouldn't work
 			if (currentselection.empty()) {
 				currentselection = to_string(tempinput);

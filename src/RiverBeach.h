@@ -1,5 +1,6 @@
 #pragma once
 #include "Beach.h"
+#include <iostream>
 
 class RiverBeach : public Beach {
 	private:

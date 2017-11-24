@@ -194,4 +194,11 @@ namespace Utilities {
 	bool isNumber(char c) {
 		return c >= '0' && c <= '9';
 	}
+
+	void clearCinBuffer(){
+		//Ignores everything in the cin buffer
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		//Clears any potential set flags
+		cin.clear();
+	}
 }

@@ -214,6 +214,10 @@ namespace Utilities {
 	*/
 	bool isNumber(char c);
 	/**
+	 * @brief Clears cin buffer and error flags, for use after each cin use as a stream, to make sure the following getlines work
+	 */
+	void clearCinBuffer();
+	/**
 	 * @brief FileNotFound exception (For use in exception throwing in file handling)
 	 */
 	class FileNotFound{
@@ -223,7 +227,9 @@ namespace Utilities {
 		explicit FileNotFound(const string &path) : path(path){};
 		string getPath() const{return path;}
 	};
-
+	/**
+	 * @brief WrongFileFormat exception (For use in exception throwing in file reading, when it has an invalid format
+	 */
 	class WrongFileFormat{
 	private:
 		string filetype;

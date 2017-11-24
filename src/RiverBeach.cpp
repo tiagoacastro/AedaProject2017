@@ -1,5 +1,4 @@
 #include "RiverBeach.h"
-#include <iostream>
 using namespace std;
 
 RiverBeach::RiverBeach(string name, Coordinates coords, unsigned int maxCapacity, bool blueFlag, const vector <Service> &services, double width, double riverFlow, double maxDepth)
@@ -85,14 +84,16 @@ void RiverBeach::modifyBeach(){
 		if (cin.fail() && (input < 1 || input > 8)) {
 			cout << "Invalid option value, please insert a valid option (positive integer between 1 and 8)." << endl;
 			//Clearing error flag and cin buffer
-			cin.clear();
-			cin.ignore(100000, '\n');
+			Utilities::clearCinBuffer();
 		}
 		else {
 			//if cin didn't fail we have a good input so we break the loop
 			break;
 		}
 	}
+
+	//Ensuring cin is clear after using it as a stream
+	Utilities::clearCinBuffer();
 
 	//Calling respective modify function
 	switch(input){
@@ -131,14 +132,16 @@ void RiverBeach::modifyRiverWidth(){
 		if (cin.fail() || width <= 0) {
 			cout << "Invalid river width value, please insert a valid river width value (positive decimal)." << endl;
 			//Clearing error flag and cin buffer
-			cin.clear();
-			cin.ignore(100000, '\n');
+			Utilities::clearCinBuffer();
 		}
 		else {
 			//if cin didn't fail we have a good input so we break the loop
 			break;
 		}
 	}
+
+	//Ensuring cin is clear after using it as a stream
+	Utilities::clearCinBuffer();
 
 	//Setting the new river width
 	this->setWidth(width);
@@ -152,14 +155,16 @@ void RiverBeach::modifyRiverFlow(){
 		if (cin.fail() || riverFlow <= 0) {
 			cout << "Invalid river flow value, please insert a valid river flow value (positive decimal)." << endl;
 			//Clearing error flag and cin buffer
-			cin.clear();
-			cin.ignore(100000, '\n');
+			Utilities::clearCinBuffer();
 		}
 		else {
 			//if cin didn't fail we have a good input so we break the loop
 			break;
 		}
 	}
+
+	//Ensuring cin is clear after using it as a stream
+	Utilities::clearCinBuffer();
 
 	//Setting the new river flow
 	this->setRiverFlow(riverFlow);
@@ -173,14 +178,16 @@ void RiverBeach::modifyRiverMaximumDepth(){
 		if (cin.fail() || maxDepth <= 0) {
 			cout << "Invalid river max depth, please insert a valid river maximum depth (positive decimal)." << endl;
 			//Clearing error flag and cin buffer
-			cin.clear();
-			cin.ignore(100000, '\n');
+			Utilities::clearCinBuffer();
 		}
 		else {
 			//if cin didn't fail we have a good input so we break the loop
 			break;
 		}
 	}
+
+	//Ensuring cin is clear after using it as a stream
+	Utilities::clearCinBuffer();
 
 	//Setting the new max depth
 	this->setMaxDepth(maxDepth);
