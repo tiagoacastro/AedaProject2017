@@ -115,17 +115,6 @@ string BayouBeach::toString(){
 				format += " ; " + servicestemp[i].toString();
 			}
 		}
-/*
-		auto it = this->getServices().begin();
-		format += it->toString();
-		//Moving to the next element
-		++it;
-
-		for( ; it != this->getServices().end() ; ++it)
-			format += " ; " + it->toString();
-
-		*/
-
 	}
 
 	format += " | " + to_string(usableAquaticArea);

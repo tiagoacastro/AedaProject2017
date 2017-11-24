@@ -48,13 +48,15 @@ string RiverBeach::toString(){
 
 	//If there are any services, adding the first service first and then iterating through and adding the others because of inserting the " ; "
 	if(!this->getServices().empty()) {
-		auto it = this->getServices().begin();
-		format += it->toString();
-		//Moving to the next element
-		++it;
+		auto servicestemp = this->getServices();
 
-		for( ; it != this->getServices().end() ; ++it)
-			format += " ; " + it->toString();
+		for(unsigned int i = 0; i < servicestemp.size(); ++i){
+			if(i == 0) {
+				format += servicestemp[i].toString();
+			} else {
+				format += " ; " + servicestemp[i].toString();
+			}
+		}
 	}
 
 	format += " | " + to_string(width) + " | " + to_string(riverFlow) + " | " + to_string(maxDepth);
