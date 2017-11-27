@@ -182,7 +182,7 @@ void LeisureGuide::loadFile(){
 	vector<string> readfile = Utilities::ReadFile(s);
 
 	try{
-		if(file == "Points of Interest"){
+		if(file == "Points of Interest" || file == "POI"){
 			createPOI(readfile);
 		} else if(file == "Restaurant"){
 			createRestaurants(readfile);
@@ -200,8 +200,8 @@ void LeisureGuide::loadFile(){
 }
 
 
-void LeisureGuide::createRestaurants(vector<string> &restaurant){
-	for(auto &restaurants : restaurant){
+void LeisureGuide::createRestaurants(vector<string> &restaurants){
+	for(auto &restaurant : restaurants){
 		createRestaurants(restaurant);
 	}
 }
@@ -214,16 +214,19 @@ void LeisureGuide::createRestaurants(string &restaurant){
 	string name, descrip;
 
 	Utilities::trimString(infos[0]);
+	Utilities::trimString(infos[1]);
+	Utilities::trimString(infos[2]);
 	Utilities::trimString(infos[3]);
+
+	name = infos[0];
+	coords = Utilities::splitString(infos[1], ',');
 	descrip = infos[3];
-	name= infos[0];
-	coords = Utilities::splitString(infos[2], ',');
 
 	Utilities::trimString(coords[0]);
 	Utilities::trimString(coords[1]);
 
 	Schedule sch;
-	sch.weekSchedule = Utilities::splitString(infos[1], ',');
+	sch.weekSchedule = Utilities::splitString(infos[2], ',');
 
 	for(auto &line : sch.weekSchedule) {
 		Utilities::trimString(line);
@@ -234,7 +237,7 @@ void LeisureGuide::createRestaurants(string &restaurant){
 
 void LeisureGuide::createPOI(vector<string> &poi){
 	for(auto &points : poi){
-		createPOI(poi);
+		createPOI(points);
 	}
 }
 
@@ -249,6 +252,7 @@ void LeisureGuide::createPOI(string &poi){
 
 
 	Utilities::trimString(infos[0]);
+	Utilities::trimString(infos[1]);
 	Utilities::trimString(infos[2]);
 
 	name = infos[0];
@@ -265,7 +269,7 @@ void LeisureGuide::createPOI(string &poi){
 
 void LeisureGuide::createLodging(vector<string> &lodging){
 	for(auto &lodg : lodging){
-		createRestaurants(lodging);
+		createRestaurants(lodg);
 	}
 }
 
