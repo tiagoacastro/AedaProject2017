@@ -95,7 +95,51 @@ public:
 	friend ostream & operator<<(ostream &o, const Service &s);
 };
 
-class Restaurant {
+typedef enum{poi, restaurant, lodging} classType;
+
+class TouristicPoint {
+private: 
+	string closeDate;
+	classType type;
+public:
+	/**
+	* @brief Constructor for the touristicPoint class
+	* @param closeDate 			close date of the touristic point
+	* @param type	 			type of the touristic point
+	*/
+	TouristicPoint(string closeDate, classType type);
+	/**
+	* @brief Gets the close date of the touristic point
+	* @return Returns the close date of the touristic point (empty string if it's not closed)
+	*/
+	string getCloseDate() const;
+	/**
+	* @brief Sets the close date of the touristic point
+	* @param closeDate		The close date of the touristic point
+	*/
+	void setCloseDate(const string &closeDate);
+	/**
+	* @brief Gets the type of the touristic point
+	* @return Returns the type of the touristic point (can be restaurant, poi or lodging)
+	*/
+	classType getType() const;
+	/**
+	* @brief Sets the type of the touristic point
+	* @param type		The type of the touristic point (can be restaurant, poi or lodging)
+	*/
+	void setType(const classType type);
+	/**
+	* @brief Gets the name of the touristic point
+	* @return Returns the name of the touristic point
+	*/
+	virtual string getName() const = 0;
+};
+
+struct TouristicPointPointer {
+	TouristicPoint *touristicPoint;
+};
+
+class Restaurant : public TouristicPoint {
 private:
 	string name;
 	Schedule sch;
@@ -118,7 +162,6 @@ private:
 	*/
 	void modifyDescription();
 public:
-
 	/**
 	 * @brief Constructor for the Restaurant class
 	 * @param name 			Name of the restaurant
@@ -185,7 +228,7 @@ public:
 	void modifyRestaurant();
 };
 
-class POI {
+class POI : public TouristicPoint {
 private:
 	string name;
 	Coordinates coords;
@@ -258,7 +301,7 @@ public:
 	void modifyPOI();
 };
 
-class Lodging {
+class Lodging : public TouristicPoint {
 private:
 	string name;
 	Coordinates coords;

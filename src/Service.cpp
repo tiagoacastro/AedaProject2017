@@ -66,10 +66,32 @@ void Service::modifyDescription(){
 	getline(cin, desc);
 }
 
+//Touristic Point
+
+TouristicPoint::TouristicPoint(string closeDate, classType type)
+	: closeDate(closeDate), type(type){
+}
+
+string TouristicPoint::getCloseDate() const {
+	return this->closeDate;
+}
+
+void TouristicPoint::setCloseDate(const string &closeDate) {
+	this->closeDate = closeDate;
+}
+
+classType TouristicPoint::getType() const {
+	return this->type;
+}
+
+void TouristicPoint::setType(const classType type) {
+	this->type = type;
+}
+
 //Restaurant
 
 Restaurant::Restaurant(string name, Schedule sch, Coordinates coords, string description = "None")
-	: name(name), sch(sch), coords(coords), description(description){
+	: name(name), sch(sch), coords(coords), description(description), TouristicPoint("", restaurant){
 }
 
 string Restaurant::getName() const {
@@ -271,7 +293,7 @@ void Restaurant::modifyDescription() {
 //POI
 
 POI::POI(string name, Coordinates coords, string description = "None")
-	: name(name), coords(coords), description(description) {
+	: name(name), coords(coords), description(description), TouristicPoint("", poi) {
 }
 
 string POI::getName() const {
@@ -410,7 +432,7 @@ void POI::modifyDescription() {
 //Lodging
 
 Lodging::Lodging(string name, Coordinates coords, bool full, string description = "None")
-	: name(name), coords(coords), full(full), description(description) {
+	: name(name), coords(coords), full(full), description(description), TouristicPoint("", lodging) {
 }
 
 string Lodging::getName() const {
