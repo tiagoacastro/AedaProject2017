@@ -1,5 +1,5 @@
-# FEUP-AEDA-Proj1
-The first project developed in the AEDA curricular unit.
+# FEUP-AEDA-Proj
+The project developed in the AEDA curricular unit. (Features both parts 1 and 2)
 
 ### Project Infos
 * **Date:** 2nd Year, 1st Semester, 2016/2017
