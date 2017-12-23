@@ -4,14 +4,6 @@
 LeisureGuide::LeisureGuide() {
 }
 
-LeisureGuide::LeisureGuide(const vector<pair<string, Beach*>> &beaches):
-																																											beaches(beaches) {
-}
-
-LeisureGuide::LeisureGuide(const vector<pair<string, Beach*>> &beaches, const vector<Restaurant> &restaurants, const vector<POI> &POIs, const vector<Lodging> &lodging):
-																																											beaches(beaches), restaurants(restaurants), POIs(POIs), lodging(lodging) {
-}
-
 void LeisureGuide::displayAllBeaches() const{
 	//Gets all the concelhos
 	auto concelhos = getAllConcelhos();
