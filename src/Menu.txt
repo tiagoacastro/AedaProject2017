@@ -1,0 +1,33 @@
+1 View
+1.1 Unconditional Listing
+1.1.1 All Beaches sorted by Concelho
+1.1.2 All POIs
+1.1.3 All Restaurants
+1.1.4 All Lodging
+1.2 Conditional Listing
+1.2.1 List Beaches by Concelho
+1.2.2 Recommendations near a Beach
+2 Manage
+2.1 Beaches
+2.1.1 View Details
+2.1.2 Add
+2.1.3 Remove
+2.1.4 Modify
+2.2 POIs
+2.2.1 View Details
+2.2.2 Add
+2.2.3 Remove
+2.2.4 Modify
+2.3 Restaurants
+2.3.1 View Details
+2.3.2 Add
+2.3.3 Remove
+2.3.4 Modify
+2.4 Lodging
+2.4.1 View Details
+2.4.2 Add
+2.4.3 Remove
+2.4.4 Modify
+3 File I/O
+3.1 Load
+3.2 Save

@@ -1,8 +1,11 @@
 #### Manual extra ignores
+#Also if the files are outside src
+.idea
+cmake-build-debug
 # For CLion's .idea configuration directories (Miguel)
-*/.idea
+src/.idea
 # For CLion's build directories (Miguel)
-*/cmake-build-debug
+src/cmake-build-debug
 # Not excluding CMakeLists.txt because it might be useful
 
 #### Visual Studio template
