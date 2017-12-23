@@ -75,7 +75,7 @@ int menuRunner(LeisureGuide &lg) {
 
 		menuobj.addOption("1 View");
 		menuobj.addOption("1.1 Unconditional Listing");
-		menuobj.addOption("1.1.1 All Beaches sorted by Concelho");
+		menuobj.addOption("1.1.1 All Beaches sorted by Concelho and Blue Flag");
 		menuobj.addOption("1.1.2 All POIs");
 		menuobj.addOption("1.1.3 All Restaurants");
 		menuobj.addOption("1.1.4 All Lodging");
