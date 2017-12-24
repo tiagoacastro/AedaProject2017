@@ -261,7 +261,7 @@ void LeisureGuide::createPOI(string &poi){
 
 void LeisureGuide::createLodging(vector<string> &lodging){
 	for(auto &lodg : lodging){
-		createRestaurants(lodg);
+		createLodging(lodg);
 	}
 }
 
