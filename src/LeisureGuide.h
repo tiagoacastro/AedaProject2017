@@ -13,10 +13,21 @@
 
 using namespace std;
 
+struct set_comparator {
+	bool operator() (const pair<string, Beach *> &p1, const pair<string, Beach *> &p2) {
+		if(p1.first == p2.first) {
+			return p1.second->hasBlueFlag();
+		}
+		return p1.first < p2.first;
+	}
+};
+
+typedef set<pair<string, Beach *>, set_comparator> ConcelhoBeachBST;
+
 class LeisureGuide {
 private:
 	///Data members
-	vector<pair<string, Beach*>> beaches;
+	ConcelhoBeachBST beaches;
 	vector<Restaurant> restaurants;
 	vector<POI> POIs;
 	vector<Lodging> lodging;
@@ -37,7 +48,7 @@ private:
 	 * @param name		Name of the beach to search for
 	 * @return Returns an iterator to the found beach, or beaches.end() if nothing was found
 	 */
-	vector<pair<string, Beach*>>::iterator findBeachByName(string name);
+	ConcelhoBeachBST::iterator findBeachByName(string name);
 	/**
 	 * @brief Searches for a POI on the POI vector and returns the iterator
 	 * @param name		Name of the POI to search for
@@ -70,7 +81,8 @@ private:
 	 * @brief Sorts POIs by distance to a certain beach
 	 * @param b The beach in order to sort to
 	 */
-	void sortPOIsByDistanceToBeach(Beach *b);	/**
+	void sortPOIsByDistanceToBeach(Beach *b);
+	/**
 	 * @brief Sorts Lodging by distance to a certain beach
 	 * @param b The beach in order to sort to
 	 */

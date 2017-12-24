@@ -59,16 +59,14 @@ vector<Beach *> LeisureGuide::getBeachesByConcelho(const string &concelho) const
 
 	//Iterating for each pair of beaches vector and if the "key" (first element, representing the Concelho)
 	//matches the specified concelho, add the "data member" (second element, Beach*) to the output
-	std::for_each(beaches.begin(), beaches.end(), [&output, concelho](const pair<string, Beach*> &p) {
-		if(p.first == concelho){
-			output.push_back(p.second);
-		}
+    std::copy_if(beaches.begin(), beaches.end(), std::back_inserter(output), [concelho](const pair<string, Beach*> &p) {
+		return p.first == concelho;
 	});
 
 	return output;
 }
 
-void LeisureGuide::saveFile(){
+void LeisureGuide::saveFile() {
 	string file, path;
 	ofstream s;
 
@@ -224,7 +222,7 @@ void LeisureGuide::createRestaurants(string &restaurant){
 		Utilities::trimString(line);
 	}
 
-	restaurants.push_back(Restaurant(name, sch, Coordinates(stod(coords[0]),stod(coords[1])), descrip));
+	restaurants.emplace_back(name, sch, Coordinates(stod(coords[0]),stod(coords[1])), descrip);
 }
 
 void LeisureGuide::createPOI(vector<string> &poi){
@@ -364,7 +362,7 @@ void LeisureGuide::createBayouBeach(vector<string> &beach) {
 		}
 
 		Beach *p = new BayouBeach(name, Coordinates(xc, yc), capacity, bf, serv, area);
-		beaches.emplace_back(concelho, p);
+		beaches.emplace(concelho, p);
 	} catch(...){
 		throw Utilities::WrongFileFormat("Bayou Beach");
 	}
@@ -419,13 +417,13 @@ void LeisureGuide::createRiverBeach(vector<string> &beach){
 		}
 
 		Beach *p = new RiverBeach(name, Coordinates(xc, yc), capacity, bf, serv, width, riverFlow, maxDepth);
-		beaches.emplace_back(concelho, p);
+		beaches.emplace(concelho, p);
 	} catch(...){
 		throw Utilities::WrongFileFormat("River Beach");
 	}
 }
 
-vector<pair<string, Beach*>>::iterator LeisureGuide::findBeachByName(string name) {
+ConcelhoBeachBST::iterator LeisureGuide::findBeachByName(string name) {
 	//Searching for a beach with the given name in the beaches vector using find_if and a lambda function
 	return find_if(beaches.begin(), beaches.end(), [=](pair<string, Beach*> &p) {
 		return p.second->getName() == name;
@@ -686,7 +684,7 @@ bool LeisureGuide::addBeach() {
 		Utilities::clearCinBuffer();
 
 		Beach *beachpntr = new RiverBeach(name, Coordinates(x, y), maxCapacity, blueFlag, services, width, riverFlow, maxDepth);
-		beaches.emplace_back(concelho, beachpntr);
+		beaches.emplace(concelho, beachpntr);
 	}
 	//If the user wants to create a bayou beach
 	else {
@@ -708,7 +706,7 @@ bool LeisureGuide::addBeach() {
 		}
 
 		Beach *beachpntr = new BayouBeach(name, Coordinates(x, y), maxCapacity, blueFlag, services, usableAquaticArea);
-		beaches.emplace_back(concelho, beachpntr);
+		beaches.emplace(concelho, beachpntr);
 	}
 
 	cout << "Beach has been successfully created" << endl;
