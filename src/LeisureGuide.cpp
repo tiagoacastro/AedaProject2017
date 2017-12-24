@@ -1098,8 +1098,17 @@ bool LeisureGuide::modifyBeach(){
 		return false;
 	}
 
+	//Because we are using a set and the underlying BST needs to stay balanced, we should remove the element, modify it, and only then insert it again
+    auto copied_pair = *it;
+
+	beaches.erase(it);
+
 	cout << "Beach found! Initiating modification process." << endl;
-	it->second->modifyBeach();
+	copied_pair.second->modifyBeach();
+
+	//Inserting the modified element back again
+	beaches.emplace(copied_pair);
+
 	return true;
 }
 
