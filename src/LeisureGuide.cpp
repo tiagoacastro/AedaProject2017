@@ -4,7 +4,7 @@
 LeisureGuide::LeisureGuide() {
 }
 
-void LeisureGuide::displayAllBeaches() const{
+void LeisureGuide::displayAllBeaches() const {
 	//Gets all the concelhos
 	auto concelhos = getAllConcelhos();
 
@@ -19,6 +19,9 @@ void LeisureGuide::displayAllBeaches() const{
 		for(auto const &beach_to_display : beaches_to_display){
 			beach_to_display->print(cout);
 		}
+
+		//Separator between Concelhos
+		cout << "\n\n";
 	}
 }
 
@@ -59,9 +62,11 @@ vector<Beach *> LeisureGuide::getBeachesByConcelho(const string &concelho) const
 
 	//Iterating for each pair of beaches vector and if the "key" (first element, representing the Concelho)
 	//matches the specified concelho, add the "data member" (second element, Beach*) to the output
-    std::copy_if(beaches.begin(), beaches.end(), std::back_inserter(output), [concelho](const pair<string, Beach*> &p) {
-		return p.first == concelho;
-	});
+	for(auto const &pair : beaches) {
+		if(pair.first == concelho) {
+			output.emplace_back(pair.second);
+		}
+	}
 
 	return output;
 }
@@ -425,7 +430,7 @@ void LeisureGuide::createRiverBeach(vector<string> &beach){
 
 ConcelhoBeachBST::iterator LeisureGuide::findBeachByName(string name) {
 	//Searching for a beach with the given name in the beaches vector using find_if and a lambda function
-	return find_if(beaches.begin(), beaches.end(), [=](pair<string, Beach*> &p) {
+	return find_if(beaches.begin(), beaches.end(), [=](const pair<string, Beach*> &p) {
 		return p.second->getName() == name;
 	});
 }
@@ -1228,12 +1233,13 @@ void LeisureGuide::displaySortedByDistance() {
 			nresults = restaurants.size();
 		}
 		else
-		cout << "The " << nresults << " closest Restaurants to the given beach are:" << endl;
-		for (unsigned int i = 0; i < nresults; ++i) {
-			cout << "result number " << i + 1 << ":" << endl;
-			cout << restaurants.at(i);
-			cout << "Distance to given beach: " << restaurants[i].getCoordinates().distanceTo(beachcoords) << endl << endl;
-		}
+			cout << "The " << nresults << " closest Restaurants to the given beach are:" << endl;
+
+	for (unsigned int i = 0; i < nresults; ++i) {
+		cout << "result number " << i + 1 << ":" << endl;
+		cout << restaurants.at(i);
+		cout << "Distance to given beach: " << restaurants[i].getCoordinates().distanceTo(beachcoords) << endl << endl;
+	}
 	} else {
 		cout << "There are no restaurants listed on the leisure guide " << endl;
 	}

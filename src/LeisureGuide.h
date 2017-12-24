@@ -16,7 +16,15 @@ using namespace std;
 struct set_comparator {
 	bool operator() (const pair<string, Beach *> &p1, const pair<string, Beach *> &p2) {
 		if(p1.first == p2.first) {
-			return p1.second->hasBlueFlag();
+			if(p1.second->hasBlueFlag()) {
+				return true;
+			} else {
+				if(p2.second->hasBlueFlag()) {
+					return false;
+				} else {
+					return p1.second->getName() < p2.second->getName();
+				}
+			}
 		}
 		return p1.first < p2.first;
 	}
