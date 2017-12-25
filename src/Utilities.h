@@ -7,6 +7,7 @@
 #include <limits>
 #include <iostream>
 #include <iomanip>
+#include <queue>
 
 using namespace std;
 
@@ -56,6 +57,22 @@ namespace Utilities {
 	void printVector(const vector<T> &v) {
 		for (int i = 0; i < v.size(); i++) {
 			cout << i << ": " << v[i] << endl;
+		}
+	}
+
+	/**
+	 * @brief Prints priority queue of any kind of element as long as it has the << operator defined NOTE: Copies the priority queue because it has no direct access to members otherwise
+	 * @tparam T Generic type of element to print
+	 * @param pq Priority queue of elements to print
+	 */
+	template<typename T>
+	void printPriorityQueue(const priority_queue<T> &pq) {
+		priority_queue<T> aux(pq);
+		unsigned int i = 0;
+		while(!aux.empty()) {
+			cout << "i: " << i << "\t" << pq.top() << endl;
+			i++;
+			pq.pop();
 		}
 	}
 
