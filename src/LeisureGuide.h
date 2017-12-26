@@ -9,6 +9,7 @@
 #include <vector>
 #include <map>
 #include <set>
+#include <queue>
 #include <algorithm>
 
 using namespace std;
@@ -30,7 +31,16 @@ struct set_comparator {
 	}
 };
 
+struct pq_compare {
+	bool operator() (const pair<Service*, string> &s1, const pair<Service*, string> &s2) {
+		return s1.first->getInspectionDate() < s2.first->getInspectionDate();
+	}
+
+};
+
+
 typedef set<pair<string, Beach *>, set_comparator> ConcelhoBeachBST;
+typedef priority_queue<pair<Service*, string>, vector<pair<Service*, string>>,pq_compare> Inspection;
 
 class LeisureGuide {
 private:
@@ -39,6 +49,7 @@ private:
 	vector<Restaurant> restaurants;
 	vector<POI> POIs;
 	vector<Lodging> lodging;
+	vector<Inspection> dates;
 	/**
 	 * @brief Gets all the concelhos where there are beaches
 	 * @return Returns a vector of all the Concelhos
@@ -95,7 +106,30 @@ private:
 	 * @param b The beach in order to sort to
 	 */
 	void sortLodgingByDistanceToBeach(Beach *b);
+	
+	//TODO
+	/**
+	* @brief insert the date changed in the Dates
+	* @param beachName Name of the beach that has the service to be inspectionated
+	* @param serviceName Name of the service that is going to be inspectionated
+ 	*/
+	void updateInspections(Service *s, string &beachName); 
+
+	/**
+	* @brief Check if the type passed as argument already exist in dates
+	* @param type Type of the service
+	* @return Return the index of the type or -1 if the type does not exist
+	*/
+	int checkType(const string &type);
+	void createInspections();
 public:
+
+
+	/**
+	* @brief Get of the vector of inspections
+	* @return Return the vectors of inspection  
+	*/
+	vector<Inspection> getDates();
 	/**
 	 * @brief Default constructor to allow creating an empty Leisure Guide that will receive the options afterwards
 	 */
@@ -155,9 +189,9 @@ public:
 	 */
 	bool modifyBeach();
 	/**
-	* @brief Adds a beach to the beaches vector
-	* @return true if beach is valid and was added, false if else
-	*/
+	 * @brief Adds a beach to the beaches vector
+	 * @return true if beach is valid and was added, false if else
+	 */
 	bool addBeach();
 	/**
 	 * @brief Removes a POI from the POIs vector
@@ -175,34 +209,34 @@ public:
 	 */
 	bool removeLodging();
 	/**
-	* @brief Adds a restaurant to the restaurants vector
-	* @return true if restaurant is valid and was added, false if else
-	*/
+	 * @brief Adds a restaurant to the restaurants vector
+	 * @return true if restaurant is valid and was added, false if else
+	 */
 	bool addRestaurant();
 	/**
-	* @brief Adds a POI to the POIs vector
-	* @return true if POI is valid and was added, false if else
-	*/
+	 * @brief Adds a POI to the POIs vector
+	 * @return true if POI is valid and was added, false if else
+	 */
 	bool addPOI();
 	/**
-	* @brief Adds Lodging to the lodging vector
-	* @return true if the Lodging is valid and was added, false if else
-	*/
+	 * @brief Adds Lodging to the lodging vector
+	 * @return true if the Lodging is valid and was added, false if else
+	 */
 	bool addLodging();
 	/**
-	* @brief Modifies a Restaurant based on its name
-	* @return returns true if a Restaurant is found and modified, false if not found
-	*/
+	 * @brief Modifies a Restaurant based on its name
+	 * @return returns true if a Restaurant is found and modified, false if not found
+	 */
 	bool modifyRestaurant();
 	/**
-	* @brief Modifies a POI based on its name
-	* @return returns true if a POI is found and modified, false if not found
-	*/
+	 * @brief Modifies a POI based on its name
+	 * @return returns true if a POI is found and modified, false if not found
+	 */
 	bool modifyPOI();
 	/**
-	* @brief Modifies a Lodging based on its name
-	* @return returns true if a Lodging is found and modified, false if not found
-	*/
+	 * @brief Modifies a Lodging based on its name
+	 * @return returns true if a Lodging is found and modified, false if not found
+	 */
 	bool modifyLodging();
 	/**
 	 * @brief Separate the string in all members of the class Beach

@@ -1,6 +1,7 @@
 #include "LeisureGuide.h"
 
 
+
 LeisureGuide::LeisureGuide() {
 }
 
@@ -10,10 +11,14 @@ void LeisureGuide::displayAllBeaches() const {
 
 	for(auto const &concelho : concelhos){
 		//Print the concelho
+		cout << "mama boi\n";
+
 		cout << concelho << ": " << endl;
+
 
 		//Get the beaches for this concelho
 		auto beaches_to_display = getBeachesByConcelho(concelho);
+
 
 		//Print each beach inside a concelho
 		for(auto const &beach_to_display : beaches_to_display){
@@ -322,7 +327,7 @@ void LeisureGuide::createBeach(string &beach){
 void LeisureGuide::createBayouBeach(vector<string> &beach) {
 
 	//beachtype ([bB]) | Name | Concelho | x , y (coords) | capacity | blue flag | services | area
-	//services are name, type, description ; name, type, description; name, type, description
+	//services are name, type, description, inspection date (YYYY/DD/MM) ; name, type, description, inspection date (YYYY/DD/MM); name, type, description, inspection date (YYYY/DD/MM)
 
 
 	//For throwing WrongFileFormat exception if anything goes wrong in parsing
@@ -362,12 +367,15 @@ void LeisureGuide::createBayouBeach(vector<string> &beach) {
 				Utilities::trimString(serviceitems[0]);
 				Utilities::trimString(serviceitems[1]);
 				Utilities::trimString(serviceitems[2]);
-				serv.emplace_back(serviceitems[0], serviceitems[1], serviceitems[2]);
+				Utilities::trimString(serviceitems[3]);
+				serv.emplace_back(serviceitems[0], serviceitems[1], serviceitems[2], serviceitems[3]);
 			}
 		}
 
 		Beach *p = new BayouBeach(name, Coordinates(xc, yc), capacity, bf, serv, area);
 		beaches.emplace(concelho, p);
+
+
 	} catch(...){
 		throw Utilities::WrongFileFormat("Bayou Beach");
 	}
@@ -417,7 +425,10 @@ void LeisureGuide::createRiverBeach(vector<string> &beach){
 				Utilities::trimString(stuff[0]);
 				Utilities::trimString(stuff[1]);
 				Utilities::trimString(stuff[2]);
-				serv.emplace_back(stuff[0], stuff[1], stuff[2]);
+				Utilities::trimString(stuff[3]);
+
+				serv.emplace_back(stuff[0], stuff[1], stuff[2], stuff[3]);
+
 			}
 		}
 
@@ -602,12 +613,12 @@ bool LeisureGuide::addBeach() {
 				cout << "Service description: ";
 				getline(cin, serviceDescription);
 
-				services.emplace_back(serviceName, serviceType, serviceDescription);
+				services.emplace_back(serviceName, serviceType, serviceDescription, "0");
 				continue;
 			}
 
 			//If the user does not want to add a service description
-			services.emplace_back(serviceName, serviceType, "None");
+			services.emplace_back(serviceName, serviceType, "None", "0");
 		} else {
 			//If the user entered "no" or "No", he does not wish to input any (further) services
 			break;
@@ -850,7 +861,7 @@ bool LeisureGuide::addRestaurant() {
 
 	//Ensuring cin is clear after using it as a stream
 	Utilities::clearCinBuffer();
-	
+
 	string transition;
 	for (unsigned int i = 0; i < 7; i++)
 	{
@@ -1104,7 +1115,7 @@ bool LeisureGuide::modifyBeach(){
 	}
 
 	//Because we are using a set and the underlying BST needs to stay balanced, we should remove the element, modify it, and only then insert it again
-    auto copied_pair = *it;
+	auto copied_pair = *it;
 
 	beaches.erase(it);
 
@@ -1235,11 +1246,11 @@ void LeisureGuide::displaySortedByDistance() {
 		else
 			cout << "The " << nresults << " closest Restaurants to the given beach are:" << endl;
 
-	for (unsigned int i = 0; i < nresults; ++i) {
-		cout << "result number " << i + 1 << ":" << endl;
-		cout << restaurants.at(i);
-		cout << "Distance to given beach: " << restaurants[i].getCoordinates().distanceTo(beachcoords) << endl << endl;
-	}
+		for (unsigned int i = 0; i < nresults; ++i) {
+			cout << "result number " << i + 1 << ":" << endl;
+			cout << restaurants.at(i);
+			cout << "Distance to given beach: " << restaurants[i].getCoordinates().distanceTo(beachcoords) << endl << endl;
+		}
 	} else {
 		cout << "There are no restaurants listed on the leisure guide " << endl;
 	}
@@ -1396,4 +1407,86 @@ void LeisureGuide::displayLodgingInfo() {
 
 	cout << "The info for the requested lodging is:" << endl;
 	cout << *it;
+}
+
+int LeisureGuide::checkType(const string &type){
+
+	if (!dates.empty()){
+		for (int i = 0; i < dates.size(); i++){
+			Service *k = dates[i].top().first;
+			if(k->getType() == type){
+				return i;
+			}
+		}
+	}
+	return -1;
+}
+
+vector<Inspection> LeisureGuide::getDates(){
+	return dates;
+}
+
+
+void LeisureGuide::createInspections() {
+
+	for (auto &dt : beaches) {
+
+		vector<Service> serv = dt.second->getServices();
+
+		for (auto &s : serv) {
+		
+			if (s.getInspectionDate() == "0")
+				continue;
+
+			int i = checkType(s.getType());
+			
+			if ( i != -1) {
+
+				dates[i].emplace(&s, dt.second->getName());
+
+			}
+
+			else{
+				Inspection k;
+				k.emplace(&s, dt.second->getName());
+				dates.push_back(k);
+			}
+				
+		
+		}
+
+	}
+
+
+}
+
+void LeisureGuide::updateInspections(Service *s, string &beachName) {
+	Inspection aux;
+
+	int i = checkType(s->getType());
+
+	if (i == -1) {
+		dates.emplace_back(make_pair(s, beachName));
+	}
+
+	else {
+		while (!dates[i].empty()) {
+			if (dates[i].top().second == beachName) {
+				if (dates[i].top().first->getName() == s->getName()) {
+					dates[i].pop();
+					aux.emplace(s, beachName);
+				}
+				else {
+					aux.push(dates[i].top());
+					dates[i].pop();
+				}
+			}
+			else {
+				aux.push(dates[i].top());
+				dates[i].pop();
+			}
+		}
+
+		dates[i] = aux;
+	}
 }

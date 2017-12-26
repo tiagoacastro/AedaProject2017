@@ -38,17 +38,28 @@ int main() {
 	 * we can use that or do the I/O, whatever sounds best
 	 * Either way, exceptions should be used in this part
 	 */
-	//lg.Load();
+	lg.loadFile();
 
 	//Main menu running
+/*Inspection x = lg.getDates();
+	for(int i = 0; i < x.size(); i++){
 
+		while(!x[i].empty){
+			cout << x[i].top().first;
+			cout << endl;
+			x[i].pop();
+		}
+		cout << endl << endl;
+	}
 
+*/
 	if (menuRunner(lg) == 0)
 		// menu exited successfully with no errors
 		return 0;
 
 	//Errors ocurred, return != 0
 	return 1;
+
 }
 
 //Running the menu with a simple implementation of a state machine

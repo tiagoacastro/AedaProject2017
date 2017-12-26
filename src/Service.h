@@ -23,6 +23,7 @@ private:
 	string name;
 	string type;
 	string description;
+	string inspectionDate;
 public:
 	/**
 	 * @brief Constructor for the Service class
@@ -31,7 +32,7 @@ public:
 	 * @param sch 			Schedule of the Service
 	 * @param description 	Description of the Service, default value is "None"
 	 */
-	Service(string name, string type, string description);
+	Service(string name, string type, string description, string inspectionDate);
 	/**
 	 * @brief get function of the description of the service
 	 * @return Returns the service's description
@@ -87,12 +88,32 @@ public:
 	 */
 	void modifyDescription();
 	/**
-	* @brief Overload for the insertion operator for the Service class
-	* @param os		The ostream to write to
-	* @param s		The service that is being written to the ostream
-	* @return Returns the modified ostream
-	*/
+	 * @brief Set Inspection Date to the date of the last Inspection
+	 * @param date  Date of the last Inspection
+	 */
+	void setInspectionDate(string &date);
+
+	/**
+	 * @brief get function of the inspection date
+	 * @return Returns the inspetion date
+	 */
+	string getInspectionDate();
+	/**
+	 * @brief Overload for the insertion operator for the Service class
+	 * @param os		The ostream to write to
+	 * @param s		The service that is being written to the ostream
+	 * @return Returns the modified ostream
+	 */
 	friend ostream & operator<<(ostream &o, const Service &s);
+
+	/**
+	 * @brief Overload for the less operator for the Service class
+	 * @param s		The service that is being written to the ostream
+	 * @return Returns nao sei o que escrever
+	 */
+	bool operator<(Service &s) const;
+
+
 };
 
 class Restaurant {
@@ -102,20 +123,20 @@ private:
 	Coordinates coords;
 	string description;
 	/**
-	* @brief Modifies the Restaurant name based on user inputs.
-	*/
+	 * @brief Modifies the Restaurant name based on user inputs.
+	 */
 	void modifyName();
 	/**
-	* @brief Modifies the Restaurant coordinates based on user inputs.
-	*/
+	 * @brief Modifies the Restaurant coordinates based on user inputs.
+	 */
 	void modifyCoordinates();
 	/**
-	* @brief Modifies the Restaurant coordinates based on user inputs.
-	*/
+	 * @brief Modifies the Restaurant coordinates based on user inputs.
+	 */
 	void modifySchedule();
 	/**
-	* @brief Modifies the Restaurant coordinates based on user inputs.
-	*/
+	 * @brief Modifies the Restaurant coordinates based on user inputs.
+	 */
 	void modifyDescription();
 public:
 
@@ -180,8 +201,8 @@ public:
 	 */
 	string toString() const;
 	/**
-	* @brief Modifies the Restaurant based on user input.
-	*/
+	 * @brief Modifies the Restaurant based on user input.
+	 */
 	void modifyRestaurant();
 };
 
@@ -191,16 +212,16 @@ private:
 	Coordinates coords;
 	string description;
 	/**
-	* @brief Modifies the POI name based on user inputs.
-	*/
+	 * @brief Modifies the POI name based on user inputs.
+	 */
 	void modifyName();
 	/**
-	* @brief Modifies the POI coordinates based on user inputs.
-	*/
+	 * @brief Modifies the POI coordinates based on user inputs.
+	 */
 	void modifyCoordinates();
 	/**
-	* @brief Modifies the POI coordinates based on user inputs.
-	*/
+	 * @brief Modifies the POI coordinates based on user inputs.
+	 */
 	void modifyDescription();
 public:
 	/**
@@ -253,8 +274,8 @@ public:
 	 */
 	string toString() const;
 	/**
-	* @brief Modifies the POI based on user input.
-	*/
+	 * @brief Modifies the POI based on user input.
+	 */
 	void modifyPOI();
 };
 
@@ -265,20 +286,20 @@ private:
 	bool full;
 	string description;
 	/**
-	* @brief Modifies the Lodging name based on user inputs.
-	*/
+	 * @brief Modifies the Lodging name based on user inputs.
+	 */
 	void modifyName();
 	/**
-	* @brief Modifies the Loding coordinates based on user inputs.
-	*/
+	 * @brief Modifies the Loding coordinates based on user inputs.
+	 */
 	void modifyCoordinates();
 	/**
-	* @brief Modifies the Loding full flag based on user inputs.
-	*/
+	 * @brief Modifies the Loding full flag based on user inputs.
+	 */
 	void modifyFull();
 	/**
-	* @brief Modifies the Lodging coordinates based on user inputs.
-	*/
+	 * @brief Modifies the Lodging coordinates based on user inputs.
+	 */
 	void modifyDescription();
 public:
 	/**
@@ -342,7 +363,7 @@ public:
 	 */
 	string toString() const;
 	/**
-	* @brief Modifies the Lodging based on user input.
-	*/
+	 * @brief Modifies the Lodging based on user input.
+	 */
 	void modifyLodging();
 };

@@ -218,6 +218,23 @@ namespace Utilities {
 		return false;
 	}
 
+
+	bool correctDateFormat(string &la) {
+		vector<string> k = splitString(la, "/");
+		if (k.size() == 3) {
+			if (k[0] <= "9999" && k[0] >= "0000") {
+				if (k[1] == "01" || k[1] <= "03" || k[1] == "05" || k[1] == "07" || k[1] == "08" || k[1] == "10" || k[1] == "12")
+					return (k[2] <= "31" && k[2] >= "01");
+				else if (k[1] == "02")
+					return (k[2] == "28");
+				else if (k[1] == "04" || k[1] == "06" || k[1] == "09" || k[1] == "10") 
+					return (k[2] <= "30" && k[2] >= "01");
+			}
+		}
+		return false;
+	}
+
+
 	bool isNumber(char c) {
 		return c >= '0' && c <= '9';
 	}
