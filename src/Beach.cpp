@@ -57,8 +57,6 @@ void Beach::print(ostream &o){
 		for (auto &service: services)
 			o << service;
 
-		cout << services[0].getInspectionDate() << endl;
-
 	}
 }
 

@@ -33,13 +33,15 @@ int main() {
 
 	//Init
 	LeisureGuide lg;
+
 	/*
 	 * TODO:
 	 * The old code used to call a load function that handled all the file I/O,
 	 * we can use that or do the I/O, whatever sounds best
 	 * Either way, exceptions should be used in this part
 	 */
-	lg.loadFile();
+
+//	lg.loadFile();
 
 	//Main menu running
 /*Inspection x = lg.getDates();
@@ -54,7 +56,7 @@ int main() {
 	}
 
 */
-	if (menuRunner(lg) == 0)
+		if (menuRunner(lg) == 0)
 		// menu exited successfully with no errors
 		return 0;
 
@@ -488,7 +490,7 @@ bool callFunctions(string &id, LeisureGuide &lg) {
 		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
 		id = id.substr(0, id.find_last_of('.'));
 		//calls function based on hardcoded id
-		
+		lg.displayInspectionofaBeach();
 		//pause to see output
 		Utilities::pause();
 		//function was found, return true
@@ -499,7 +501,7 @@ bool callFunctions(string &id, LeisureGuide &lg) {
 		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
 		id = id.substr(0, id.find_last_of('.'));
 		//calls function based on hardcoded id
-
+		lg.displayInspectionTypeService();
 		//pause to see output
 		Utilities::pause();
 		//function was found, return true

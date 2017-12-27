@@ -11,7 +11,6 @@ void LeisureGuide::displayAllBeaches() const {
 
 	for(auto const &concelho : concelhos){
 		//Print the concelho
-		cout << "mama boi\n";
 
 		cout << concelho << ": " << endl;
 
@@ -1415,8 +1414,7 @@ int LeisureGuide::checkType(const string &type){
 
 	if (!dates.empty()){
 		for (int i = 0; i < dates.size(); i++){
-			Service *k = dates[i].top().first;
-			if(k->getType() == type){
+			if(dates[i].top().first.getType() == type){
 				return i;
 			}
 		}
@@ -1446,13 +1444,13 @@ void LeisureGuide::createInspections() {
 			
 			if ( i != -1) {
 
-				dates[i].emplace(&s, dt.second->getName());
+				dates[i].emplace(s, dt.second->getName());
 
 			}
 
 			else{
 				Inspection k;
-				k.emplace(&s, dt.second->getName());
+				k.emplace(s, dt.second->getName());
 				dates.push_back(k);
 			}
 		}
@@ -1475,6 +1473,7 @@ bool LeisureGuide::addInspection() {
 				cout << "Beach does not exist. Insert an existing beach!\t";
 		}
 
+		auto cpy = *i;
 		cout << "What is the name of the service? \t";
 
 		while (true) {
@@ -1483,19 +1482,19 @@ bool LeisureGuide::addInspection() {
 			for (auto &f : i->second->getServices()) {
 				if (f.getName() == servicename) {
 					while (true) {
-						cout << "Insert the date of last inspection at the format YYYY/MM/DD";
+						cout << "Insert the date of last inspection at the format YYYY/MM/DD \t";
 						getline(cin, date);
 						if (Utilities::correctDateFormat(date)){
 							if (f.getInspectionDate() == "0") {
-								f.setInspectionDate(date);
-								updateInspections(&f, beachname);
+								changeInspection(i, servicename, date);
+								updateInspections(f, beachname);
 								cout << "Addition successful\n";
 								return true;
 							}
 							else {
 								if(Utilities::DatesCompare(date,f.getInspectionDate())){
-									f.setInspectionDate(date);
-									updateInspections(&f, beachname);
+									changeInspection(i, servicename, date);
+									updateInspections(f, beachname);
 									cout << "Addition successful\n";
 									return true;
 								}
@@ -1505,7 +1504,7 @@ bool LeisureGuide::addInspection() {
 								}
 							}
 						}
-						cout << "Insert the date in the format YYYY/MM/DD\n";
+	
 					}
 				}
 			}
@@ -1515,10 +1514,28 @@ bool LeisureGuide::addInspection() {
 
 }
 
-void LeisureGuide::updateInspections(Service *s, string &beachName) {
+void LeisureGuide::changeInspection(ConcelhoBeachBST::iterator &i, string &servicename, string &date) {
+	auto cpy = *i;
+	beaches.erase(i);
+	
+	vector<Service> aux = cpy.second->getServices();
+	for (auto &x : aux) {
+		if (x.getName() == servicename) {
+			x.setInspectionDate(date);
+			break;
+		}
+	}
+	cpy.second->setServices(aux);
+
+	beaches.emplace(cpy);
+
+}
+
+
+void LeisureGuide::updateInspections(Service &s, string &beachName) {
 	Inspection aux;
 
-	int i = checkType(s->getType());
+	int i = checkType(s.getType());
 
 	if (i == -1) {
 		aux.push(make_pair(s, beachName));
@@ -1528,7 +1545,7 @@ void LeisureGuide::updateInspections(Service *s, string &beachName) {
 	else {
 		while (!dates[i].empty()) {
 			if (dates[i].top().second == beachName) {
-				if (dates[i].top().first->getName() == s->getName()) {
+				if (dates[i].top().first.getName() == s.getName()) {
 					dates[i].pop();
 					aux.emplace(s, beachName);
 				}
@@ -1565,14 +1582,10 @@ void LeisureGuide::displayInspectionofaBeach() {
 
 	vector<Service> serv = i->second->getServices();
 
+	cout << "Inspections at " << beachname << endl;
 	for (auto &j : serv) {
 
-		cout << "Service name: " << j.getName() << endl;
-		cout << "Service Type: " << j.getType() << endl;
-		if (j.getInspectionDate() == "0")
-			cout << "Service without inspection\n";
-		else
-			cout << "Date of the last inspection: " << j.getInspectionDate() << endl;
+		cout << j;
 
 		cout << "\n\n";
 	}
@@ -1581,29 +1594,24 @@ void LeisureGuide::displayInspectionofaBeach() {
 void LeisureGuide::displayInspectionTypeService() {
 	
 	createInspections();
+
 	string type;
+
 	cout << "What is the Service Type? \t";
+
 	getline(cin, type);
 
 	for (auto &i : dates) {
-		if (i.top().first->getType() != type)
+		if (i.top().first.getType() != type)
 			continue;
 		else {
 			Inspection aux = i;
 			while (!aux.empty()) {
-				cout << "Beach name: " <<aux.top().second << endl;
-				cout << "Service name: " << aux.top().first->getName() << endl;
-				cout << "Service Type: " << aux.top().first->getType() << endl;
-				if (aux.top().first->getInspectionDate() == "0")
-					cout << "Service without inspection\n";
-				else
-					cout << "Date of the last inspection: " << aux.top().first->getInspectionDate() << endl;
-
-				cout << "\n\n";
+				cout << aux.top().first;
 				aux.pop();
 			}
 
+			return;
 		}
 	}
-
 }

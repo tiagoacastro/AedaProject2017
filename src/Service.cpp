@@ -34,7 +34,11 @@ ostream & operator<<(ostream &os, const Service &s){
 	os << "- Name: " << s.name << endl;
 	os << "Type: " << s.type << endl;
 	os << "Description: " << s.description << endl;
-	os << "Last inspection: " << s.inspectionDate << endl;
+	os << "Last inspection: ";
+	if (s.inspectionDate == "0")
+		os << "No inspection performed on this service" << endl;
+	else
+		os << s.inspectionDate << endl;
 
 	return os;
 }

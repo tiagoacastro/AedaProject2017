@@ -32,15 +32,15 @@ struct set_comparator {
 };
 
 struct pq_compare {
-	bool operator() (const pair<Service*, string> &s1, const pair<Service*, string> &s2) {
-		return s1.first->getInspectionDate() < s2.first->getInspectionDate();
+	bool operator() (pair<Service, string> &s1, pair<Service, string> &s2) {
+		return s1.first.getInspectionDate() < s2.first.getInspectionDate();
 	}
 
 };
 
 
 typedef set<pair<string, Beach *>, set_comparator> ConcelhoBeachBST;
-typedef priority_queue<pair<Service*, string>, vector<pair<Service*, string>>,pq_compare> Inspection;
+typedef priority_queue<pair<Service, string>, vector<pair<Service, string>>,pq_compare> Inspection;
 
 class LeisureGuide {
 private:
@@ -113,7 +113,7 @@ private:
 	* @param beachName Name of the beach that has the service to be inspectionated
 	* @param serviceName Name of the service that is going to be inspectionated
  	*/
-	void updateInspections(Service *s, string &beachName); 
+	void updateInspections(Service &s, string &beachName); 
 
 	/**
 	* @brief Check if the type passed as argument already exist in dates
@@ -130,6 +130,7 @@ private:
 public:
 
 
+	void changeInspection(ConcelhoBeachBST::iterator &i, string &servicename, string &date);
 	/**
 	* @brief Get of the vector of inspections
 	* @return Return the vectors of inspection  
