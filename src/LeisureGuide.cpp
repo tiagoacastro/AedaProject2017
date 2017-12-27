@@ -358,11 +358,12 @@ void LeisureGuide::createBayouBeach(vector<string> &beach) {
 		//Then we add no services (the vector is initializated as empty, so there is no problem there)
 		if(!beach[6].empty()) {
 			//If it isn't empty then there are services to search for, so we parse the text as usual
+
 			vector<string> services = Utilities::splitString(beach[6], ';');
 			vector<string> serviceitems;
 
 			for(auto &service : services) {
-				Utilities::trimString(service);
+					Utilities::trimString(service);
 				serviceitems = Utilities::splitString(service, ',');
 				Utilities::trimString(serviceitems[0]);
 				Utilities::trimString(serviceitems[1]);
@@ -372,10 +373,11 @@ void LeisureGuide::createBayouBeach(vector<string> &beach) {
 			}
 		}
 
+
 		Beach *p = new BayouBeach(name, Coordinates(xc, yc), capacity, bf, serv, area);
 		beaches.emplace(concelho, p);
 
-
+	
 	} catch(...){
 		throw Utilities::WrongFileFormat("Bayou Beach");
 	}
@@ -1577,6 +1579,8 @@ void LeisureGuide::displayInspectionofaBeach() {
 }
 
 void LeisureGuide::displayInspectionTypeService() {
+	
+	createInspections();
 	string type;
 	cout << "What is the Service Type? \t";
 	getline(cin, type);

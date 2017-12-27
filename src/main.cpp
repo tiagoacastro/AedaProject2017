@@ -158,6 +158,7 @@ int menuRunner(LeisureGuide &lg) {
 		//Ensuring that the cin stream is clean for use if there is a getline afterwards
 		Utilities::clearCinBuffer();
 
+
 		if (currentselection.empty() && tempinput == 0) {
 			//This means we are at the main menu and the exit option was selected so we can exit the program by exiting the loop
 			break;

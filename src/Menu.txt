@@ -28,6 +28,10 @@
 2.4.2 Add
 2.4.3 Remove
 2.4.4 Modify
+2.5 Inspections
+2.5.1 Add
+2.5.2 Display Inspections of a Beach
+2.5.3 Display Inspections of Service type
 3 File I/O
 3.1 Load
 3.2 Save
