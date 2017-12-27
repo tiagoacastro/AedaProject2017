@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <string>
 #include <clocale>
@@ -114,6 +115,10 @@ int menuRunner(LeisureGuide &lg) {
 		menuobj.addOption("2.4.2 Add");
 		menuobj.addOption("2.4.3 Remove");
 		menuobj.addOption("2.4.4 Modify");
+		menuobj.addOption("2.5 Inspections");
+		menuobj.addOption("2.5.1 Add");
+		menuobj.addOption("2.5.2 Display Inspections of a Beach");
+		menuobj.addOption("2.5.3 Display Inspections of Service type");
 		menuobj.addOption("3 File I/O");
 		menuobj.addOption("3.1 Load");
 		menuobj.addOption("3.2 Save");
@@ -445,7 +450,7 @@ bool callFunctions(string &id, LeisureGuide &lg) {
 	//Remove a Lodging based on its name
 	if (id == "2.4.3") {
 		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
-		id = id.substr(0, id.find_last_of('.'));
+		id = id.substr(0, id.find_last_of('.'));	
 		//calls function based on hardcoded id
 		lg.removeLodging();
 		//pause to see output
@@ -460,6 +465,40 @@ bool callFunctions(string &id, LeisureGuide &lg) {
 		id = id.substr(0, id.find_last_of('.'));
 		//calls function based on hardcoded id
 		lg.modifyLodging();
+		//pause to see output
+		Utilities::pause();
+		//function was found, return true
+		return true;
+	}
+
+	if (id == "2.5.1") {
+		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
+		id = id.substr(0, id.find_last_of('.'));
+		//calls function based on hardcoded id
+		lg.addInspection();
+		//pause to see output
+		Utilities::pause();
+		//function was found, return true
+		return true;
+
+	}
+
+	if (id == "2.5.2") {
+		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
+		id = id.substr(0, id.find_last_of('.'));
+		//calls function based on hardcoded id
+		
+		//pause to see output
+		Utilities::pause();
+		//function was found, return true
+		return true;
+	}
+
+	if (id == "2.5.3") {
+		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
+		id = id.substr(0, id.find_last_of('.'));
+		//calls function based on hardcoded id
+
 		//pause to see output
 		Utilities::pause();
 		//function was found, return true

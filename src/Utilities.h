@@ -224,13 +224,19 @@ namespace Utilities {
 	* @return Returns true if it's in the desired format, false if else
 	*/
 	bool correctHourFormat(string hour);
-
 	/**
 	* @brief Checks if string is in YYYY/MM/DD format
 	* @param la		String to analyze
 	* @return Returns true if it's in the desired format, false if else
 	*/
 	bool correctDateFormat(string &la);
+	/**
+	* @brief Checks if arguments are in YYYY/MM/DD format and if the l is younger than r
+	* @param l Date in the format YYYY/MM/DD
+	* @param r Date in the format YYYY/MM/DD
+	* @return Returns true if l is younger than r, false if else 
+	*/
+	bool DatesCompare(string &l, string &r);
 	/**
 	* @brief Checks if character is a number
 	* @param c			Character to analyze

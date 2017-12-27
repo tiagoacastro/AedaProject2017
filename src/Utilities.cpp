@@ -234,6 +234,31 @@ namespace Utilities {
 		return false;
 	}
 
+	bool DatesCompare(string &l, string &r) {
+		if (!(correctDateFormat(l) && correctDateFormat(r)))
+			return false;
+
+		vector<string> lv = splitString(l, "/"), rv = splitString(r,"/");
+
+		if (lv[0] < rv[0])
+			return false;
+		else if (lv[0] > rv[0])
+			return true;
+		else {
+			if (lv[1] < rv[1])
+				return false;
+			else if (lv[1] > rv[1])
+				return true;
+			else {
+				if (lv[2] < rv[2])
+					return false;
+				else 
+					return true;
+			}
+		}
+
+	}
+
 
 	bool isNumber(char c) {
 		return c >= '0' && c <= '9';

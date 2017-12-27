@@ -121,6 +121,11 @@ private:
 	* @return Return the index of the type or -1 if the type does not exist
 	*/
 	int checkType(const string &type);
+	
+	/**
+	* @brief Create the inspection based in the current beaches
+	*/
+	
 	void createInspections();
 public:
 
@@ -175,6 +180,14 @@ public:
 	 */
 	void displayLodgingInfo();
 	/**
+	* @brief Display the Inspections of the all services of a Beach entered by the user
+	*/
+	void displayInspectionofaBeach();
+	/**
+	* @brief Display the Inspections of the all services of a type entered by the user
+	*/
+	void displayInspectionTypeService();
+	/**
 	 * @brief Loads file contents into program memory
 	 */
 	void loadFile();
@@ -223,6 +236,11 @@ public:
 	 * @return true if the Lodging is valid and was added, false if else
 	 */
 	bool addLodging();
+	/**
+	* @brief Adds an Inspection to a service entered by the user
+	* @return true if the Inspection is valid and was added, false if else
+	*/
+	bool addInspection();
 	/**
 	 * @brief Modifies a Restaurant based on its name
 	 * @return returns true if a Restaurant is found and modified, false if not found

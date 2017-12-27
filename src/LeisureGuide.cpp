@@ -575,7 +575,7 @@ bool LeisureGuide::addBeach() {
 				//if cin didn't fail we have a good input so we break the loop
 				break;
 			}
-		}
+		}	
 
 		//Ensuring cin is clear after using it as a stream
 		Utilities::clearCinBuffer();
@@ -1429,6 +1429,8 @@ vector<Inspection> LeisureGuide::getDates(){
 
 void LeisureGuide::createInspections() {
 
+	dates.clear();
+
 	for (auto &dt : beaches) {
 
 		vector<Service> serv = dt.second->getServices();
@@ -1451,11 +1453,62 @@ void LeisureGuide::createInspections() {
 				k.emplace(&s, dt.second->getName());
 				dates.push_back(k);
 			}
-				
-		
+		}
+	}
+}
+
+
+bool LeisureGuide::addInspection() {
+	string beachname, servicename, date;
+	ConcelhoBeachBST::iterator i;
+	cout << "What is the name of the beach? \t";
+		while (true) {
+
+			getline(cin, beachname);
+			cout << endl;
+			i = findBeachByName(beachname);
+			if (i != beaches.end())
+				break;
+			else
+				cout << "Beach does not exist. Insert an existing beach!\t";
 		}
 
-	}
+		cout << "What is the name of the service? \t";
+
+		while (true) {
+			getline(cin, servicename);
+			cout << endl;
+			for (auto &f : i->second->getServices()) {
+				if (f.getName() == servicename) {
+					while (true) {
+						cout << "Insert the date of last inspection at the format YYYY/MM/DD";
+						getline(cin, date);
+						if (Utilities::correctDateFormat(date)){
+							if (f.getInspectionDate() == "0") {
+								f.setInspectionDate(date);
+								updateInspections(&f, beachname);
+								cout << "Addition successful\n";
+								return true;
+							}
+							else {
+								if(Utilities::DatesCompare(date,f.getInspectionDate())){
+									f.setInspectionDate(date);
+									updateInspections(&f, beachname);
+									cout << "Addition successful\n";
+									return true;
+								}
+								else {
+									cout << "Date insert is older than the existing one. Returning to the menu...";
+									return false;
+								}
+							}
+						}
+						cout << "Insert the date in the format YYYY/MM/DD\n";
+					}
+				}
+			}
+			cout << "Service does not exist. Insert an existing service at " << beachname << "\t";
+		}
 
 
 }
@@ -1466,7 +1519,8 @@ void LeisureGuide::updateInspections(Service *s, string &beachName) {
 	int i = checkType(s->getType());
 
 	if (i == -1) {
-		dates.emplace_back(make_pair(s, beachName));
+		aux.push(make_pair(s, beachName));
+		dates.push_back(aux);
 	}
 
 	else {
@@ -1489,4 +1543,63 @@ void LeisureGuide::updateInspections(Service *s, string &beachName) {
 
 		dates[i] = aux;
 	}
+}
+
+
+
+void LeisureGuide::displayInspectionofaBeach() {
+	ConcelhoBeachBST::iterator i;
+	string beachname;
+	cout << "What is the name of the beach? \t";
+	while (true) {
+		getline(cin, beachname);
+		cout << endl;
+		i = findBeachByName(beachname);
+		if (i != beaches.end())
+			break;
+		else
+			cout << "Beach does not exist. Insert an existing beach!\t";
+	}
+
+	vector<Service> serv = i->second->getServices();
+
+	for (auto &j : serv) {
+
+		cout << "Service name: " << j.getName() << endl;
+		cout << "Service Type: " << j.getType() << endl;
+		if (j.getInspectionDate() == "0")
+			cout << "Service without inspection\n";
+		else
+			cout << "Date of the last inspection: " << j.getInspectionDate() << endl;
+
+		cout << "\n\n";
+	}
+}
+
+void LeisureGuide::displayInspectionTypeService() {
+	string type;
+	cout << "What is the Service Type? \t";
+	getline(cin, type);
+
+	for (auto &i : dates) {
+		if (i.top().first->getType() != type)
+			continue;
+		else {
+			Inspection aux = i;
+			while (!aux.empty()) {
+				cout << "Beach name: " <<aux.top().second << endl;
+				cout << "Service name: " << aux.top().first->getName() << endl;
+				cout << "Service Type: " << aux.top().first->getType() << endl;
+				if (aux.top().first->getInspectionDate() == "0")
+					cout << "Service without inspection\n";
+				else
+					cout << "Date of the last inspection: " << aux.top().first->getInspectionDate() << endl;
+
+				cout << "\n\n";
+				aux.pop();
+			}
+
+		}
+	}
+
 }
