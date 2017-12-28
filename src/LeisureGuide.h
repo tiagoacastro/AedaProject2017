@@ -10,6 +10,7 @@
 #include <map>
 #include <set>
 #include <algorithm>
+#include <unordered_set>
 
 using namespace std;
 
@@ -32,6 +33,17 @@ struct set_comparator {
 
 typedef set<pair<string, Beach *>, set_comparator> ConcelhoBeachBST;
 
+struct hashf {
+	int operator()(const TouristicPointPointer & tp) const {
+		return hash<string>()(tp.touristicPoint->getName());
+	}
+	bool operator()(const TouristicPointPointer & tp1, const TouristicPointPointer & tp2) const {
+		return tp1.touristicPoint->getCloseDate() == tp2.touristicPoint->getCloseDate();
+	}
+};
+
+typedef unordered_set<TouristicPointPointer, hashf, hashf> hashTable;
+
 class LeisureGuide {
 private:
 	///Data members
@@ -39,6 +51,7 @@ private:
 	vector<Restaurant> restaurants;
 	vector<POI> POIs;
 	vector<Lodging> lodging;
+	hashTable closedTouristicPoints;
 	/**
 	 * @brief Gets all the concelhos where there are beaches
 	 * @return Returns a vector of all the Concelhos
