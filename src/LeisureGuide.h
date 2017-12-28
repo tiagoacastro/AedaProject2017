@@ -14,6 +14,25 @@
 
 using namespace std;
 
+struct set_comparator {
+	bool operator() (const pair<string, Beach *> &p1, const pair<string, Beach *> &p2) {
+		if(p1.first == p2.first) {
+			if(p1.second->hasBlueFlag()) {
+				return true;
+			} else {
+				if(p2.second->hasBlueFlag()) {
+					return false;
+				} else {
+					return p1.second->getName() < p2.second->getName();
+				}
+			}
+		}
+		return p1.first < p2.first;
+	}
+};
+
+typedef set<pair<string, Beach *>, set_comparator> ConcelhoBeachBST;
+
 struct hashf {
 	int operator()(const TouristicPointPointer & tp) const {
 		return hash<string>()(tp.touristicPoint->getName());
@@ -28,7 +47,7 @@ typedef unordered_set<TouristicPointPointer, hashf, hashf> hashTable;
 class LeisureGuide {
 private:
 	///Data members
-	vector<pair<string, Beach*>> beaches;
+	ConcelhoBeachBST beaches;
 	vector<Restaurant> restaurants;
 	vector<POI> POIs;
 	vector<Lodging> lodging;
@@ -50,7 +69,7 @@ private:
 	 * @param name		Name of the beach to search for
 	 * @return Returns an iterator to the found beach, or beaches.end() if nothing was found
 	 */
-	vector<pair<string, Beach*>>::iterator findBeachByName(string name);
+	ConcelhoBeachBST::iterator findBeachByName(string name);
 	/**
 	 * @brief Searches for a POI on the POI vector and returns the iterator
 	 * @param name		Name of the POI to search for
@@ -83,7 +102,8 @@ private:
 	 * @brief Sorts POIs by distance to a certain beach
 	 * @param b The beach in order to sort to
 	 */
-	void sortPOIsByDistanceToBeach(Beach *b);	/**
+	void sortPOIsByDistanceToBeach(Beach *b);
+	/**
 	 * @brief Sorts Lodging by distance to a certain beach
 	 * @param b The beach in order to sort to
 	 */
@@ -93,19 +113,6 @@ public:
 	 * @brief Default constructor to allow creating an empty Leisure Guide that will receive the options afterwards
 	 */
 	LeisureGuide();
-	/**
-	 * @brief Constructs a Leisure Guide with a multimap containing all beaches and the respective county and no POIs, restaurants or lodging, they may be added later
-	 * @param	 multimap containing all beaches and the respective county
-	 */
-	LeisureGuide(const vector<pair<string, Beach*>> &beaches);
-	/**
-	 * @brief Constructs a Leisure Guide with a multimap containing all beaches and the respective county as well as vectors, each containing the avaliable POIs, restaurants and lodging
-	 * @param beaches		multimap containing all beaches and the respective county in the area
-	 * @param restaurants	vector containing avaliable restaurants in the surrounding area
-	 * @param POIs			vector containing avaliable points of interest (POIs) in the surrounding area
-	 * @param lodging		vector containing avaliable lodging in the surrounding area
-	 */
-	LeisureGuide(const vector<pair<string, Beach*>> &beaches, const vector<Restaurant> &restaurants, const vector<POI> &POIs, const vector<Lodging> &lodging);
 	/**
 	 * @brief Displays all beaches by concelho
 	 */

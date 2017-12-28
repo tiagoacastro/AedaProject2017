@@ -1,6 +1,6 @@
 1 View
 1.1 Unconditional Listing
-1.1.1 All Beaches sorted by Concelho
+1.1.1 All Beaches sorted by Concelho and Blue Flag
 1.1.2 All POIs
 1.1.3 All Restaurants
 1.1.4 All Lodging
