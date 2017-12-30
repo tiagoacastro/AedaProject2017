@@ -7,6 +7,7 @@
 1.2 Conditional Listing
 1.2.1 List Beaches by Concelho
 1.2.2 Recommendations near a Beach
+1.2.3 Closed Touristic Points
 2 Manage
 2.1 Beaches
 2.1.1 View Details

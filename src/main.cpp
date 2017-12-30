@@ -82,6 +82,7 @@ int menuRunner(LeisureGuide &lg) {
 		menuobj.addOption("1.2 Conditional Listing");
 		menuobj.addOption("1.2.1 List Beaches by Concelho");
 		menuobj.addOption("1.2.2 Recommendations near a Beach");
+		menuobj.addOption("1.2.3 Closed Touristic Points");
 		menuobj.addOption("2 Manage");
 		menuobj.addOption("2.1 Beaches");
 		menuobj.addOption("2.1.1 View Details");
@@ -260,6 +261,18 @@ bool callFunctions(string &id, LeisureGuide &lg) {
 		id = id.substr(0, id.find_last_of('.'));
 		//calls function based on hardcoded id
 		lg.displaySortedByDistance();
+		//pause to see output
+		Utilities::pause();
+		//function was found, return true
+		return true;
+	}
+
+	//Lists closed Touristic Points
+	if (id == "1.2.3") {
+		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
+		id = id.substr(0, id.find_last_of('.'));
+		//calls function based on hardcoded id
+		lg.displayClosedTouristicPoints();
 		//pause to see output
 		Utilities::pause();
 		//function was found, return true
