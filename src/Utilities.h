@@ -225,6 +225,12 @@ namespace Utilities {
 	*/
 	bool correctHourFormat(string hour);
 	/**
+	* @brief Checks if string is in right format
+	* @param la			String to analyze
+	* @return Returns true if it's in the desired format, false if else
+	*/
+	bool correctDateFormat(string &la);
+	/**
 	* @brief Checks if character is a number
 	* @param c			Character to analyze
 	* @return Returns true if it's a number, false if else

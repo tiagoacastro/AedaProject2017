@@ -171,6 +171,16 @@ public:
 	 */
 	Restaurant(string name, Schedule sch, Coordinates coords, string description);
 	/**
+	* @brief Copy constructor for the Restaurant class
+	* @param obj 			Object of class Restaurant to be copied
+	*/
+	Restaurant(Restaurant &obj);
+	/**
+	* @brief Copy constructor for the Restaurant class (pointer based)
+	* @param obj 			Pointer to Object of class Restaurant to be copied
+	*/
+	Restaurant(Restaurant* obj);
+	/**
 	 * @brief Gets the name of the Restaurant
 	 * @return Returns the name of the Restaurant
 	 */
@@ -254,6 +264,16 @@ public:
 	 */
 	POI(string name, Coordinates coords, string description);
 	/**
+	* @brief Copy constructor for the POI class
+	* @param obj 			Object of class POI to be copied
+	*/
+	POI(POI &obj);
+	/**
+	* @brief Copy constructor for the POI class (pointer based)
+	* @param obj 			Pointer to object of class POI to be copied
+	*/
+	POI(POI* obj);
+	/**
 	 * @brief Gets the name of the POI
 	 * @return Returns the name of the POI
 	 */
@@ -332,6 +352,16 @@ public:
 	 * @param description 	The description of the Lodging, default value is "None"
 	 */
 	Lodging(string name, Coordinates coords, bool full, string description);
+	/**
+	* @brief Copy constructor for the Lodging class
+	* @param obj 			Object of class Lodging to be copied
+	*/
+	Lodging(Lodging &obj);
+	/**
+	* @brief Copy constructor for the Lodging class (pointer based)
+	* @param obj 			Pointer to object of class Lodging to be copied
+	*/
+	Lodging(Lodging* obj);
 	/**
 	 * @brief Sets the name of the Lodging
 	 * @param name	New name of the lodging

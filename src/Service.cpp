@@ -94,6 +94,12 @@ Restaurant::Restaurant(string name, Schedule sch, Coordinates coords, string des
 	: name(name), sch(sch), coords(coords), description(description), TouristicPoint("", restaurant){
 }
 
+Restaurant::Restaurant(Restaurant &obj) : name(obj.name), sch(obj.sch), coords(obj.coords.getLongitude(), obj.coords.getLatitude()), description(obj.description), TouristicPoint(obj.getCloseDate(), obj.getType()) {
+}
+
+Restaurant::Restaurant(Restaurant* obj) : name(obj->name), sch(obj->sch), coords(obj->coords.getLongitude(), obj->coords.getLatitude()), description(obj->description), TouristicPoint(obj->getCloseDate(), obj->getType()) {
+}
+
 string Restaurant::getName() const {
 	return name;
 }
@@ -296,6 +302,12 @@ POI::POI(string name, Coordinates coords, string description = "None")
 	: name(name), coords(coords), description(description), TouristicPoint("", poi) {
 }
 
+POI::POI(POI &obj) : name(obj.name), coords(obj.coords.getLongitude(), obj.coords.getLatitude()), description(obj.description), TouristicPoint(obj.getCloseDate(), obj.getType()) {
+}
+
+POI::POI(POI* obj) : name(obj->name), coords(obj->coords.getLongitude(), obj->coords.getLatitude()), description(obj->description), TouristicPoint(obj->getCloseDate(), obj->getType()) {
+}
+
 string POI::getName() const {
 	return name;
 }
@@ -433,6 +445,12 @@ void POI::modifyDescription() {
 
 Lodging::Lodging(string name, Coordinates coords, bool full, string description = "None")
 	: name(name), coords(coords), full(full), description(description), TouristicPoint("", lodging) {
+}
+
+Lodging::Lodging(Lodging &obj) : name(obj.name), coords(obj.coords.getLongitude(), obj.coords.getLatitude()), full(obj.full), description(obj.description), TouristicPoint(obj.getCloseDate(), obj.getType()) {
+}
+
+Lodging::Lodging(Lodging* obj) : name(obj->name), coords(obj->coords.getLongitude(), obj->coords.getLatitude()), full(obj->full), description(obj->description), TouristicPoint(obj->getCloseDate(), obj->getType()) {
 }
 
 string Lodging::getName() const {

@@ -28,6 +28,9 @@
 2.4.2 Add
 2.4.3 Remove
 2.4.4 Modify
+2.5 Touristic Points
+2.5.1 Close
+2.5.2 Reopen
 3 File I/O
 3.1 Load
 3.2 Save

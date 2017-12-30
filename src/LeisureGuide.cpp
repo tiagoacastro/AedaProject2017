@@ -1397,3 +1397,141 @@ void LeisureGuide::displayLodgingInfo() {
 	cout << "The info for the requested lodging is:" << endl;
 	cout << *it;
 }
+
+ bool LeisureGuide::closeTouristicPoint() {
+	cout << "What type of touristic point do you desire to close? (Restaurant, POI or Lodging)" << endl;
+	string type;
+	classType cType;
+
+	while (true) {
+		getline(cin, type);
+		Utilities::trimString(type);
+		if (cin.fail() || (type != "Restaurant" && type != "restaurant" && type != "POI" && type != "poi" && type != "lodging" && type != "Lodging")) {
+			cout << "Invalid input, please enter a valid type." << endl;
+			//Clearing error flag and cin buffer
+			Utilities::clearCinBuffer();
+		}
+		else {
+			//if cin didn't fail we have a good input so we break the loop
+			if (type == "Restaurant" || type == "restaurant")
+				cType = classType::restaurant;
+			else
+				if (type == "POI" || type == "poi")
+					cType = classType::poi;
+				else
+					if (type == "Lodging" || type == "lodging")
+						cType = classType::lodging;
+			break;
+		}
+	}
+
+	cout << "What is the day when it will be closed? (YYYY/MM/DD) " << endl;
+	string date;
+	while (true) {
+		getline(cin, date);
+		Utilities::trimString(date);
+		if (!Utilities::correctHourFormat(date)) {
+			cout << "Wrong date format, must be YYYY/MM/DD and must be an acceptable date" << endl;
+		}
+		else {
+			break;
+		}
+	}
+
+	cout << "What is the name of the touristic point that you desire to close?" << endl;
+	string name;
+	getline(cin, name);
+	Utilities::trimString(name);
+
+	TouristicPointPointer t;
+	
+	if (cType == classType::lodging) {
+		auto it = findLodgingByName(name);
+		if (it == lodging.end()) {
+			cout << "Lodging doesn't exist" << endl;
+			return false;
+		}
+
+		TouristicPoint * tpp = new Lodging(*it);
+
+		t.touristicPoint = tpp;
+
+		lodging.erase(it);
+	}
+	else {
+		if (cType = classType::poi) {
+			auto it = findPOIByName(name);
+			if (it == POIs.end()) {
+				cout << "POI doesn't exist" << endl;
+				return false;
+			}
+
+			TouristicPoint * tpp = new POI(*it);
+
+			t.touristicPoint = tpp;
+
+			POIs.erase(it);
+		}
+		else {
+			if (cType = classType::restaurant) {
+				auto it = findRestaurantByName(name);
+				if (it == restaurants.end()) {
+					cout << "Restaurant doesn't exists" << endl;
+					return false;
+				}
+
+				TouristicPoint * tpp = new Restaurant(*it);
+
+				t.touristicPoint = tpp;
+
+				restaurants.erase(it);
+			}
+		}
+	}
+
+	t.touristicPoint->setCloseDate(date);
+
+	closedTouristicPoints.insert(t); 
+
+	return true;
+}
+
+bool LeisureGuide::reopenTouristicPoint() {
+	cout << "What is the name of the touristic point that you desire to reopen?" << endl;
+	string name;
+	getline(cin, name);
+	Utilities::trimString(name);
+
+	for (auto it = closedTouristicPoints.begin(); it != closedTouristicPoints.end(); it++)
+	{
+		TouristicPointPointer tp = (*it);
+		TouristicPoint* t = tp.touristicPoint;
+		classType cType = t->getType();
+		if (t->getName() == name) {
+			if (cType == classType::lodging) {
+				Lodging* lp = dynamic_cast<Lodging*>(t);
+				Lodging l(lp);
+				lodging.push_back(l);
+			}
+			else {
+				if (cType = classType::poi) {
+					POI* pp = dynamic_cast<POI*>(t);
+					POI p(pp);
+					POIs.push_back(p);
+				}
+				else {
+					if (cType = classType::restaurant) {
+						Restaurant* rp = dynamic_cast<Restaurant*>(t);
+						Restaurant r(rp);
+						restaurants.push_back(r);
+					}
+				}
+			}
+			closedTouristicPoints.erase(tp);
+			return true;
+		}
+	}
+
+	cout << "No touristic point with that name was found." << endl;
+	return false;
+}
