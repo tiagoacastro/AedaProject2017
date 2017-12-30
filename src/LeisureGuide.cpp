@@ -1435,7 +1435,7 @@ void LeisureGuide::createInspections() {
 
 		vector<Service> serv = dt.second->getServices();
 
-		for (auto &s : serv) {
+		for (auto s : serv) {
 		
 			if (s.getInspectionDate() == "0")
 				continue;
@@ -1443,14 +1443,15 @@ void LeisureGuide::createInspections() {
 			int i = checkType(s.getType());
 			
 			if ( i != -1) {
-
-				dates[i].emplace(s, dt.second->getName());
+				pair<Service, string> p(s, dt.second->getName());
+				dates[i].push(p);
 
 			}
 
 			else{
+				pair<Service, string> p(s, dt.second->getName());
 				Inspection k;
-				k.emplace(s, dt.second->getName());
+				k.push(p);
 				dates.push_back(k);
 			}
 		}
@@ -1607,11 +1608,13 @@ void LeisureGuide::displayInspectionTypeService() {
 		else {
 			Inspection aux = i;
 			while (!aux.empty()) {
-				cout << aux.top().first;
+				cout << "Beach: " << aux.top().second << endl << "Service:\n";
+				cout << aux.top().first << endl;
 				aux.pop();
 			}
-
 			return;
-		}
+		}	
 	}
+	cout << "Type does not exist...\n";
+
 }
