@@ -125,11 +125,15 @@ private:
 	/**
 	* @brief Create the inspection based in the current beaches
 	*/
-	
 	void createInspections();
 public:
 
-
+	/**
+	* @brief Updates the date of inspection according to the date previously entered by the user
+	* @param i Beach to wich an inspection has been inserted
+	* @param servicename Name of the service that was inspectionated
+	* @param date Date of the new inspection
+	*/
 	void changeInspection(ConcelhoBeachBST::iterator &i, string &servicename, string &date);
 	/**
 	* @brief Get of the vector of inspections
