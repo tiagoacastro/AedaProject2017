@@ -291,4 +291,18 @@ public:
 	 * @param s		ofstream to write to
 	 */
 	void saveLodging(ofstream &s);
+	/**
+	* @brief Close a touristic point and add it to the hash table removing it from the designed list
+	* @return returns true if a Touristic Point is closed, false if not
+	*/
+	bool closeTouristicPoint();
+	/**
+	* @brief Reopen a touristic point and add it back to the designed list and removing it from the hash table
+	* @return returns true if a Touristic Point is reopened, false if not
+	*/
+	bool reopenTouristicPoint();
+	/**
+	* @brief Displays all closed Touristic Points (Restaurant, then POI, then Lodging)
+	*/
+	void displayClosedTouristicPoints();
 };

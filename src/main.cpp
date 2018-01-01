@@ -82,6 +82,7 @@ int menuRunner(LeisureGuide &lg) {
 		menuobj.addOption("1.2 Conditional Listing");
 		menuobj.addOption("1.2.1 List Beaches by Concelho");
 		menuobj.addOption("1.2.2 Recommendations near a Beach");
+		menuobj.addOption("1.2.3 Closed Touristic Points");
 		menuobj.addOption("2 Manage");
 		menuobj.addOption("2.1 Beaches");
 		menuobj.addOption("2.1.1 View Details");
@@ -102,6 +103,9 @@ int menuRunner(LeisureGuide &lg) {
 		menuobj.addOption("2.4.1 View Details");
 		menuobj.addOption("2.4.2 Add");
 		menuobj.addOption("2.4.3 Remove");
+		menuobj.addOption("2.5 Touristic Points");
+		menuobj.addOption("2.5.1 Close");
+		menuobj.addOption("2.5.2 Reopen");
 		menuobj.addOption("2.4.4 Modify");
 		menuobj.addOption("3 File I/O");
 		menuobj.addOption("3.1 Load");
@@ -257,6 +261,18 @@ bool callFunctions(string &id, LeisureGuide &lg) {
 		id = id.substr(0, id.find_last_of('.'));
 		//calls function based on hardcoded id
 		lg.displaySortedByDistance();
+		//pause to see output
+		Utilities::pause();
+		//function was found, return true
+		return true;
+	}
+
+	//Lists closed Touristic Points
+	if (id == "1.2.3") {
+		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
+		id = id.substr(0, id.find_last_of('.'));
+		//calls function based on hardcoded id
+		lg.displayClosedTouristicPoints();
 		//pause to see output
 		Utilities::pause();
 		//function was found, return true
@@ -449,6 +465,30 @@ bool callFunctions(string &id, LeisureGuide &lg) {
 		id = id.substr(0, id.find_last_of('.'));
 		//calls function based on hardcoded id
 		lg.modifyLodging();
+		//pause to see output
+		Utilities::pause();
+		//function was found, return true
+		return true;
+	}
+
+	//Close a touristic point and add it to the hash table removing it from the designed list
+	if (id == "2.5.1") {
+		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
+		id = id.substr(0, id.find_last_of('.'));
+		//calls function based on hardcoded id
+		lg.closeTouristicPoint();
+		//pause to see output
+		Utilities::pause();
+		//function was found, return true
+		return true;
+	}
+
+	//Reopen a touristic point and add it back to the designed list and removing it from the hash table
+	if (id == "2.5.2") {
+		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
+		id = id.substr(0, id.find_last_of('.'));
+		//calls function based on hardcoded id
+		lg.reopenTouristicPoint();
 		//pause to see output
 		Utilities::pause();
 		//function was found, return true

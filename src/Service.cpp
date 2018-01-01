@@ -88,10 +88,20 @@ void TouristicPoint::setType(const classType type) {
 	this->type = type;
 }
 
+ostream & operator<<(ostream &o, const TouristicPoint &t) {
+	o << "Name: " << t.getName() << endl;
+	o << "Close Date: " << t.closeDate << endl;
+
+	return o;
+}
+
 //Restaurant
 
 Restaurant::Restaurant(string name, Schedule sch, Coordinates coords, string description = "None")
 	: name(name), sch(sch), coords(coords), description(description), TouristicPoint("", restaurant){
+}
+
+Restaurant::Restaurant(const Restaurant &obj) : name(obj.name), sch(obj.sch), coords(obj.coords.getLongitude(), obj.coords.getLatitude()), description(obj.description), TouristicPoint(obj.getCloseDate(), obj.getType()) {
 }
 
 string Restaurant::getName() const {
@@ -296,6 +306,9 @@ POI::POI(string name, Coordinates coords, string description = "None")
 	: name(name), coords(coords), description(description), TouristicPoint("", poi) {
 }
 
+POI::POI(const POI &obj) : name(obj.name), coords(obj.coords.getLongitude(), obj.coords.getLatitude()), description(obj.description), TouristicPoint(obj.getCloseDate(), obj.getType()) {
+}
+
 string POI::getName() const {
 	return name;
 }
@@ -433,6 +446,9 @@ void POI::modifyDescription() {
 
 Lodging::Lodging(string name, Coordinates coords, bool full, string description = "None")
 	: name(name), coords(coords), full(full), description(description), TouristicPoint("", lodging) {
+}
+
+Lodging::Lodging(const Lodging &obj) : name(obj.name), coords(obj.coords.getLongitude(), obj.coords.getLatitude()), full(obj.full), description(obj.description), TouristicPoint(obj.getCloseDate(), obj.getType()) {
 }
 
 string Lodging::getName() const {

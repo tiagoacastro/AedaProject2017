@@ -133,6 +133,13 @@ public:
 	* @return Returns the name of the touristic point
 	*/
 	virtual string getName() const = 0;
+	/**
+	* @brief Overload for the insertion operator for the TouristicPoint class
+	* @param o ostream to write to
+	* @param t TouristicPoint to print
+	* @return Returns the modified ostream
+	*/
+	friend ostream & operator<<(ostream &o, const TouristicPoint &t);
 };
 
 struct TouristicPointPointer {
@@ -170,6 +177,11 @@ public:
 	 * @param description 	Description of the restaurant, has a default value of "None"
 	 */
 	Restaurant(string name, Schedule sch, Coordinates coords, string description);
+	/**
+	* @brief Copy constructor for the Restaurant class
+	* @param obj 			Object of class Restaurant to be copied
+	*/
+	Restaurant(const Restaurant &obj);
 	/**
 	 * @brief Gets the name of the Restaurant
 	 * @return Returns the name of the Restaurant
@@ -254,6 +266,11 @@ public:
 	 */
 	POI(string name, Coordinates coords, string description);
 	/**
+	* @brief Copy constructor for the POI class
+	* @param obj 			Object of class POI to be copied
+	*/
+	POI(const POI &obj);
+	/**
 	 * @brief Gets the name of the POI
 	 * @return Returns the name of the POI
 	 */
@@ -332,6 +349,11 @@ public:
 	 * @param description 	The description of the Lodging, default value is "None"
 	 */
 	Lodging(string name, Coordinates coords, bool full, string description);
+	/**
+	* @brief Copy constructor for the Lodging class
+	* @param obj 			Object of class Lodging to be copied
+	*/
+	Lodging(const Lodging &obj);
 	/**
 	 * @brief Sets the name of the Lodging
 	 * @param name	New name of the lodging
