@@ -645,11 +645,9 @@ void Lodging::modifyLodging() {
 
 string Service::getInspectionDate(){
 	return this->inspectionDate;
-
 }
 
-void Service::setInspectionDate(string &date){
-
+void Service::setInspectionDate(const string &date){
 	inspectionDate = date;
 }
 

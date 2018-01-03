@@ -138,7 +138,6 @@ private:
 	* @brief Creates the inspections priority queue based on the current beaches
 	*/
 	void createInspections();
-public:
 
 	/**
 	* @brief Updates the date of inspection according to the date previously entered by the user
@@ -146,7 +145,9 @@ public:
 	* @param servicename Name of the service that was inspected
 	* @param date Date of the new inspection
 	*/
-	void changeInspection(ConcelhoBeachBST::iterator &i, string &servicename, string &date);
+	void changeInspection(const ConcelhoBeachBST::iterator &i, const string &servicename, const string &date);
+public:
+
 	/**
 	* @brief Gets the vector of inspections
 	* @return Returns the vectors of inspections

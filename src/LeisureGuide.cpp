@@ -1693,7 +1693,7 @@ bool LeisureGuide::addInspection() {
 	cout << "Service does not exist. Insert an existing service at " << beachname << "\t";
 }
 
-void LeisureGuide::changeInspection(ConcelhoBeachBST::iterator &i, string &servicename, string &date) {
+void LeisureGuide::changeInspection(const ConcelhoBeachBST::iterator &i, const string &servicename, const string &date) {
 	auto cpy = *i;
 	beaches.erase(i);
 	

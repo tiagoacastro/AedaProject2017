@@ -247,6 +247,16 @@ namespace Utilities {
 		return c >= '0' && c <= '9';
 	}
 
+	bool isNumber(const string &str) {
+		for(auto const &c : str) {
+			if(!isNumber(c)) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
 	void clearCinBuffer(){
 		//Clears any potential set flags
 		cin.clear();
@@ -262,6 +272,9 @@ namespace Utilities {
 		vector<int> x;
 		for (auto &i : k){
 			trimString(i);
+            if(!isNumber(i)) {
+				return false;
+			}
 			if (stoi(i) != 0)
 				x.push_back(stoi(i));
 			else

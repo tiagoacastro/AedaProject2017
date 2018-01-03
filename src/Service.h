@@ -91,7 +91,7 @@ public:
 	 * @brief Set Inspection Date to the date of the last Inspection
 	 * @param date  Date of the last Inspection
 	 */
-	void setInspectionDate(string &date);
+	void setInspectionDate(const string &date);
 
 	/**
 	 * @brief get function of the inspection date

@@ -244,6 +244,12 @@ namespace Utilities {
 	*/
 	bool isNumber(char c);
 	/**
+	 * @brief Overload of isNumber for a string
+	 * @param str 		String to analyze
+	 * @return Returns true if the string is a number, false otherwise
+	 */
+	bool isNumber(const string &str);
+	/**
 	 * @brief Clears cin buffer and error flags, for use after each cin use as a stream, to make sure the following getlines work
 	 */
 	void clearCinBuffer();
