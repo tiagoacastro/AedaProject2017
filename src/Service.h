@@ -116,7 +116,58 @@ public:
 
 };
 
-class Restaurant {
+typedef enum{poi, restaurant, lodging} classType;
+
+class TouristicPoint {
+private: 
+	string closeDate;
+	classType type;
+public:
+	/**
+	* @brief Constructor for the touristicPoint class
+	* @param closeDate 			close date of the touristic point
+	* @param type	 			type of the touristic point
+	*/
+	TouristicPoint(string closeDate, classType type);
+	/**
+	* @brief Gets the close date of the touristic point
+	* @return Returns the close date of the touristic point (empty string if it's not closed)
+	*/
+	string getCloseDate() const;
+	/**
+	* @brief Sets the close date of the touristic point
+	* @param closeDate		The close date of the touristic point
+	*/
+	void setCloseDate(const string &closeDate);
+	/**
+	* @brief Gets the type of the touristic point
+	* @return Returns the type of the touristic point (can be restaurant, poi or lodging)
+	*/
+	classType getType() const;
+	/**
+	* @brief Sets the type of the touristic point
+	* @param type		The type of the touristic point (can be restaurant, poi or lodging)
+	*/
+	void setType(const classType type);
+	/**
+	* @brief Gets the name of the touristic point
+	* @return Returns the name of the touristic point
+	*/
+	virtual string getName() const = 0;
+	/**
+	* @brief Overload for the insertion operator for the TouristicPoint class
+	* @param o ostream to write to
+	* @param t TouristicPoint to print
+	* @return Returns the modified ostream
+	*/
+	friend ostream & operator<<(ostream &o, const TouristicPoint &t);
+};
+
+struct TouristicPointPointer {
+	TouristicPoint *touristicPoint;
+};
+
+class Restaurant : public TouristicPoint {
 private:
 	string name;
 	Schedule sch;
@@ -139,7 +190,6 @@ private:
 	 */
 	void modifyDescription();
 public:
-
 	/**
 	 * @brief Constructor for the Restaurant class
 	 * @param name 			Name of the restaurant
@@ -148,6 +198,11 @@ public:
 	 * @param description 	Description of the restaurant, has a default value of "None"
 	 */
 	Restaurant(string name, Schedule sch, Coordinates coords, string description);
+	/**
+	* @brief Copy constructor for the Restaurant class
+	* @param obj 			Object of class Restaurant to be copied
+	*/
+	Restaurant(const Restaurant &obj);
 	/**
 	 * @brief Gets the name of the Restaurant
 	 * @return Returns the name of the Restaurant
@@ -206,7 +261,7 @@ public:
 	void modifyRestaurant();
 };
 
-class POI {
+class POI : public TouristicPoint {
 private:
 	string name;
 	Coordinates coords;
@@ -231,6 +286,11 @@ public:
 	 * @param description	The description of the POI, default value is "None"
 	 */
 	POI(string name, Coordinates coords, string description);
+	/**
+	* @brief Copy constructor for the POI class
+	* @param obj 			Object of class POI to be copied
+	*/
+	POI(const POI &obj);
 	/**
 	 * @brief Gets the name of the POI
 	 * @return Returns the name of the POI
@@ -279,7 +339,7 @@ public:
 	void modifyPOI();
 };
 
-class Lodging {
+class Lodging : public TouristicPoint {
 private:
 	string name;
 	Coordinates coords;
@@ -310,6 +370,11 @@ public:
 	 * @param description 	The description of the Lodging, default value is "None"
 	 */
 	Lodging(string name, Coordinates coords, bool full, string description);
+	/**
+	* @brief Copy constructor for the Lodging class
+	* @param obj 			Object of class Lodging to be copied
+	*/
+	Lodging(const Lodging &obj);
 	/**
 	 * @brief Sets the name of the Lodging
 	 * @param name	New name of the lodging

@@ -284,4 +284,28 @@ namespace Utilities {
 		//Ignores everything in the cin buffer
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 	}
+
+	bool correctDateFormat(string &la) {
+		vector<string> k = splitString(la, "/");
+		vector<int> x;
+		for (auto &i : k) {
+			trimString(i);
+			if (stoi(i) != 0)
+				x.push_back(stoi(i));
+			else
+				return false;
+		}
+
+		if (x.size() == 3) {
+			if (x[0] <= 9999 && x[0] >= 0000) {
+				if (x[1] == 01 || x[1] <= 03 || x[1] == 05 || x[1] == 07 || x[1] == 8 || x[1] == 10 || x[1] == 12)
+					return (x[2] <= 31 && x[2] >= 01);
+				else if (x[1] == 02)
+					return (x[2] <= 28 && x[2] >= 01);
+				else if (x[1] == 04 || x[1] == 06 || x[1] == 9 || x[1] == 10)
+					return (x[2] <= 30 && x[2] >= 01);
+			}
+		}
+		return false;
+	}
 }
