@@ -194,7 +194,7 @@ namespace Utilities {
 		return stoi(hours)*60 + stoi(hhmm);
 	}
 
-	bool correctHourFormat(string hour) {
+	bool correctHourFormat(const string &hour) {
 		if (hour.length() == 5) {
 			if (hour.at(2) == ':') {
 				for (unsigned int i = 0; i < 5; i++)
@@ -217,38 +217,7 @@ namespace Utilities {
 		return false;
 	}
 
-
-	bool correctDateFormat(string &la) {
-
-		vector<string> k = splitString(la, "/");
-		if (la.empty() || k.size() != 3)
-			return false;
-		vector<int> x;
-		for (auto &i : k){
-			trimString(i);
-			if (stoi(i) != 0)
-				x.push_back(stoi(i));
-			else
-				return false;
-		}
-
-
-		if (x.size() == 3) {
-
-	
-			if (x[0] <= 9999 && x[0] >= 1000) {
-				if (x[1] == 1 || x[1] == 3 || x[1] == 5 || x[1] == 7 || x[1] == 8 || x[1] == 10 || x[1] == 12)
-					return (x[2] <= 31 && x[2] >= 1);
-				else if (x[1] == 2)
-					return (x[2] <= 28 && x[2] >= 1);
-				else if (x[1] == 4 || x[1] == 6 || x[1] == 9 || x[1] == 10) 
-					return (x[2] <= 30 && x[2] >= 1);
-			}
-		}
-		return false;
-	}
-
-	bool DatesCompare(string &l, string &r) {
+	bool DatesCompare(const string &l, const string &r) {
 		if (!(correctDateFormat(l) && correctDateFormat(r)))
 			return false;
 
@@ -285,10 +254,13 @@ namespace Utilities {
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 	}
 
-	bool correctDateFormat(string &la) {
+	bool correctDateFormat(const string &la) {
+
 		vector<string> k = splitString(la, "/");
+		if (la.empty() || k.size() != 3)
+			return false;
 		vector<int> x;
-		for (auto &i : k) {
+		for (auto &i : k){
 			trimString(i);
 			if (stoi(i) != 0)
 				x.push_back(stoi(i));
@@ -296,14 +268,17 @@ namespace Utilities {
 				return false;
 		}
 
+
 		if (x.size() == 3) {
-			if (x[0] <= 9999 && x[0] >= 0000) {
-				if (x[1] == 01 || x[1] <= 03 || x[1] == 05 || x[1] == 07 || x[1] == 8 || x[1] == 10 || x[1] == 12)
-					return (x[2] <= 31 && x[2] >= 01);
-				else if (x[1] == 02)
-					return (x[2] <= 28 && x[2] >= 01);
-				else if (x[1] == 04 || x[1] == 06 || x[1] == 9 || x[1] == 10)
-					return (x[2] <= 30 && x[2] >= 01);
+
+
+			if (x[0] <= 9999 && x[0] >= 1000) {
+				if (x[1] == 1 || x[1] == 3 || x[1] == 5 || x[1] == 7 || x[1] == 8 || x[1] == 10 || x[1] == 12)
+					return (x[2] <= 31 && x[2] >= 1);
+				else if (x[1] == 2)
+					return (x[2] <= 28 && x[2] >= 1);
+				else if (x[1] == 4 || x[1] == 6 || x[1] == 9 || x[1] == 10)
+					return (x[2] <= 30 && x[2] >= 1);
 			}
 		}
 		return false;
