@@ -107,37 +107,36 @@ private:
 	 */
 	void sortLodgingByDistanceToBeach(Beach *b);
 	
-	//TODO
 	/**
-	* @brief insert the date changed in the Dates
-	* @param beachName Name of the beach that has the service to be inspectionated
-	* @param serviceName Name of the service that is going to be inspectionated
+	* @brief Inspects the given Service for the given beach, represented by its name
+	* @param beachName Name of the beach that has the service to be inspected
+	* @param serviceName Service that is going to be inspected
  	*/
 	void updateInspections(Service &s, string &beachName); 
 
 	/**
-	* @brief Check if the type passed as argument already exist in dates
+	* @brief Checks if the type passed as argument already exists in dates
 	* @param type Type of the service
-	* @return Return the index of the type or -1 if the type does not exist
+	* @return Returns the index of the type or -1 if the type does not exist
 	*/
 	int checkType(const string &type);
 	
 	/**
-	* @brief Create the inspection based in the current beaches
+	* @brief Creates the inspections priority queue based on the current beaches
 	*/
 	void createInspections();
 public:
 
 	/**
 	* @brief Updates the date of inspection according to the date previously entered by the user
-	* @param i Beach to wich an inspection has been inserted
-	* @param servicename Name of the service that was inspectionated
+	* @param i Beach in which an inspection has been inserted
+	* @param servicename Name of the service that was inspected
 	* @param date Date of the new inspection
 	*/
 	void changeInspection(ConcelhoBeachBST::iterator &i, string &servicename, string &date);
 	/**
-	* @brief Get of the vector of inspections
-	* @return Return the vectors of inspection  
+	* @brief Gets the vector of inspections
+	* @return Returns the vectors of inspections
 	*/
 	vector<Inspection> getDates();
 	/**
@@ -185,11 +184,11 @@ public:
 	 */
 	void displayLodgingInfo();
 	/**
-	* @brief Display the Inspections of the all services of a Beach entered by the user
+	* @brief Displays the Inspections of the all services of a Beach entered by the user
 	*/
 	void displayInspectionofaBeach();
 	/**
-	* @brief Display the Inspections of the all services of a type entered by the user
+	* @brief Displays the Inspections of the all services of a type entered by the user
 	*/
 	void displayInspectionTypeService();
 	/**
@@ -262,8 +261,8 @@ public:
 	 */
 	bool modifyLodging();
 	/**
-	 * @brief Separate the string in all members of the class Beach
-	 * @param beach		a line of the file opened with all informations about a beach
+	 * @brief Separates the string in all members of the class Beach
+	 * @param beach		A line of the file opened with all informations about a beach
 	 */
 	void createBeach(string &beach);
 	/**
