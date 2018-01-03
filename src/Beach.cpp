@@ -56,6 +56,7 @@ void Beach::print(ostream &o){
 		o << "Services:" << endl;
 		for (auto &service: services)
 			o << service;
+
 	}
 }
 
@@ -195,7 +196,7 @@ void Beach::modifyServices(){
 	while (true) {
 		cin >> input;
 		if (cin.fail() && (input < 1 || input > 3)) {
-			cout << "Invalid option value, please insert a valid option (positive integer between 1 and 3)." << endl;
+			cout << "Invalid option value, please insert a valid option (positive integer between 1 and 4)." << endl;
 			//Clearing error flag and cin buffer
 			Utilities::clearCinBuffer();
 		} else {

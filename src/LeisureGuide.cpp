@@ -1,6 +1,7 @@
 #include "LeisureGuide.h"
 
 
+
 LeisureGuide::LeisureGuide() {
 }
 
@@ -10,10 +11,13 @@ void LeisureGuide::displayAllBeaches() const {
 
 	for(auto const &concelho : concelhos){
 		//Print the concelho
+
 		cout << concelho << ": " << endl;
+
 
 		//Get the beaches for this concelho
 		auto beaches_to_display = getBeachesByConcelho(concelho);
+
 
 		//Print each beach inside a concelho
 		for(auto const &beach_to_display : beaches_to_display){
@@ -322,7 +326,7 @@ void LeisureGuide::createBeach(string &beach){
 void LeisureGuide::createBayouBeach(vector<string> &beach) {
 
 	//beachtype ([bB]) | Name | Concelho | x , y (coords) | capacity | blue flag | services | area
-	//services are name, type, description ; name, type, description; name, type, description
+	//services are name, type, description, inspection date (YYYY/DD/MM) ; name, type, description, inspection date (YYYY/DD/MM); name, type, description, inspection date (YYYY/DD/MM)
 
 
 	//For throwing WrongFileFormat exception if anything goes wrong in parsing
@@ -353,21 +357,26 @@ void LeisureGuide::createBayouBeach(vector<string> &beach) {
 		//Then we add no services (the vector is initializated as empty, so there is no problem there)
 		if(!beach[6].empty()) {
 			//If it isn't empty then there are services to search for, so we parse the text as usual
+
 			vector<string> services = Utilities::splitString(beach[6], ';');
 			vector<string> serviceitems;
 
 			for(auto &service : services) {
-				Utilities::trimString(service);
+					Utilities::trimString(service);
 				serviceitems = Utilities::splitString(service, ',');
 				Utilities::trimString(serviceitems[0]);
 				Utilities::trimString(serviceitems[1]);
 				Utilities::trimString(serviceitems[2]);
-				serv.emplace_back(serviceitems[0], serviceitems[1], serviceitems[2]);
+				Utilities::trimString(serviceitems[3]);
+				serv.emplace_back(serviceitems[0], serviceitems[1], serviceitems[2], serviceitems[3]);
 			}
 		}
 
+
 		Beach *p = new BayouBeach(name, Coordinates(xc, yc), capacity, bf, serv, area);
 		beaches.emplace(concelho, p);
+
+	
 	} catch(...){
 		throw Utilities::WrongFileFormat("Bayou Beach");
 	}
@@ -417,7 +426,10 @@ void LeisureGuide::createRiverBeach(vector<string> &beach){
 				Utilities::trimString(stuff[0]);
 				Utilities::trimString(stuff[1]);
 				Utilities::trimString(stuff[2]);
-				serv.emplace_back(stuff[0], stuff[1], stuff[2]);
+				Utilities::trimString(stuff[3]);
+
+				serv.emplace_back(stuff[0], stuff[1], stuff[2], stuff[3]);
+
 			}
 		}
 
@@ -564,7 +576,7 @@ bool LeisureGuide::addBeach() {
 				//if cin didn't fail we have a good input so we break the loop
 				break;
 			}
-		}
+		}	
 
 		//Ensuring cin is clear after using it as a stream
 		Utilities::clearCinBuffer();
@@ -602,12 +614,12 @@ bool LeisureGuide::addBeach() {
 				cout << "Service description: ";
 				getline(cin, serviceDescription);
 
-				services.emplace_back(serviceName, serviceType, serviceDescription);
+				services.emplace_back(serviceName, serviceType, serviceDescription, "0");
 				continue;
 			}
 
 			//If the user does not want to add a service description
-			services.emplace_back(serviceName, serviceType, "None");
+			services.emplace_back(serviceName, serviceType, "None", "0");
 		} else {
 			//If the user entered "no" or "No", he does not wish to input any (further) services
 			break;
@@ -850,7 +862,7 @@ bool LeisureGuide::addRestaurant() {
 
 	//Ensuring cin is clear after using it as a stream
 	Utilities::clearCinBuffer();
-	
+
 	string transition;
 	for (unsigned int i = 0; i < 7; i++)
 	{
@@ -1104,7 +1116,7 @@ bool LeisureGuide::modifyBeach(){
 	}
 
 	//Because we are using a set and the underlying BST needs to stay balanced, we should remove the element, modify it, and only then insert it again
-    auto copied_pair = *it;
+	auto copied_pair = *it;
 
 	beaches.erase(it);
 
@@ -1235,11 +1247,11 @@ void LeisureGuide::displaySortedByDistance() {
 		else
 			cout << "The " << nresults << " closest Restaurants to the given beach are:" << endl;
 
-	for (unsigned int i = 0; i < nresults; ++i) {
-		cout << "result number " << i + 1 << ":" << endl;
-		cout << restaurants.at(i);
-		cout << "Distance to given beach: " << restaurants[i].getCoordinates().distanceTo(beachcoords) << endl << endl;
-	}
+		for (unsigned int i = 0; i < nresults; ++i) {
+			cout << "result number " << i + 1 << ":" << endl;
+			cout << restaurants.at(i);
+			cout << "Distance to given beach: " << restaurants[i].getCoordinates().distanceTo(beachcoords) << endl << endl;
+		}
 	} else {
 		cout << "There are no restaurants listed on the leisure guide " << endl;
 	}
@@ -1587,4 +1599,213 @@ void LeisureGuide::displayClosedTouristicPoints() {
 	if (c == 0) {
 		cout << "No closed Touristic Points" << endl << endl;
 	}
+}
+
+int LeisureGuide::checkType(const string &type){
+
+	if (!dates.empty()){
+		for (int i = 0; i < dates.size(); i++){
+			if(dates[i].top().first.getType() == type){
+				return i;
+			}
+		}
+	}
+	return -1;
+}
+
+vector<Inspection> LeisureGuide::getDates(){
+	return dates;
+}
+
+
+void LeisureGuide::createInspections() {
+
+	dates.clear();
+
+	for (auto &dt : beaches) {
+
+		vector<Service> serv = dt.second->getServices();
+
+		for (auto s : serv) {
+		
+			if (s.getInspectionDate() == "0")
+				continue;
+
+			int i = checkType(s.getType());
+			
+			if ( i != -1) {
+				pair<Service, string> p(s, dt.second->getName());
+				dates[i].push(p);
+
+			}
+
+			else{
+				pair<Service, string> p(s, dt.second->getName());
+				Inspection k;
+				k.push(p);
+				dates.push_back(k);
+			}
+		}
+	}
+}
+
+
+bool LeisureGuide::addInspection() {
+	string beachname, servicename, date;
+	ConcelhoBeachBST::iterator i;
+	cout << "What is the name of the beach? \t";
+		while (true) {
+
+			getline(cin, beachname);
+			cout << endl;
+			i = findBeachByName(beachname);
+			if (i != beaches.end())
+				break;
+			else
+				cout << "Beach does not exist. Insert an existing beach!\t";
+		}
+
+		auto cpy = *i;
+		cout << "What is the name of the service? \t";
+
+		while (true) {
+			getline(cin, servicename);
+			cout << endl;
+			for (auto &f : i->second->getServices()) {
+				if (f.getName() == servicename) {
+					while (true) {
+						cout << "Insert the date of last inspection at the format YYYY/MM/DD \t";
+						getline(cin, date);
+						if (Utilities::correctDateFormat(date)){
+							if (f.getInspectionDate() == "0") {
+								changeInspection(i, servicename, date);
+								updateInspections(f, beachname);
+								cout << "Addition successful\n";
+								return true;
+							}
+							else {
+								if(Utilities::DatesCompare(date,f.getInspectionDate())){
+									changeInspection(i, servicename, date);
+									updateInspections(f, beachname);
+									cout << "Addition successful\n";
+									return true;
+								}
+								else {
+									cout << "Date insert is older than the existing one. Returning to the menu...";
+									return false;
+								}
+							}
+						}
+	
+					}
+				}
+			}
+			cout << "Service does not exist. Insert an existing service at " << beachname << "\t";
+		}
+
+
+}
+
+void LeisureGuide::changeInspection(ConcelhoBeachBST::iterator &i, string &servicename, string &date) {
+	auto cpy = *i;
+	beaches.erase(i);
+	
+	vector<Service> aux = cpy.second->getServices();
+	for (auto &x : aux) {
+		if (x.getName() == servicename) {
+			x.setInspectionDate(date);
+			break;
+		}
+	}
+	cpy.second->setServices(aux);
+
+	beaches.emplace(cpy);
+
+}
+
+
+void LeisureGuide::updateInspections(Service &s, string &beachName) {
+	Inspection aux;
+
+	int i = checkType(s.getType());
+
+	if (i == -1) {
+		aux.push(make_pair(s, beachName));
+		dates.push_back(aux);
+	}
+
+	else {
+		while (!dates[i].empty()) {
+			if (dates[i].top().second == beachName) {
+				if (dates[i].top().first.getName() == s.getName()) {
+					dates[i].pop();
+					aux.emplace(s, beachName);
+				}
+				else {
+					aux.push(dates[i].top());
+					dates[i].pop();
+				}
+			}
+			else {
+				aux.push(dates[i].top());
+				dates[i].pop();
+			}
+		}
+
+		dates[i] = aux;
+	}
+}
+
+
+
+void LeisureGuide::displayInspectionofaBeach() {
+	ConcelhoBeachBST::iterator i;
+	string beachname;
+	cout << "What is the name of the beach? \t";
+	while (true) {
+		getline(cin, beachname);
+		cout << endl;
+		i = findBeachByName(beachname);
+		if (i != beaches.end())
+			break;
+		else
+			cout << "Beach does not exist. Insert an existing beach!\t";
+	}
+
+	vector<Service> serv = i->second->getServices();
+
+	cout << "Inspections at " << beachname << endl;
+	for (auto &j : serv) {
+
+		cout << j;
+
+		cout << "\n\n";
+	}
+}
+
+void LeisureGuide::displayInspectionTypeService() {
+	
+	createInspections();
+
+	string type;
+
+	cout << "What is the Service Type? \t";
+
+	getline(cin, type);
+
+	for (auto &i : dates) {
+		if (i.top().first.getType() != type)
+			continue;
+		else {
+			Inspection aux = i;
+			while (!aux.empty()) {
+				cout << "Beach: " << aux.top().second << endl << "Service:\n";
+				cout << aux.top().first << endl;
+				aux.pop();
+			}
+			return;
+		}	
+	}
+	cout << "Type does not exist...\n";
+
 }

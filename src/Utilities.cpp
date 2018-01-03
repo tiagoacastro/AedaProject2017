@@ -78,11 +78,10 @@ namespace Utilities {
 
 	vector<string> splitString(string input, string splitter) {
 		vector<string> output;
-
 		//while the splitter sequence exists in input
 		while (input.find(splitter) != string::npos) {
 			output.push_back(input.substr(0, input.find(splitter)));
-			input = input.substr(input.find(splitter) + splitter.length() + 1);
+			input = input.substr(input.find(splitter) + splitter.length());
 		}
 
 		//Push back the remainder, or the whole string if no ocurrence of splitter exists
@@ -217,6 +216,63 @@ namespace Utilities {
 		}
 		return false;
 	}
+
+
+	bool correctDateFormat(string &la) {
+
+		vector<string> k = splitString(la, "/");
+		if (la.empty() || k.size() != 3)
+			return false;
+		vector<int> x;
+		for (auto &i : k){
+			trimString(i);
+			if (stoi(i) != 0)
+				x.push_back(stoi(i));
+			else
+				return false;
+		}
+
+
+		if (x.size() == 3) {
+
+	
+			if (x[0] <= 9999 && x[0] >= 1000) {
+				if (x[1] == 1 || x[1] == 3 || x[1] == 5 || x[1] == 7 || x[1] == 8 || x[1] == 10 || x[1] == 12)
+					return (x[2] <= 31 && x[2] >= 1);
+				else if (x[1] == 2)
+					return (x[2] <= 28 && x[2] >= 1);
+				else if (x[1] == 4 || x[1] == 6 || x[1] == 9 || x[1] == 10) 
+					return (x[2] <= 30 && x[2] >= 1);
+			}
+		}
+		return false;
+	}
+
+	bool DatesCompare(string &l, string &r) {
+		if (!(correctDateFormat(l) && correctDateFormat(r)))
+			return false;
+
+		vector<string> lv = splitString(l, "/"), rv = splitString(r,"/");
+
+		if (lv[0] < rv[0])
+			return false;
+		else if (lv[0] > rv[0])
+			return true;
+		else {
+			if (lv[1] < rv[1])
+				return false;
+			else if (lv[1] > rv[1])
+				return true;
+			else {
+				if (lv[2] < rv[2])
+					return false;
+				else 
+					return true;
+			}
+		}
+
+	}
+
 
 	bool isNumber(char c) {
 		return c >= '0' && c <= '9';

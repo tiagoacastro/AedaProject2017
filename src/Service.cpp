@@ -2,8 +2,8 @@
 
 //Service
 
-Service::Service(string name, string type, string description = "None") :
-name(name), type(type), description(description) {
+Service::Service(string name, string type, string description = "None", string inspectionDate = "0") :
+name(name), type(type), description(description), inspectionDate(inspectionDate) {
 }
 
 string Service::getDescription() const {
@@ -34,12 +34,17 @@ ostream & operator<<(ostream &os, const Service &s){
 	os << "- Name: " << s.name << endl;
 	os << "Type: " << s.type << endl;
 	os << "Description: " << s.description << endl;
+	os << "Last inspection: ";
+	if (s.inspectionDate == "0")
+		os << "No inspection performed on this service" << endl;
+	else
+		os << s.inspectionDate << endl;
 
 	return os;
 }
 
 string Service::toString() const {
-	return name + ", " + type + ", " + description;
+	return name + ", " + type + ", " + description + ", " + inspectionDate;
 }
 
 void Service::modifyName(){
@@ -64,6 +69,7 @@ void Service::modifyDescription(){
 	string desc;
 	cout << "What is the new description of the service?" << endl;
 	getline(cin, desc);
+	this->setDescription(desc);
 }
 
 //Touristic Point
@@ -635,4 +641,18 @@ void Lodging::modifyLodging() {
 		this->modifyDescription();
 		break;
 	}
+}
+
+string Service::getInspectionDate(){
+	return this->inspectionDate;
+
+}
+
+void Service::setInspectionDate(string &date){
+
+	inspectionDate = date;
+}
+
+bool Service::operator<(Service  &s) const {
+	return  inspectionDate < s.getInspectionDate();
 }

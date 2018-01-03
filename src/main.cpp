@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <string>
 #include <clocale>
@@ -32,23 +33,36 @@ int main() {
 
 	//Init
 	LeisureGuide lg;
+
 	/*
 	 * TODO:
 	 * The old code used to call a load function that handled all the file I/O,
 	 * we can use that or do the I/O, whatever sounds best
 	 * Either way, exceptions should be used in this part
 	 */
-	//lg.Load();
+
+//	lg.loadFile();
 
 	//Main menu running
+/*Inspection x = lg.getDates();
+	for(int i = 0; i < x.size(); i++){
 
+		while(!x[i].empty){
+			cout << x[i].top().first;
+			cout << endl;
+			x[i].pop();
+		}
+		cout << endl << endl;
+	}
 
-	if (menuRunner(lg) == 0)
+*/
+		if (menuRunner(lg) == 0)
 		// menu exited successfully with no errors
 		return 0;
 
 	//Errors ocurred, return != 0
 	return 1;
+
 }
 
 //Running the menu with a simple implementation of a state machine
@@ -79,6 +93,8 @@ int menuRunner(LeisureGuide &lg) {
 		menuobj.addOption("1.1.2 All POIs");
 		menuobj.addOption("1.1.3 All Restaurants");
 		menuobj.addOption("1.1.4 All Lodging");
+		menuobj.addOption("1.1.5 Inspections of a Beach");
+		menuobj.addOption("1.1.6 Inspections of Service type");
 		menuobj.addOption("1.2 Conditional Listing");
 		menuobj.addOption("1.2.1 List Beaches by Concelho");
 		menuobj.addOption("1.2.2 Recommendations near a Beach");
@@ -106,7 +122,8 @@ int menuRunner(LeisureGuide &lg) {
 		menuobj.addOption("2.5 Touristic Points");
 		menuobj.addOption("2.5.1 Close");
 		menuobj.addOption("2.5.2 Reopen");
-		menuobj.addOption("2.4.4 Modify");
+		menuobj.addOption("2.6 Inspections");
+		menuobj.addOption("2.6.1 Add");
 		menuobj.addOption("3 File I/O");
 		menuobj.addOption("3.1 Load");
 		menuobj.addOption("3.2 Save");
@@ -145,6 +162,7 @@ int menuRunner(LeisureGuide &lg) {
 
 		//Ensuring that the cin stream is clean for use if there is a getline afterwards
 		Utilities::clearCinBuffer();
+
 
 		if (currentselection.empty() && tempinput == 0) {
 			//This means we are at the main menu and the exit option was selected so we can exit the program by exiting the loop
@@ -237,6 +255,30 @@ bool callFunctions(string &id, LeisureGuide &lg) {
 		id = id.substr(0, id.find_last_of('.'));
 		//calls function based on hardcoded id
 		lg.displayAllLodging();
+		//pause to see output
+		Utilities::pause();
+		//function was found, return true
+		return true;
+	}
+
+	//Display inspections of a specific beach
+	if (id == "1.1.5") {
+		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
+		id = id.substr(0, id.find_last_of('.'));
+		//calls function based on hardcoded id
+		lg.displayInspectionofaBeach();
+		//pause to see output
+		Utilities::pause();
+		//function was found, return true
+		return true;
+	}
+
+	//Display inspections of a type of service
+	if (id == "1.1.6") {
+		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
+		id = id.substr(0, id.find_last_of('.'));
+		//calls function based on hardcoded id
+		lg.displayInspectionTypeService();
 		//pause to see output
 		Utilities::pause();
 		//function was found, return true
@@ -450,7 +492,7 @@ bool callFunctions(string &id, LeisureGuide &lg) {
 	//Remove a Lodging based on its name
 	if (id == "2.4.3") {
 		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
-		id = id.substr(0, id.find_last_of('.'));
+		id = id.substr(0, id.find_last_of('.'));	
 		//calls function based on hardcoded id
 		lg.removeLodging();
 		//pause to see output
@@ -493,6 +535,19 @@ bool callFunctions(string &id, LeisureGuide &lg) {
 		Utilities::pause();
 		//function was found, return true
 		return true;
+	}
+
+	//Add inspection
+	if (id == "2.6.1") {
+		//Finds last '.' and uses substr until it, exlcuding it, thus excluding the ".N"
+		id = id.substr(0, id.find_last_of('.'));
+		//calls function based on hardcoded id
+		lg.addInspection();
+		//pause to see output
+		Utilities::pause();
+		//function was found, return true
+		return true;
+
 	}
 
 	//File Load

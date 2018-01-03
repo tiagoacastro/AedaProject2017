@@ -9,6 +9,7 @@
 #include <vector>
 #include <map>
 #include <set>
+#include <queue>
 #include <algorithm>
 #include <unordered_set>
 
@@ -31,7 +32,16 @@ struct set_comparator {
 	}
 };
 
+struct pq_compare {
+	bool operator() (pair<Service, string> &s1, pair<Service, string> &s2) {
+		return s1.first.getInspectionDate() < s2.first.getInspectionDate();
+	}
+
+};
+
+
 typedef set<pair<string, Beach *>, set_comparator> ConcelhoBeachBST;
+typedef priority_queue<pair<Service, string>, vector<pair<Service, string>>,pq_compare> Inspection;
 
 struct hashf {
 	int operator()(const TouristicPointPointer & tp) const {
@@ -52,6 +62,7 @@ private:
 	vector<POI> POIs;
 	vector<Lodging> lodging;
 	hashTable closedTouristicPoints;
+	vector<Inspection> dates;
 	/**
 	 * @brief Gets all the concelhos where there are beaches
 	 * @return Returns a vector of all the Concelhos
@@ -108,7 +119,39 @@ private:
 	 * @param b The beach in order to sort to
 	 */
 	void sortLodgingByDistanceToBeach(Beach *b);
+	
+	/**
+	* @brief Inspects the given Service for the given beach, represented by its name
+	* @param beachName Name of the beach that has the service to be inspected
+	* @param serviceName Service that is going to be inspected
+ 	*/
+	void updateInspections(Service &s, string &beachName); 
+
+	/**
+	* @brief Checks if the type passed as argument already exists in dates
+	* @param type Type of the service
+	* @return Returns the index of the type or -1 if the type does not exist
+	*/
+	int checkType(const string &type);
+	
+	/**
+	* @brief Creates the inspections priority queue based on the current beaches
+	*/
+	void createInspections();
 public:
+
+	/**
+	* @brief Updates the date of inspection according to the date previously entered by the user
+	* @param i Beach in which an inspection has been inserted
+	* @param servicename Name of the service that was inspected
+	* @param date Date of the new inspection
+	*/
+	void changeInspection(ConcelhoBeachBST::iterator &i, string &servicename, string &date);
+	/**
+	* @brief Gets the vector of inspections
+	* @return Returns the vectors of inspections
+	*/
+	vector<Inspection> getDates();
 	/**
 	 * @brief Default constructor to allow creating an empty Leisure Guide that will receive the options afterwards
 	 */
@@ -154,6 +197,14 @@ public:
 	 */
 	void displayLodgingInfo();
 	/**
+	* @brief Displays the Inspections of the all services of a Beach entered by the user
+	*/
+	void displayInspectionofaBeach();
+	/**
+	* @brief Displays the Inspections of the all services of a type entered by the user
+	*/
+	void displayInspectionTypeService();
+	/**
 	 * @brief Loads file contents into program memory
 	 */
 	void loadFile();
@@ -168,9 +219,9 @@ public:
 	 */
 	bool modifyBeach();
 	/**
-	* @brief Adds a beach to the beaches vector
-	* @return true if beach is valid and was added, false if else
-	*/
+	 * @brief Adds a beach to the beaches vector
+	 * @return true if beach is valid and was added, false if else
+	 */
 	bool addBeach();
 	/**
 	 * @brief Removes a POI from the POIs vector
@@ -188,38 +239,43 @@ public:
 	 */
 	bool removeLodging();
 	/**
-	* @brief Adds a restaurant to the restaurants vector
-	* @return true if restaurant is valid and was added, false if else
-	*/
+	 * @brief Adds a restaurant to the restaurants vector
+	 * @return true if restaurant is valid and was added, false if else
+	 */
 	bool addRestaurant();
 	/**
-	* @brief Adds a POI to the POIs vector
-	* @return true if POI is valid and was added, false if else
-	*/
+	 * @brief Adds a POI to the POIs vector
+	 * @return true if POI is valid and was added, false if else
+	 */
 	bool addPOI();
 	/**
-	* @brief Adds Lodging to the lodging vector
-	* @return true if the Lodging is valid and was added, false if else
-	*/
+	 * @brief Adds Lodging to the lodging vector
+	 * @return true if the Lodging is valid and was added, false if else
+	 */
 	bool addLodging();
 	/**
-	* @brief Modifies a Restaurant based on its name
-	* @return returns true if a Restaurant is found and modified, false if not found
+	* @brief Adds an Inspection to a service entered by the user
+	* @return true if the Inspection is valid and was added, false if else
 	*/
+	bool addInspection();
+	/**
+	 * @brief Modifies a Restaurant based on its name
+	 * @return returns true if a Restaurant is found and modified, false if not found
+	 */
 	bool modifyRestaurant();
 	/**
-	* @brief Modifies a POI based on its name
-	* @return returns true if a POI is found and modified, false if not found
-	*/
+	 * @brief Modifies a POI based on its name
+	 * @return returns true if a POI is found and modified, false if not found
+	 */
 	bool modifyPOI();
 	/**
-	* @brief Modifies a Lodging based on its name
-	* @return returns true if a Lodging is found and modified, false if not found
-	*/
+	 * @brief Modifies a Lodging based on its name
+	 * @return returns true if a Lodging is found and modified, false if not found
+	 */
 	bool modifyLodging();
 	/**
-	 * @brief Separate the string in all members of the class Beach
-	 * @param beach		a line of the file opened with all informations about a beach
+	 * @brief Separates the string in all members of the class Beach
+	 * @param beach		A line of the file opened with all informations about a beach
 	 */
 	void createBeach(string &beach);
 	/**
