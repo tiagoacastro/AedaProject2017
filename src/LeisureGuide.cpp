@@ -79,11 +79,11 @@ void LeisureGuide::saveFile() {
 	string file, path;
 	ofstream s;
 
-	cout << "What kind of information do you want to save? (Points of Interest (POI), Restaurant, Beach or Lodging)" << endl;
+	cout << "What kind of information do you want to save? (Points of Interest (POI), Restaurant, Beach, Lodging or Closed Touristic Points)" << endl;
 	getline(cin, file);
 	Utilities::trimString(file);
 
-	while (file != "Points of Interest" && file != "Restaurant" && file != "Beach" && file != "Lodging" && file != "POI"){
+	while (file != "Points of Interest" && file != "Restaurant" && file != "Beach" && file != "Lodging" && file != "POI" && file != "Closed Touristic Points"){
 		cout << "Choose one of them please\n";
 		getline(cin, file);
 		Utilities::trimString(file);
@@ -114,6 +114,8 @@ void LeisureGuide::saveFile() {
 		saveBeaches(s);
 	} else if(file == "Lodging"){
 		saveLodging(s);
+	} else if (file == "Closed Touristic Points") {
+		saveClosedTouristicPoints(s);
 	}
 
 	s.close();
@@ -136,7 +138,6 @@ void LeisureGuide::saveRestaurants(ofstream &s){
 		s << rest.toString() << endl;
 }
 
-
 void LeisureGuide::savePOI(ofstream &s){
 	for (auto const &pois : POIs)
 		s << pois.toString() << endl;
@@ -151,10 +152,10 @@ void LeisureGuide::loadFile(){
 	string file, path;
 	char answer;
 
-	cout << "What kind of files do you want to read? (Points of Interest aka POI, Restaurant, Beach or Lodging)" << endl;
+	cout << "What kind of files do you want to read? (Points of Interest aka POI, Restaurant, Beach, Lodging or Closed Touristic Points)" << endl;
 	getline(cin, file);
 	Utilities::trimString(file);
-	while (file != "Points of Interest" && file != "POI" && file != "Restaurant" && file != "Beach" && file != "Lodging"){
+	while (file != "Points of Interest" && file != "POI" && file != "Restaurant" && file != "Beach" && file != "Lodging" && file != "Closed Touristic Points"){
 		cout << "Not a valid option! Please choose one of the options listed!\n";
 		getline(cin, file);
 		Utilities::trimString(file);
@@ -189,6 +190,8 @@ void LeisureGuide::loadFile(){
 			createBeach(readfile);
 		} else if(file == "Lodging") {
 			createLodging(readfile);
+		} else if(file == "Closed Touristic Points") {
+			createTouristicPoint(readfile);
 		}
 	} catch(Utilities::WrongFileFormat &wff){
 		cout << "Wrong file format! Error in : " << wff.getType() << " format!" << endl;
@@ -288,7 +291,7 @@ void LeisureGuide::createLodging(string &lodg){
 	bool full = (infos[2] == "1");
 
 	string name = infos[0];
-	string desc = infos[2];
+	string desc = infos[3];
 	vector<string> coords = Utilities::splitString(infos[1], ',');
 
 	Utilities::trimString(coords[0]);
@@ -1599,6 +1602,115 @@ void LeisureGuide::displayClosedTouristicPoints() {
 	if (c == 0) {
 		cout << "No closed Touristic Points" << endl << endl;
 	}
+}
+
+void LeisureGuide::saveClosedTouristicPoints(ofstream &s) {
+	for (auto it = closedTouristicPoints.begin(); it != closedTouristicPoints.end(); it++)
+	{
+		TouristicPointPointer tp = (*it);
+		TouristicPoint* t = tp.touristicPoint;
+		classType cType = t->getType();
+		if (cType == classType::restaurant) {
+			Restaurant* rp = dynamic_cast<Restaurant*>(t);
+			Restaurant r(*rp);
+			s << "restaurant | " << r.getCloseDate() << " | " << r.toString() << endl;
+		}
+		if (cType == classType::poi) {
+			POI* pp = dynamic_cast<POI*>(t);
+			POI p(*pp);
+			s << "poi | " << p.getCloseDate() << " | " << p.toString() << endl;
+		}
+		if (cType == classType::lodging) {
+			Lodging* lp = dynamic_cast<Lodging*>(t);
+			Lodging l(*lp);
+			s << "lodging | " << l.getCloseDate() << " | " << l.toString() << endl;
+		}
+	}
+}
+
+void LeisureGuide::createTouristicPoint(vector<string> &touristicPoint) {
+	for (auto &tp : touristicPoint) {
+		createTouristicPoint(tp);
+	}
+}
+
+void LeisureGuide::createTouristicPoint(string &touristicPoint) {
+	//TouristicPoint file string format
+	//type | closeDate | (type specific information)
+
+	vector<string> infos = Utilities::splitString(touristicPoint, '|');
+
+	Utilities::trimString(infos[0]);
+
+	TouristicPointPointer t;
+
+	if (infos[0] == "restaurant") {
+		Utilities::trimString(infos[1]);
+		Utilities::trimString(infos[2]);
+		Utilities::trimString(infos[3]);
+		Utilities::trimString(infos[4]);
+		Utilities::trimString(infos[5]);
+
+		string name = infos[2];
+		vector<string> coords = Utilities::splitString(infos[3], ',');
+		string desc = infos[5];
+
+		Utilities::trimString(coords[0]);
+		Utilities::trimString(coords[1]);
+
+		Schedule sch;
+		sch.weekSchedule = Utilities::splitString(infos[4], ',');
+
+		for (auto &line : sch.weekSchedule) {
+			Utilities::trimString(line);
+		}
+
+		TouristicPoint *tp = new Restaurant(name, sch, Coordinates(stod(coords[0]), stod(coords[1])), desc);
+		tp->setCloseDate(infos[1]);
+
+		t.touristicPoint = tp;
+	} else
+	if (infos[0] == "poi") {
+		Utilities::trimString(infos[1]);
+		Utilities::trimString(infos[2]);
+		Utilities::trimString(infos[3]);
+		Utilities::trimString(infos[4]);
+
+		string name = infos[2];
+		string desc = infos[4];
+
+		vector<string> coords = Utilities::splitString(infos[3], ',');
+
+		Utilities::trimString(coords[0]);
+		Utilities::trimString(coords[1]);
+
+		TouristicPoint *tp = new POI(name, Coordinates(stod(coords[0]), stod(coords[1])), desc);
+		tp->setCloseDate(infos[1]);
+
+		t.touristicPoint = tp;
+	} else
+	if (infos[0] == "lodging") {
+		Utilities::trimString(infos[1]);
+		Utilities::trimString(infos[2]);
+		Utilities::trimString(infos[4]);
+		Utilities::trimString(infos[5]);
+
+		bool full = (infos[4] == "1");
+
+		string name = infos[2];
+		string desc = infos[5];
+		vector<string> coords = Utilities::splitString(infos[3], ',');
+
+		Utilities::trimString(coords[0]);
+		Utilities::trimString(coords[1]);
+
+		TouristicPoint *tp = new Lodging(name, Coordinates(stod(coords[0]), stod(coords[1])), full, desc);
+		tp->setCloseDate(infos[1]);
+
+		t.touristicPoint = tp;
+	}
+
+	closedTouristicPoints.insert(t);
 }
 
 int LeisureGuide::checkType(const string &type){

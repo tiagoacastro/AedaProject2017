@@ -362,4 +362,19 @@ public:
 	* @brief Displays all closed Touristic Points (Restaurant, then POI, then Lodging)
 	*/
 	void displayClosedTouristicPoints();
+	/**
+	* @brief Write all closed TouristicPoints to a file
+	* @param s		ofstream to write to
+	*/
+	void saveClosedTouristicPoints(ofstream &s);
+	/**
+	* @brief for loop that chooses a line to add to member closedTouristicPoints
+	* @param touristicPoint		all lines of the file opened with all informations about the closed Touristic Points
+	*/
+	void createTouristicPoint(vector<string> &touristicPoint);
+	/**
+	* @brief Separate the string in all members of the class TouristicPoints
+	* @param touristicPoint		a line of the file opened with all informations about a TouristicPoint
+	*/
+	void createTouristicPoint(string &touristicPoint);
 };
