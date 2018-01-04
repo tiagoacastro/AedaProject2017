@@ -29,8 +29,8 @@ public:
 	 * @brief Constructor for the Service class
 	 * @param name 			Name of the Service
 	 * @param type 			Type of the Service
-	 * @param sch 			Schedule of the Service
-	 * @param description 	Description of the Service, default value is "None"
+	 * @param description 		Description of the Service, default value is "None"
+	 * @param inspectionDate	Date of the latest inspection
 	 */
 	Service(string name, string type, string description, string inspectionDate);
 	/**
@@ -69,7 +69,7 @@ public:
 	 * @param s		The service that is being written to the ostream
 	 * @return Returns the modified ostream
 	 */
-	friend ostream & operator<<(ostream &o, const Service &s);
+	friend ostream & operator<<(ostream &os, const Service &s);
 	/**
 	 * @brief passes data members to a string
 	 * @return Returns a string with all data members
@@ -104,12 +104,12 @@ public:
 	 * @param s		The service that is being written to the ostream
 	 * @return Returns the modified ostream
 	 */
-	friend ostream & operator<<(ostream &o, const Service &s);
+	friend ostream & operator<<(ostream &os, const Service &s);
 
 	/**
 	 * @brief Overload for the less operator for the Service class
-	 * @param s		The service that is being written to the ostream
-	 * @return Returns nao sei o que escrever
+	 * @param s		The service to compare
+	 * @return Returns if a service is smaller than another (for sorting inside the priority queue, so by dates of inspection)
 	 */
 	bool operator<(Service &s) const;
 

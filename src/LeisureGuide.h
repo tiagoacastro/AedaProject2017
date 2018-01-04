@@ -281,7 +281,7 @@ public:
 	void createBeach(string &beach);
 	/**
 	 * @brief for loop that chooses a line to add to member beachs
-	 * @param beach		all lines of the file opened with all informations about the beaches
+	 * @param beaches	all lines of the file opened with all informations about the beaches
 	 */
 	void createBeach(vector<string> &beaches);
 	/**

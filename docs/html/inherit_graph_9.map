@@ -1,0 +1,6 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$class_touristic_point.html" title="TouristicPoint" alt="" coords="5,56,108,83"/>
+<area shape="rect" id="node2" href="$class_lodging.html" title="Lodging" alt="" coords="166,5,233,32"/>
+<area shape="rect" id="node3" href="$class_p_o_i.html" title="POI" alt="" coords="177,56,222,83"/>
+<area shape="rect" id="node4" href="$class_restaurant.html" title="Restaurant" alt="" coords="156,107,243,133"/>
+</map>
