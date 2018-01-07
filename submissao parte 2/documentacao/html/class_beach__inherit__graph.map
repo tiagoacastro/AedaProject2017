@@ -1,0 +1,4 @@
+<map id="Beach" name="Beach">
+<area shape="rect" id="node2" href="$class_bayou_beach.html" title="BayouBeach" alt="" coords="5,80,101,107"/>
+<area shape="rect" id="node3" href="$class_river_beach.html" title="RiverBeach" alt="" coords="125,80,216,107"/>
+</map>

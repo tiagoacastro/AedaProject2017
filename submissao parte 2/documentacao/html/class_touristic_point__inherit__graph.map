@@ -1,0 +1,5 @@
+<map id="TouristicPoint" name="TouristicPoint">
+<area shape="rect" id="node2" href="$class_lodging.html" title="Lodging" alt="" coords="5,80,72,107"/>
+<area shape="rect" id="node3" href="$class_p_o_i.html" title="POI" alt="" coords="96,80,141,107"/>
+<area shape="rect" id="node4" href="$class_restaurant.html" title="Restaurant" alt="" coords="166,80,253,107"/>
+</map>
